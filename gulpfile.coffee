@@ -4,40 +4,64 @@ gp         = (require 'gulp-load-plugins') lazy: no
 path       = require 'path'
 browserify = require 'browserify'
 source     = require 'vinyl-source-stream'
+cloudfiles = require 'gulp-cloudfiles'
+rackspace  = 
+	username: 'seandon'
+	apiKey: 'd197727875ad413198fd341d5d70d434'
+	region: 'DFW'
+rackspace.container = if process.argv[3]? then process.argv[3] else 'live'
+deployOptions =
+	deplay: 0
+	uploadPath: ""
+deploy = if process.argv[2] is 'deploy' then yes else no
 
 gulp.task 'clientBundle', ->
-	browserify
-		entries: [ './app/client.coffee' ]
-		extensions: [ '.coffee', '.js' ]
-	.transform 'coffeeify'
-	.bundle()
-	.pipe source 'bundle.js'
-	.pipe gulp.dest 'dist'
+	stream = browserify({
+			entries: [ './app/client.coffee' ]
+			extensions: [ '.coffee', '.js' ]
+		})
+		.transform 'coffeeify'
+		.bundle()
+		.pipe source 'bundle.js'
+		.pipe gulp.dest 'dist'
+		.pipe gp.rename 'bundle.js'
+	if deploy
+		stream.pipe cloudfiles rackspace, deployOptions
 
-gulp.task 'HTML', ->
-	gulp.src 'app/index.jade'
+gulp.task 'html', ->
+	stream = gulp.src 'app/index.jade'
 		.pipe gp.plumber()
 		.pipe gp.jade()
-		.pipe gulp.dest 'dist/client'
+		.pipe gulp.dest 'dist'
+		.pipe gp.rename 'index.html'
+	if deploy
+		stream.pipe cloudfiles rackspace, deployOptions
 
-gulp.task 'Style', ->
-	gulp.src 'app/style/**/*'
+gulp.task 'style', ->
+	stream = gulp.src 'app/style/**/*'
 		.pipe gp.plumber()
 		.pipe gp.concat('bundle.css')
 		.pipe gp.cssmin keepSpecialComments: 0
-		.pipe gulp.dest 'dist/style'
+		.pipe gulp.dest 'dist'
+		.pipe gp.rename 'bundle.css'
+	if deploy
+		stream.pipe cloudfiles rackspace, deployOptions
 
-gulp.task 'Assets', ->
-	gulp.src 'app/assets/**/*'
+gulp.task 'assets', ->
+	stream = gulp.src 'app/assets/**/*'
 		.pipe gulp.dest 'dist/assets'
+	if deploy
+		stream.pipe cloudfiles rackspace, { uploadPath: 'assets/' }
 
-gulp.task 'build', [ 'clientBundle', 'HTML', 'Style', 'Assets' ]
+gulp.task 'build', [ 'clientBundle', 'html', 'style', 'assets' ]
 
 gulp.task 'default', [ 'build' ]
 
+gulp.task 'deploy', [ 'build' ]
+
 gulp.task 'connect', [ 'default' ], ->
 	gp.connect.server
-		root: 'dist/client'
+		root: 'dist'
 		port: 9000
 		livereload: yes
 
@@ -49,10 +73,10 @@ gulp.task 'watch', [ 'connect' ], ->
 		switch ext
 			when '.coffee', '.js'
 				taskname = 'clientBundle'
-				reloadasset = 'app.js'
+				reloadasset = 'bundle.js'
 			when '.sass', '.css'
 				taskname = 'Style'
-				reloadasset = 'style/site.css'
+				reloadasset = 'bundle.css'
 			when '.jade'
 				taskname = 'HTML'
 				reloadasset = 'index.html'
