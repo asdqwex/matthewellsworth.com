@@ -20,7 +20,6 @@
     "gulp-uglify": "latest",
     "gulp-less": "latest",
     "gulp-connect": "latest",
-    "gulp-cssmin": "latest",
     "gulp-plumber": "latest",
     "gulp-concat": "latest",
     "gulp-rename": "latest",

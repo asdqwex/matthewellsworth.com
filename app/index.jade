@@ -1,13 +1,26 @@
-html
+doctype html
+html(lang="en")
 	head
+		title Erulabs.com
 		link(rel="stylesheet", href= assetURL + 'bundle.css')
 	body
+		div(class="container-fluid")
+			div(class="row main")
+				div(class="left col-md-6")
+					span(class="less") MY NAME IS
+					div SEANDON MOOY
+					.line
+					span(class="less") I AM A
+					.detail.
+						DevOps Engineer, Javascript Developer, Cloud Guru, Linux Adminstrator,
+						OpenSource Contributor, Game Developer, Fanatical Supporter,
+						Occasional Blogger, Wannabe Designer, Shameful Soapboxer, Hapless Hacker and Armchair Activist
+					span(class="less") AND I MAKE WEB APPLICATIONS
+					.detail you can contact me at
+						br
+						a(href="mailto:seandon@erulabs.com") seandon@erulabs.com
+				div(class="right col-md-6")
+					div(class="container")
+						include blog.jade
 
-	div(class="container-fluid")
-		div(class="row")
-			div(class="left col-md-6")
-				p Hello
-			div(class="right col-md-6")
-				p Also
-
-	script(type='text/javascript', src= assetURL + 'bundle.js')
+		script(type='text/javascript', src= assetURL + 'bundle.js')

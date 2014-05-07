@@ -3,7 +3,9 @@ gulp       = require 'gulp'
 gutil      = require 'gulp-util'
 gp         = (require 'gulp-load-plugins') lazy: no
 path       = require 'path'
+fs         = require 'fs'
 browserify = require 'browserify'
+File       = require 'vinyl'
 source     = require 'vinyl-source-stream'
 cloudfiles = require 'gulp-cloudfiles'
 rackspace  = 
@@ -49,10 +51,13 @@ gulp.task 'html', ->
 	stream.on 'error', gutil.log
 
 gulp.task 'style', ->
+	#fs.writeFile "./app/style/build_variables.less", "@assetURL: '" + assetURL + "';"
 	stream = gulp.src 'app/style/site.less'
 		.pipe gp.plumber()
-		.pipe gp.less()
-		.pipe gp.cssmin keepSpecialComments: 0
+		.pipe gp.less({
+			compress: deploy
+			rootpath: assetURL
+		})
 		.pipe gp.rename 'bundle.css'
 		.pipe gulp.dest 'dist'
 	if deploy

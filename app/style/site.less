@@ -1,9 +1,59 @@
 @import "bootstrap/bootstrap.less";
 @font-face {
+	font-family: Flagship;
+	src: url(assets/flagship.otf);
+}
+@font-face {
 	font-family: Adam;
-	src: url(/assets/adam.otf);
+	src: url(assets/adam.otf);
 }
 
-.left {
-	font-family: "Adam";
+html, body {
+	font-size: 1em;
+	height: 100%;
+}
+
+.container-fluid {
+	height: 100%;
+	.main {
+		height: 100%;
+		.left {
+			background-color: #232323;
+			font-family: "Adam";
+			text-align: right;
+			font-size: 5em;
+			line-height: 1.1em;
+			padding: 0px;
+			padding-top: 0px;
+			margin: 0px;
+			color: #efefef;
+			min-height: 100%;
+			span, div {
+				padding-right: 20px;
+			}
+			.detail {
+				font-family: "Flagship";
+				line-height: 1;
+				font-size: 0.4em;
+			}
+			a {
+				font-size: 1em;
+			}
+		}
+		.right {
+			font-family: "Flagship";
+			background-color: #efefef;
+			color: #232323;
+			min-height: 100%;
+			padding-top: 20px;
+		}
+	}
+}
+
+.line {
+	border-bottom: 3px solid #efefef;
+	margin-top: 10px;
+}
+.less {
+	font-size: 0.5em;
 }
