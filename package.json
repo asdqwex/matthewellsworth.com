@@ -1,33 +1,24 @@
 {
-  "name": "erusgame",
-  "version": "0.0.0",
-  "description": "Eru's Game!",
-  "main": "index.js",
+  "name": "erulabs.com",
+  "version": "0.0.1",
+  "description": "Erulabs.com",
+  "main": "dist/index.html",
   "scripts": {
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:erulabs/erusgame.git"
+    "url": "seandon@erulabs.com:git/erulabs.com"
   },
   "author": "Seandon Mooy <seandon.mooy@gmail.com> (http://erulabs.com/)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/erulabs/erusgame/issues"
-  },
-  "homepage": "https://github.com/erulabs/erusgame",
-  "dependencies": {
-    "express": "latest"
-  },
   "devDependencies": {
     "gulp": "latest",
     "gulp-load-plugins": "latest",
     "gulp-util": "latest",
     "gulp-autoprefixer": "latest",
-    "gulp-imagemin": "latest",
     "gulp-cache": "latest",
     "gulp-jade": "latest",
     "gulp-uglify": "latest",
-    "gulp-ruby-sass": "latest",
+    "gulp-less": "latest",
     "gulp-connect": "latest",
     "gulp-cssmin": "latest",
     "gulp-plumber": "latest",
@@ -37,11 +28,6 @@
     "gulp-cloudfiles": "latest",
     "coffeeify": "latest",
     "browserify": "latest",
-    "deamdify": "latest",
-    "vinyl-source-stream": "latest",
-    "debowerify": "latest",
-    "uglifyify": "latest",
-    "gulp-coffee": "latest",
-    "coffee-script": "latest"
+    "vinyl-source-stream": "latest"
   }
 }

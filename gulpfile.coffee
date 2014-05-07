@@ -1,5 +1,6 @@
 'use strict'
 gulp       = require 'gulp'
+gutil      = require 'gulp-util'
 gp         = (require 'gulp-load-plugins') lazy: no
 path       = require 'path'
 browserify = require 'browserify'
@@ -11,9 +12,13 @@ rackspace  =
 	region: 'DFW'
 rackspace.container = if process.argv[3]? then process.argv[3] else 'live'
 deployOptions =
-	deplay: 0
+	delay: 0
 	uploadPath: ""
 deploy = if process.argv[2] is 'deploy' then yes else no
+if deploy
+	assetURL = 'http://static.erulabs.com/'
+else
+	assetURL = '/'
 
 gulp.task 'clientBundle', ->
 	stream = browserify({
@@ -24,34 +29,42 @@ gulp.task 'clientBundle', ->
 		.bundle()
 		.pipe source 'bundle.js'
 		.pipe gulp.dest 'dist'
-		.pipe gp.rename 'bundle.js'
 	if deploy
 		stream.pipe cloudfiles rackspace, deployOptions
+	stream.on 'error', gutil.log
+
 
 gulp.task 'html', ->
 	stream = gulp.src 'app/index.jade'
 		.pipe gp.plumber()
-		.pipe gp.jade()
+		.pipe gp.jade({
+			locals: {
+				assetURL: assetURL
+			}
+		})
 		.pipe gulp.dest 'dist'
 		.pipe gp.rename 'index.html'
 	if deploy
 		stream.pipe cloudfiles rackspace, deployOptions
+	stream.on 'error', gutil.log
 
 gulp.task 'style', ->
-	stream = gulp.src 'app/style/**/*'
+	stream = gulp.src 'app/style/site.less'
 		.pipe gp.plumber()
-		.pipe gp.concat('bundle.css')
+		.pipe gp.less()
 		.pipe gp.cssmin keepSpecialComments: 0
-		.pipe gulp.dest 'dist'
 		.pipe gp.rename 'bundle.css'
+		.pipe gulp.dest 'dist'
 	if deploy
 		stream.pipe cloudfiles rackspace, deployOptions
+	stream.on 'error', gutil.log
 
 gulp.task 'assets', ->
 	stream = gulp.src 'app/assets/**/*'
 		.pipe gulp.dest 'dist/assets'
 	if deploy
-		stream.pipe cloudfiles rackspace, { uploadPath: 'assets/' }
+		stream.pipe cloudfiles rackspace, { uploadPath: '' }
+	stream.on 'error', gutil.log
 
 gulp.task 'build', [ 'clientBundle', 'html', 'style', 'assets' ]
 
@@ -74,16 +87,16 @@ gulp.task 'watch', [ 'connect' ], ->
 			when '.coffee', '.js'
 				taskname = 'clientBundle'
 				reloadasset = 'bundle.js'
-			when '.sass', '.css'
-				taskname = 'Style'
+			when '.less'
+				taskname = 'style'
 				reloadasset = 'bundle.css'
 			when '.jade'
-				taskname = 'HTML'
+				taskname = 'html'
 				reloadasset = 'index.html'
+		if taskname?
+			gulp.task 'clientReload', [taskname], ->
+				gulp.src 'dist/' + reloadasset
+					.pipe gp.connect.reload()
 
-		gulp.task 'clientReload', [taskname], ->
-			gulp.src 'dist/' + reloadasset
-				.pipe gp.connect.reload()
-
-		gulp.start 'clientReload'
+			gulp.start 'clientReload'
 
