@@ -5,7 +5,6 @@ gp         = (require 'gulp-load-plugins') lazy: no
 path       = require 'path'
 fs         = require 'fs'
 browserify = require 'browserify'
-File       = require 'vinyl'
 source     = require 'vinyl-source-stream'
 cloudfiles = require 'gulp-cloudfiles'
 rackspace  = 
@@ -30,7 +29,7 @@ gulp.task 'clientBundle', ->
 		.transform 'coffeeify'
 		.bundle()
 		.pipe source 'bundle.js'
-		.pipe gulp.dest 'dist'
+		.pipe gulp.dest 'dist/assets'
 	if deploy
 		stream.pipe cloudfiles rackspace, deployOptions
 	stream.on 'error', gutil.log
@@ -40,9 +39,8 @@ gulp.task 'html', ->
 	stream = gulp.src 'app/index.jade'
 		.pipe gp.plumber()
 		.pipe gp.jade({
-			locals: {
+			locals:
 				assetURL: assetURL
-			}
 		})
 		.pipe gulp.dest 'dist'
 		.pipe gp.rename 'index.html'
@@ -51,7 +49,6 @@ gulp.task 'html', ->
 	stream.on 'error', gutil.log
 
 gulp.task 'style', ->
-	#fs.writeFile "./app/style/build_variables.less", "@assetURL: '" + assetURL + "';"
 	stream = gulp.src 'app/style/site.less'
 		.pipe gp.plumber()
 		.pipe gp.less({
@@ -59,7 +56,7 @@ gulp.task 'style', ->
 			rootpath: assetURL
 		})
 		.pipe gp.rename 'bundle.css'
-		.pipe gulp.dest 'dist'
+		.pipe gulp.dest 'dist/assets'
 	if deploy
 		stream.pipe cloudfiles rackspace, deployOptions
 	stream.on 'error', gutil.log
@@ -91,10 +88,10 @@ gulp.task 'watch', [ 'connect' ], ->
 		switch ext
 			when '.coffee', '.js'
 				taskname = 'clientBundle'
-				reloadasset = 'bundle.js'
+				reloadasset = 'assets/bundle.js'
 			when '.less'
 				taskname = 'style'
-				reloadasset = 'bundle.css'
+				reloadasset = 'assets/bundle.css'
 			when '.jade'
 				taskname = 'html'
 				reloadasset = 'index.html'
