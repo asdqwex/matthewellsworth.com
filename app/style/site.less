@@ -7,13 +7,11 @@
 	font-family: Adam;
 	src: url(assets/adam.otf);
 }
-
 html, body {
 	font-size: 1em;
 	height: 100%;
 	background-color: #efefef;
 }
-
 .container-fluid {
 	height: 100%;
 	.main {
@@ -34,7 +32,7 @@ html, body {
 			}
 			.detail {
 				font-family: "Flagship";
-				line-height: 1;
+				line-height: 1.1em;
 				font-size: 0.35em;
 			}
 			a {
@@ -45,17 +43,45 @@ html, body {
 			}
 		}
 		.right {
-			font-family: "Flagship";
+			font-family: "Adam";
 			color: #232323;
 			min-height: 100%;
 			padding-top: 20px;
+			.blog {
+				.post {
+					.head {
+						height: 2.7em;
+						padding-bottom: 0px;
+						line-height: 2em;
+						font-family: "Flagship";
+						width: 100%;
+						.title {
+							font-size: 2em;
+							width: 90%;
+							margin: 0px;
+							float: left;
+						}
+						.date {
+							font-size: 1em;
+							text-align: right;
+							width: 10%;
+							margin: 0px;
+							float: left;
+							position: relative;
+							top: -2px;
+						}
+					}
+					.body {
+						font-family: "Arial";
+					}
+				}
+			}
 		}
 	}
 }
-
 .line {
 	border-bottom: 3px solid #efefef;
-	margin-top: 30px;
+	margin-top: 22px;
 }
 .less {
 	font-size: 0.5em;

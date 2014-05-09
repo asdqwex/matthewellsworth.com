@@ -2,16 +2,16 @@ Article 1: NodeJS, Gulp, and the Rackspace Cloud!
 
 	Intro:
 
-		In this series of articles, we'll talk about some best practices and cool things you can do with NodeJS and the Rackspace Cloud. It will include Javascript code, but don't be put off! The example repositories provided can be used as a boilerplate for developing and deploying static websites without any knowledge of Javascript! If you're a web designer who has ever had to press "refresh" or compile LESS or SASS into CSS, this guide is for you! Alternatively, if you're a Javascript guru, hopefully this article will spark some ideas about the possibilties of NodeJS and the Rackspace Cloud!
+		In this series of articles, we'll talk about some best practices and cool things you can do with NodeJS and the Rackspace Cloud. It will include Javascript code, but don't be put off! The example repositories provided can be used as a boilerplate for developing and deploying static websites without any knowledge of Javascript! If you're a web designer who has ever had to press "refresh" or compile LESS or SASS into CSS, this guide is for you! Alternatively, if you're a Javascript guru, hopefully this article will spark some ideas about the possibilities of NodeJS and the Rackspace Cloud!
 
 		In the first article, we'll talk about building a minimal set of tools to develop and deploy a static website powered _only_ by the Rackspace Cloud Files CDN. If you want a resume site with zero downtime at pennies a month, this is for you too!
 
-		In later articles, we'll expand on the base we've built here and include a Rackspace Performance Cloud Server as our NodeJS backend, explore the power of SaltStack and Phusion Passenger, and finally explore some of the fantastic possibilties that emerge when a single language can be used on the browser, the server and the cloud.
+		In later articles, we'll expand on the base we've built here and include a Rackspace Performance Cloud Server as our NodeJS backend, explore the power of SaltStack and Phusion Passenger, and finally explore some of the fantastic possibilities that emerge when a single language can be used on the browser, the server and the cloud.
 
 
 	Part 1. Gulp - the streaming build system:
 
-		NodeJS and the Javascript community as a whole move quite quickly - the current flavor of the month (and don't let that moniker destract from its sweet, sweet flavor) is Gulp.js - the streaming build system. For the uninitated, Gulp.js is essentially a Makefile for a NodeJS project - it helps take the headache out of packaging an application up and getting it ready for the web, eases with development, keeps projects organized and sane, and adds a huge amount of automation capabilities. Gulp is better than other build systems because it is incredibly fast and has quite nice syntax (if you're comfortable with Javascript).
+		NodeJS and the Javascript community as a whole move quite quickly - the current flavor of the month (and don't let that moniker distract from its sweet, sweet flavor) is Gulp.js - the streaming build system. For the uninitiated, Gulp.js is essentially a Makefile for a NodeJS project - it helps take the headache out of packaging an application up and getting it ready for the web, eases with development, keeps projects organized and sane, and adds a huge amount of automation capabilities. Gulp is better than other build systems because it is incredibly fast and has quite nice syntax (if you're comfortable with Javascript).
 
 		Let's get to it, shall we? We'll start by building a static site tool. We want to have the best possible dev experience, the easiest possible deploy experience, the lowest possible costs, and with the least code. Impossible? Nay! NodeJS, Gulp, and Rackspace to the rescue! Start by making a new directory, change into it, and create a "gulpfile.js":
 
@@ -36,7 +36,7 @@ Article 1: NodeJS, Gulp, and the Rackspace Cloud!
 
 		Fairly simple, right? All we're doing is having Gulp take our 'app/index.html' and move it to 'dist/index.html'. You can trigger the 'default' action (and therefore our 'html' action) by simply running 'gulp'. Copying an HTML file? Boring! Let's spice it up!
 
-		Note: There are approximently 1 billion things you can do with Gulp - To keep this article a reasonable length, I'll demo some of my favorites.
+		Note: There are approximately 1 billion things you can do with Gulp - To keep this article a reasonable length, I'll demo some of my favorites.
 
 		== CODE ==
 		gulp.task('style', function () {
@@ -110,7 +110,7 @@ Article 1: NodeJS, Gulp, and the Rackspace Cloud!
 		});
 		== /CODE ==
 
-		Ok, so now we have a gulpfile.js which builds an awesome bundled application in miliseconds, reloads our browser, and can be extended quite easily. You'll want to install 'LiveReload' from the Chrome Webstore: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
+		Ok, so now we have a gulpfile.js which builds an awesome bundled application in milliseconds, reloads our browser, and can be extended quite easily. You'll want to install 'LiveReload' from the Chrome Webstore: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 
 		This alone is a fairly complete bit of project. Livereload is excellent, you can spend all day adding things for Gulp to do for you. We'll move on to the Cloud next. Let's talk about deploying an application like ours.
 
@@ -140,6 +140,7 @@ Article 1: NodeJS, Gulp, and the Rackspace Cloud!
 
 		== CODE ==
 		var cloudfiles = require('gulp-cloudfiles');
+		var less = require('gulp-less');
 		// We can add an upload step to the end of each of our tasks, for example, with the LESS step:
 		gulp.task('style', function () {
 			var stream = gulp.src(STYLE + 'site.less')
