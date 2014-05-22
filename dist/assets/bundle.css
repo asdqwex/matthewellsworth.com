@@ -2834,22 +2834,22 @@ body {
   background-color: #232323;
   font-family: "Adam";
   text-align: right;
-  font-size: 5em;
+  font-size: 3.8em;
   line-height: 1.1em;
   padding: 0px;
-  padding-top: 0px;
+  padding-top: 20px;
   margin: 0px;
   color: #efefef;
   min-height: 100%;
 }
 .container-fluid .main .left span,
 .container-fluid .main .left div {
-  padding-right: 20px;
+  padding: 20px;
 }
 .container-fluid .main .left .detail {
   font-family: "Flagship";
-  line-height: 1.1em;
-  font-size: 0.35em;
+  line-height: 1.5em;
+  font-size: 0.4em;
 }
 .container-fluid .main .left a {
   font-size: 1em;
@@ -2890,7 +2890,9 @@ body {
 }
 .line {
   border-bottom: 3px solid #efefef;
+  padding: 0px !important;
   margin-top: 22px;
+  margin-bottom: 32px;
 }
 .less {
   font-size: 0.5em;
