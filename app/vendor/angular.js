@@ -1,63 +1,3 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var app;
-
-require('./vendor/angular.js');
-
-app = angular.module('erulabs', []);
-
-app.controller('blogController', [
-  '$scope', function($scope) {
-    var getPostReq, previewPostLength;
-    previewPostLength = 1000;
-    getPostReq = function() {
-      var postTitleReq;
-      postTitleReq = !!window.location.href.split('/posts/')[1];
-      if ((postTitleReq != null) && postTitleReq) {
-        return window.location.href.split('#')[0].split('/posts/')[1].replace(/\-/g, ' ');
-      } else {
-        return false;
-      }
-    };
-    $scope.urlFilter = function(post) {
-      var req;
-      req = getPostReq();
-      if (req) {
-        if (req === post.title) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return true;
-      }
-    };
-    $scope.bodyFilter = function(post) {
-      var req;
-      req = getPostReq();
-      if (req === post.title) {
-        return post.body;
-      } else {
-        if (post.body.length > previewPostLength) {
-          return post.body.substr(0, previewPostLength + '...');
-        } else {
-          return post.body;
-        }
-      }
-    };
-    return $scope.blog = [
-      {
-        title: 'Developing and deploying static sites with GulpJS and the Cloud',
-        body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
-      }
-    ];
-  }
-]);
-
-
-},{"./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html":2,"./vendor/angular.js":3}],2:[function(require,module,exports){
-module.exports = "sdfsdf" ;
-
-},{}],3:[function(require,module,exports){
 /**
  * @license AngularJS v1.2.16
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -21522,4 +21462,3 @@ var styleDirective = valueFn({
 })(window, document);
 
 !angular.$$csp() && angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}</style>');
-},{}]},{},[1])

@@ -2822,78 +2822,187 @@ html,
 body {
   font-size: 1em;
   height: 100%;
-  background-color: #efefef;
 }
-.container-fluid {
+body {
+  background-color: #232323;
+}
+@keyframes pulsateblue {
+  0% {
+    color: #FFFFFF;
+  }
+  50% {
+    color: #45CEEF;
+  }
+}
+@-webkit-keyframes pulsateblue {
+  0% {
+    color: #FFFFFF;
+  }
+  50% {
+    color: #45CEEF;
+  }
+}
+@keyframes pulsatered {
+  0% {
+    color: #FFFFFF;
+  }
+  50% {
+    color: #E65C5C;
+  }
+}
+@-webkit-keyframes pulsatered {
+  0% {
+    color: #FFFFFF;
+  }
+  50% {
+    color: #E65C5C;
+  }
+}
+.circleLogo {
+  width: 33%;
+  height: 70px;
+  border-radius: 100%;
+  z-index: 1;
+  padding: 0px !important;
+  margin: 0 !important;
+  float: left;
+}
+.circleLogo span {
+  font-size: 60px;
+  top: -10px;
+  left: 5px;
+  background-color: #232323;
+}
+.circleLogo .glyphicon-globe,
+.circleLogo .glyphicon-cloud,
+.circleLogo .glyphicon-flash,
+.circleLogo .glyphicon-dashboard {
+  animation: pulsateblue 10s infinite;
+  -webkit-animation: pulsateblue 10s infinite;
+}
+.circleLogo .glyphicon-fire,
+.circleLogo .glyphicon-heart {
+  animation: pulsatered 14s infinite;
+  -webkit-animation: pulsatered 14s infinite;
+}
+.circleLogo .glyphicon-heart {
+  animation: pulsatered 2s infinite;
+  -webkit-animation: pulsatered 2s infinite;
+}
+.container {
   height: 100%;
 }
-.container-fluid .main {
+.container .main {
   height: 100%;
 }
-.container-fluid .main .left {
+.container .main .left {
   background-color: #232323;
   font-family: "Adam";
-  text-align: right;
+  text-align: center;
   font-size: 3.8em;
-  line-height: 1.1em;
+  line-height: 0.7em;
   padding: 0px;
   padding-top: 20px;
   margin: 0px;
   color: #efefef;
-  min-height: 100%;
 }
-.container-fluid .main .left span,
-.container-fluid .main .left div {
+.container .main .left span,
+.container .main .left div {
   padding: 20px;
 }
-.container-fluid .main .left .detail {
+.container .main .left .detail {
   font-family: "Flagship";
   line-height: 1.5em;
   font-size: 0.4em;
+  padding-bottom: 10px;
 }
-.container-fluid .main .left a {
+.container .main .left a {
   font-size: 1em;
+  outline: none;
 }
-.container-fluid .main .left .less {
-  font-size: 0.4em;
+.container .main .left .block {
+  display: block;
+  color: white;
+  margin-bottom: 20px;
+  outline: none;
 }
-.container-fluid .main .right {
+.container .main .left a.block:hover {
+  text-decoration: none;
+  color: white;
+  outline: none;
+}
+.container .main .left .less {
+  font-size: 0.5em;
+  white-space: nowrap;
+}
+.container .main .right {
   font-family: "Adam";
-  color: #232323;
+  color: #fff;
   min-height: 100%;
-  padding-top: 20px;
+  height: 100%;
+  background-color: #252525;
+  margin-top: 75px;
 }
-.container-fluid .main .right .blog .post .head {
-  height: 2.7em;
+.container .main .right .blog {
+  padding-top: 30px;
+}
+.container .main .right .blog .post .head {
   padding-bottom: 0px;
   line-height: 2em;
-  font-family: "Flagship";
+  font-family: "Flagship", "Helvetica", "Arial", sans-serif;
   width: 100%;
 }
-.container-fluid .main .right .blog .post .head .title {
-  font-size: 2em;
-  width: 90%;
-  margin: 0px;
-  float: left;
+.container .main .right .blog .post .head .title {
+  font-size: 1.5em;
+  text-align: left;
 }
-.container-fluid .main .right .blog .post .head .date {
-  font-size: 1em;
-  text-align: right;
-  width: 10%;
-  margin: 0px;
-  float: left;
-  position: relative;
-  top: -2px;
+.container .main .right .blog .post .head .title a {
+  color: #fff !important;
 }
-.container-fluid .main .right .blog .post .body {
+.container .main .right .blog .post .head .credit {
+  font-size: 0.7em;
   font-family: "Arial";
 }
+.container .main .right .blog .post .body {
+  font-family: "Arial";
+  padding-bottom: 48px;
+}
 .line {
-  border-bottom: 3px solid #efefef;
   padding: 0px !important;
-  margin-top: 22px;
-  margin-bottom: 32px;
+  padding-top: 0px !important;
+  border-bottom: 1px solid white;
+  height: 40px;
+  margin-top: 30px;
 }
 .less {
   font-size: 0.5em;
+}
+.more {
+  line-height: 1;
+}
+@media (max-width: 1200px) {
+  .less {
+    font-size: 0.3em !important;
+  }
+}
+@media (min-width: 1200px) {
+  .less {
+    font-size: 0.5em !important;
+  }
+}
+.notselectable {
+  user-select: none !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.selectable {
+  user-select: all !important;
+  -webkit-touch-callout: all !important;
+  -webkit-user-select: all !important;
+  -khtml-user-select: all !important;
+  -moz-user-select: all !important;
+  -ms-user-select: all !important;
 }

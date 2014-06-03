@@ -7,6 +7,8 @@ fs         = require 'fs'
 browserify = require 'browserify'
 source     = require 'vinyl-source-stream'
 cloudfiles = require 'gulp-cloudfiles'
+rewrite    = require 'connect-modrewrite'
+stringify  = require 'stringify'
 rackspace  = 
 	username: 'seandon'
 	apiKey: 'd197727875ad413198fd341d5d70d434'
@@ -26,6 +28,7 @@ gulp.task 'clientBundle', ->
 			entries: [ './app/client.coffee' ]
 			extensions: [ '.coffee', '.js' ]
 		})
+		.transform stringify [ '.html' ]
 		.transform 'coffeeify'
 		.bundle()
 		.pipe source 'bundle.js'
@@ -33,7 +36,6 @@ gulp.task 'clientBundle', ->
 	if deploy
 		stream.pipe cloudfiles rackspace, deployOptions
 	stream.on 'error', gutil.log
-
 
 gulp.task 'html', ->
 	stream = gulp.src 'app/index.jade'
@@ -79,6 +81,12 @@ gulp.task 'connect', [ 'default' ], ->
 		root: 'dist'
 		port: 9000
 		livereload: yes
+		middleware: () ->
+			return [
+				rewrite([
+					'^/posts/.* /index.html'
+				])
+			]
 
 gulp.task 'watch', [ 'connect' ], ->
 	gulp.watch 'app/**/*', read: false, (event) ->

@@ -1,8 +1,10 @@
-div.post.panel.panel-default
-	div.head.panel-heading
-		.title.
-			New site
-		.date.
-			5/7/14
-	.body.panel-body.
-		A new site! Things will go here!
+.blog(ng-controller="blogController")
+	.post(ng-repeat="post in blog | filter:urlFilter")
+		.head
+			.title.col-md-12
+				a(href="/posts/{{ post.title.split(' ').join('-') }}#goto").
+					{{ post.title || 'Default Title' }}
+			.credit.col-md-12.
+				{{ post.date || 'Some time' }} - by {{ post.author || "Seandon Mooy" }}
+		.body.col-md-12.
+			{{ bodyFilter(post) || "Default Body Content" }}

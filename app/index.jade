@@ -4,22 +4,34 @@ html(lang="en")
 		title Erulabs.com
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		link(rel="stylesheet", href= assetURL + 'assets/bundle.css')
-	body
-		div(class="container-fluid")
-			div(class="row main")
-				div(class="left col-md-5")
-					span(class="less") MY NAME IS
-					div SEANDON MOOY
+	body(ng-app="erulabs")
+		.container.col-md-12
+			.row.main
+				.left.col-md-12.notselectable
+					a.block.less(href="/") MY NAME IS
+					a.block.more(href="/") SEANDON MOOY
 					.line
-					span(class="less") I AM A
+						a.block.circleLogo(href="/")
+							span.glyphicon.glyphicon-globe
+						a.block.circleLogo(href="/")
+							span.glyphicon.glyphicon-fire
+						a.block.circleLogo(href="/")
+							span.glyphicon.glyphicon-cloud
+					span.less I AM A
 					.detail.
 						DevOps Engineer, Javascript Developer, Cloud Guru, Linux Adminstrator,
 						OpenSource Contributor, Game Developer, Fanatical Supporter,
 						Occasional Blogger, Wannabe Designer, Shameful Soapboxer, Hapless Hacker and Armchair Activist
-					span(class="less") OH, AND I MAKE WEB APPLICATIONS
-					.detail you can contact me at 
+					span.hidden-xs.less AND I MAKE WEB APPLICATIONS
+					.detail.selectable you can contact me at 
 						a(href="mailto:seandon.mooy@gmail.com") seandon.mooy@gmail.com
-				div(class="right col-md-7")
-					div.blog
-						include blog.jade
+					#goto.line
+						a.block.circleLogo(href="/")
+							span.glyphicon.glyphicon-flash
+						a.block.circleLogo(href="/")
+							span.glyphicon.glyphicon-heart
+						a.block.circleLogo(href="/")
+							span.glyphicon.glyphicon-dashboard
+				.right.col-md-8.col-md-offset-2
+					include blog.jade
 		script(type='text/javascript', src= assetURL + 'assets/bundle.js')

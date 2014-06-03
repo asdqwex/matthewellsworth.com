@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "Erulabs.com",
   "main": "dist/index.html",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "seandon@erulabs.com:git/erulabs.com"
@@ -27,6 +26,8 @@
     "gulp-cloudfiles": "latest",
     "coffeeify": "latest",
     "browserify": "latest",
-    "vinyl-source-stream": "latest"
+    "vinyl-source-stream": "latest",
+    "connect-modrewrite": "~0.7.6",
+    "stringify": "~2.1.0"
   }
 }
