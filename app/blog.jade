@@ -5,6 +5,6 @@
 				a(href="/posts/{{ post.title.split(' ').join('-') }}#goto").
 					{{ post.title || 'Default Title' }}
 			.credit.col-md-12.
-				{{ post.date || 'Some time' }} - by {{ post.author || "Seandon Mooy" }}
+				{{ post.date || 'fake date' }} - by {{ post.author || "Seandon Mooy" }}
 		.body.col-md-12.
 			{{ bodyFilter(post) || "Default Body Content" }}

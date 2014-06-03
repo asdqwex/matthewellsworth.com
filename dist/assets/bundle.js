@@ -47,7 +47,8 @@ app.controller('blogController', [
     return $scope.blog = [
       {
         title: 'Developing and deploying static sites with GulpJS and the Cloud',
-        body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
+        body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html'),
+        date: new Date().toString()
       }
     ];
   }
@@ -55,7 +56,7 @@ app.controller('blogController', [
 
 
 },{"./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html":2,"./vendor/angular.js":3}],2:[function(require,module,exports){
-module.exports = "sdfsdf" ;
+module.exports = "woot" ;
 
 },{}],3:[function(require,module,exports){
 /**

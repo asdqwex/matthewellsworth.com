@@ -2873,24 +2873,15 @@ body {
   left: 5px;
   background-color: #232323;
 }
-.circleLogo .glyphicon-globe,
-.circleLogo .glyphicon-cloud,
-.circleLogo .glyphicon-flash,
-.circleLogo .glyphicon-dashboard {
-  animation: pulsateblue 10s infinite;
-  -webkit-animation: pulsateblue 10s infinite;
-}
 .circleLogo .glyphicon-fire,
+.circleLogo .glyphicon-heart,
 .circleLogo .glyphicon-heart {
   animation: pulsatered 14s infinite;
   -webkit-animation: pulsatered 14s infinite;
 }
-.circleLogo .glyphicon-heart {
-  animation: pulsatered 2s infinite;
-  -webkit-animation: pulsatered 2s infinite;
-}
 .container {
   height: 100%;
+  padding-top: 20px;
 }
 .container .main {
   height: 100%;
@@ -2933,7 +2924,6 @@ body {
 }
 .container .main .left .less {
   font-size: 0.5em;
-  white-space: nowrap;
 }
 .container .main .right {
   font-family: "Adam";
@@ -2941,7 +2931,7 @@ body {
   min-height: 100%;
   height: 100%;
   background-color: #252525;
-  margin-top: 75px;
+  margin-top: 40px;
 }
 .container .main .right .blog {
   padding-top: 30px;
@@ -2972,10 +2962,12 @@ body {
   padding-top: 0px !important;
   border-bottom: 1px solid white;
   height: 40px;
+  margin-bottom: 50px;
   margin-top: 30px;
 }
 .less {
   font-size: 0.5em;
+  line-height: 0.5em;
 }
 .more {
   line-height: 1;

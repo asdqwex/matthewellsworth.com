@@ -33,6 +33,7 @@ app.controller 'blogController', ['$scope', ($scope) ->
 		{
 			title: 'Developing and deploying static sites with GulpJS and the Cloud'
 			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
+			date: new Date().toString()
 		}
 	]
 ]

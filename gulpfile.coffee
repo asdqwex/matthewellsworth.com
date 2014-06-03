@@ -94,7 +94,7 @@ gulp.task 'watch', [ 'connect' ], ->
 		taskname = null
 		reloadasset = null
 		switch ext
-			when '.coffee', '.js'
+			when '.coffee', '.js', '.html'
 				taskname = 'clientBundle'
 				reloadasset = 'assets/bundle.js'
 			when '.less'
