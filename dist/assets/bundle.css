@@ -2873,6 +2873,13 @@ body {
   left: 5px;
   background-color: #232323;
 }
+.circleLogo .glyphicon-globe,
+.circleLogo .glyphicon-cloud,
+.circleLogo .glyphicon-flash,
+.circleLogo .glyphicon-dashboard {
+  animation: pulsateblue 20s infinite;
+  -webkit-animation: pulsateblue 20s infinite;
+}
 .circleLogo .glyphicon-fire,
 .circleLogo .glyphicon-heart,
 .circleLogo .glyphicon-heart {
@@ -2881,7 +2888,7 @@ body {
 }
 .container {
   height: 100%;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 .container .main {
   height: 100%;
@@ -2924,6 +2931,7 @@ body {
 }
 .container .main .left .less {
   font-size: 0.5em;
+  font-family: "Flagship";
 }
 .container .main .right {
   font-family: "Adam";
@@ -2943,7 +2951,7 @@ body {
   width: 100%;
 }
 .container .main .right .blog .post .head .title {
-  font-size: 1.5em;
+  font-size: 2.5em;
   text-align: left;
 }
 .container .main .right .blog .post .head .title a {
@@ -2952,9 +2960,12 @@ body {
 .container .main .right .blog .post .head .credit {
   font-size: 0.7em;
   font-family: "Arial";
+  border-bottom: 4px solid #232323;
+  color: #ccc;
 }
 .container .main .right .blog .post .body {
   font-family: "Arial";
+  padding: 30px;
   padding-bottom: 48px;
 }
 .line {
@@ -2962,25 +2973,22 @@ body {
   padding-top: 0px !important;
   border-bottom: 1px solid white;
   height: 40px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   margin-top: 30px;
 }
 .less {
-  font-size: 0.5em;
-  line-height: 0.5em;
+  font-size: 0.3em !important;
+  line-height: 0.3em;
 }
 .more {
   line-height: 1;
 }
-@media (max-width: 1200px) {
-  .less {
-    font-size: 0.3em !important;
-  }
-}
-@media (min-width: 1200px) {
-  .less {
-    font-size: 0.5em !important;
-  }
+.mid {
+  line-height: 1;
+  font-size: 0.7em !important;
+  font-family: "Flagship";
+  position: relative;
+  top: -6px;
 }
 .notselectable {
   user-select: none !important;

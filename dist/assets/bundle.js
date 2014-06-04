@@ -8,7 +8,7 @@ app = angular.module('erulabs', []);
 app.controller('blogController', [
   '$scope', function($scope) {
     var getPostReq, previewPostLength;
-    previewPostLength = 1000;
+    previewPostLength = 500;
     getPostReq = function() {
       var postTitleReq;
       postTitleReq = !!window.location.href.split('/posts/')[1];
@@ -38,7 +38,7 @@ app.controller('blogController', [
         return post.body;
       } else {
         if (post.body.length > previewPostLength) {
-          return post.body.substr(0, previewPostLength + '...');
+          return post.body.substr(0, previewPostLength) + '...';
         } else {
           return post.body;
         }
@@ -49,6 +49,18 @@ app.controller('blogController', [
         title: 'Developing and deploying static sites with GulpJS and the Cloud',
         body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html'),
         date: new Date().toString()
+      }, {
+        title: 'Developing and deploying static sites with GulpJS and the Cloud',
+        body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html'),
+        date: new Date().toString()
+      }, {
+        title: 'Developing and deploying static sites with GulpJS and the Cloud',
+        body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html'),
+        date: new Date().toString()
+      }, {
+        title: 'Developing and deploying static sites with GulpJS and the Cloud',
+        body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html'),
+        date: new Date().toString()
       }
     ];
   }
@@ -56,7 +68,15 @@ app.controller('blogController', [
 
 
 },{"./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html":2,"./vendor/angular.js":3}],2:[function(require,module,exports){
-module.exports = "woot" ;
+module.exports = "Some fake content goes here and thats pretty cool but ive heard that real content is better yo Some fake content goes here and thats pretty cool but ive heard that real content is better yo Some fake content goes here and thats pretty cool but ive heard that real content is better yo" +"" +
+"" +"" +
+"Some fake content goes here and thats pretty cool but ive heard that real content is better yo" +"" +
+"Some fake content goes here and thats pretty cool but ive heard that real content is better yo" +"" +
+"Some fake content goes here and thats pretty cool but ive heard that real content is better yo" +"" +
+"Some fake content goes here and thats pretty cool but ive heard that real content is better yo" +"" +
+"Some fake content goes here and thats pretty cool but ive heard that real content is better yo" +"" +
+"" +"" +
+"Some fake content goes here and thats pretty cool but ive heard that real content is better yoSome fake content goes here and thats pretty cool but ive heard that real content is better yoSome fake content goes here and thats pretty cool but ive heard that real content is better yo" ;
 
 },{}],3:[function(require,module,exports){
 /**

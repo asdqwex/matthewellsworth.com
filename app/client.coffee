@@ -3,7 +3,7 @@ require('./vendor/angular.js');
 app = angular.module 'erulabs', []
 
 app.controller 'blogController', ['$scope', ($scope) ->
-	previewPostLength = 1000
+	previewPostLength = 500
 	getPostReq = () ->
 		postTitleReq = !!window.location.href.split('/posts/')[1]
 		if postTitleReq? and postTitleReq
@@ -25,11 +25,26 @@ app.controller 'blogController', ['$scope', ($scope) ->
 			return post.body
 		else
 			if post.body.length > previewPostLength
-				post.body.substr 0, previewPostLength + '...'
+				return post.body.substr(0, previewPostLength) + '...'
 			else
 				return post.body
 
 	$scope.blog = [
+		{
+			title: 'Developing and deploying static sites with GulpJS and the Cloud'
+			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
+			date: new Date().toString()
+		}
+		{
+			title: 'Developing and deploying static sites with GulpJS and the Cloud'
+			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
+			date: new Date().toString()
+		}
+		{
+			title: 'Developing and deploying static sites with GulpJS and the Cloud'
+			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
+			date: new Date().toString()
+		}
 		{
 			title: 'Developing and deploying static sites with GulpJS and the Cloud'
 			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')

@@ -45,10 +45,10 @@ body {
 		left: 5px;
 		background-color: #232323;
 	}
-	//.glyphicon-globe, .glyphicon-cloud, .glyphicon-flash, .glyphicon-dashboard {
-	//	animation: pulsateblue 10s infinite;
-	//	-webkit-animation: pulsateblue 10s infinite;
-	//}
+	.glyphicon-globe, .glyphicon-cloud, .glyphicon-flash, .glyphicon-dashboard {
+		animation: pulsateblue 20s infinite;
+		-webkit-animation: pulsateblue 20s infinite;
+	}
 	.glyphicon-fire, .glyphicon-heart, .glyphicon-heart {
 		animation: pulsatered 14s infinite;
 		-webkit-animation: pulsatered 14s infinite;
@@ -60,7 +60,7 @@ body {
 }
 .container {
 	height: 100%;
-	padding-top: 20px;
+	padding-top: 10px;
 	.main {
 		height: 100%;
 		.left {
@@ -99,6 +99,7 @@ body {
 			}
 			.less {
 				font-size: 0.5em;
+				font-family: "Flagship";
 				//white-space: nowrap;
 			}
 		}
@@ -118,7 +119,7 @@ body {
 						font-family: "Flagship", "Helvetica","Arial",sans-serif;
 						width: 100%;
 						.title {
-							font-size: 1.5em;
+							font-size: 2.5em;
 							text-align: left;
 							a {
 								color: #fff !important;
@@ -127,10 +128,13 @@ body {
 						.credit {
 							font-size: 0.7em;
 							font-family: "Arial";
+							border-bottom: 4px solid #232323;
+							color: #ccc;
 						}
 					}
 					.body {
 						font-family: "Arial";
+						padding: 30px;
 						padding-bottom: 48px;
 					}
 				}
@@ -144,25 +148,22 @@ body {
 	padding-top: 0px !important;
 	border-bottom: 1px solid white;
 	height: 40px;
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 	margin-top: 30px;
 }
 .less {
-	font-size: 0.5em;
-	line-height: 0.5em;
+	font-size: 0.3em !important;
+	line-height: 0.3em;
 }
 .more {
 	line-height: 1;
 }
-@media(max-width: 1200px) {
-	.less {
-		font-size: 0.3em !important;
-	}
-}
-@media(min-width: 1200px) {
-	.less {
-		font-size: 0.5em !important;
-	}
+.mid {
+	line-height: 1;
+	font-size: 0.7em !important;
+	font-family: "Flagship";
+	position: relative;
+	top: -6px;
 }
 .notselectable {
 	user-select: none !important;
