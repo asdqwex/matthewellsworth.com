@@ -13,6 +13,7 @@ html, body {
 }
 body {
 	background-color: #232323;
+	background: url('/assets/pw_maze_black.png');
 }
 @keyframes pulsateblue {
 	0% { color: #FFFFFF;}
@@ -33,17 +34,17 @@ body {
 .circleLogo {
 	width: 33%;
 	height: 70px;
-	border-radius: 100%;
 	z-index: 1;
 	padding: 0px !important;
 	margin: 0 !important;
 	float: left;
-
 	span {
+		padding: 20px;
 		font-size: 60px;
 		top: -10px;
 		left: 5px;
 		background-color: #232323;
+		border-radius: 100%;
 	}
 	.glyphicon-globe, .glyphicon-cloud, .glyphicon-flash, .glyphicon-dashboard {
 		animation: pulsateblue 20s infinite;
@@ -52,6 +53,10 @@ body {
 	.glyphicon-fire, .glyphicon-heart, .glyphicon-heart {
 		animation: pulsatered 14s infinite;
 		-webkit-animation: pulsatered 14s infinite;
+	}
+	.glyphicon-heart {
+		text-indent: -4px;
+		width: 100px;
 	}
 	//.glyphicon-heart {
 	//	animation: pulsatered 4s infinite;
@@ -64,7 +69,6 @@ body {
 	.main {
 		height: 100%;
 		.left {
-			background-color: #232323;
 			font-family: "Adam";
 			text-align: center;
 			font-size: 3.8em;
@@ -74,13 +78,13 @@ body {
 			margin: 0px;
 			color: #efefef;
 			span, div {
-				padding: 20px;
 			}
 			.detail {
 				font-family: "Flagship";
 				line-height: 1.5em;
 				font-size: 0.4em;
 				padding-bottom: 10px;
+				letter-spacing: 2px;
 			}
 			a {
 				font-size: 1em;
@@ -89,7 +93,6 @@ body {
 			.block {
 				display: block;
 				color: white;
-				margin-bottom: 20px;
 				outline: none;
 			}
 			a.block:hover {
@@ -102,14 +105,18 @@ body {
 				font-family: "Flagship";
 				//white-space: nowrap;
 			}
+			.lessoffset {
+				position: relative;
+				top: -6px;
+			}
 		}
 		.right {
 			font-family: "Adam";
 			color: #fff;
-			min-height: 100%;
-			height: 100%;
-			background-color: #252525;
-			margin-top: 40px;
+			background-color: #232323;
+			margin-top: 20px;
+			border-top-left-radius: 45px;
+			border-top-right-radius: 45px;
 			.blog {
 				padding-top: 30px;
 				.post {
@@ -119,7 +126,7 @@ body {
 						font-family: "Flagship", "Helvetica","Arial",sans-serif;
 						width: 100%;
 						.title {
-							font-size: 2.5em;
+							font-size: 1.9em;
 							text-align: left;
 							a {
 								color: #fff !important;
@@ -128,13 +135,14 @@ body {
 						.credit {
 							font-size: 0.7em;
 							font-family: "Arial";
-							border-bottom: 4px solid #232323;
+							border-bottom: 4px solid #1c1c1c;
 							color: #ccc;
 						}
 					}
 					.body {
 						font-family: "Arial";
 						padding: 30px;
+						padding-top: 15px;
 						padding-bottom: 48px;
 					}
 				}
@@ -148,22 +156,22 @@ body {
 	padding-top: 0px !important;
 	border-bottom: 1px solid white;
 	height: 40px;
-	margin-bottom: 40px;
-	margin-top: 30px;
+	margin-bottom: 60px;
+	margin-top: 20px;
 }
 .less {
 	font-size: 0.3em !important;
-	line-height: 0.3em;
+	letter-spacing: 1px;
 }
 .more {
-	line-height: 1;
+	margin-top: 10px;
+	line-height: 1em;
+	letter-spacing: 0px;
 }
 .mid {
 	line-height: 1;
-	font-size: 0.7em !important;
+	font-size: 1em !important;
 	font-family: "Flagship";
-	position: relative;
-	top: -6px;
 }
 .notselectable {
 	user-select: none !important;

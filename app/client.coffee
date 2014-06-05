@@ -2,7 +2,7 @@ require('./vendor/angular.js');
 
 app = angular.module 'erulabs', []
 
-app.controller 'blogController', ['$scope', ($scope) ->
+app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
 	previewPostLength = 500
 	getPostReq = () ->
 		postTitleReq = !!window.location.href.split('/posts/')[1]
@@ -20,6 +20,8 @@ app.controller 'blogController', ['$scope', ($scope) ->
 		else
 			return true
 	$scope.bodyFilter = (post) ->
+		if !post.body?
+			return "Default Body"
 		req = getPostReq()
 		if req is post.title
 			return post.body
@@ -32,22 +34,7 @@ app.controller 'blogController', ['$scope', ($scope) ->
 	$scope.blog = [
 		{
 			title: 'Developing and deploying static sites with GulpJS and the Cloud'
-			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
-			date: new Date().toString()
-		}
-		{
-			title: 'Developing and deploying static sites with GulpJS and the Cloud'
-			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
-			date: new Date().toString()
-		}
-		{
-			title: 'Developing and deploying static sites with GulpJS and the Cloud'
-			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
-			date: new Date().toString()
-		}
-		{
-			title: 'Developing and deploying static sites with GulpJS and the Cloud'
-			body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')
+			body: $sce.trustAsHtml(require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html'))
 			date: new Date().toString()
 		}
 	]
