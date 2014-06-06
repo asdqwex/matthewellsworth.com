@@ -79,10 +79,10 @@ module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> 
 "</p><p>" +"" +
 "	Behind all this web development, systems administrators were getting work done too. Reliance on single points of failure were elimitated one by one - large infrastructures were virtualized - scales of economy kicked in, and the Cloud was born. In a hurry, developers worth their salt realized their applications needed to be able to be deployed in moments - needed to bundle everything they depended on. Suddenly, it was possible to write code which described and was able to deploy an entire environment. Suddenly, developers were coding their operations. Instead of asking a SysAdmin for a server, I can execute a line of code and get one in moments! Suddenly, it became possible to write code for more than servers and browsers - <b>we started to write code for infrastructures</b>. With the availability of Javascript SDKs for Cloud providers - we now have a single language which can deliver the entirety of the web - the client, the server, and the cloud." +"" +
 "</p>" +"" +
+"<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> These days...</h3>" +"" +
 "<p>" +"" +
 "	So where are we now? Is it even possible for a normal web developer to build a web application any more? Which frameworks to pick? Which clouds to use? Do we need a team of 10 experts and a corporate SLA? This article will come in a few parts, and we'll work up to the full web application and talk about all the pieces - but for now let's start by going back in time and creating a static site - A site like we would have made before we started renaming our .html files as .php because we wanted a page changer or some text entry field. Let's reject hacky tricks and reject billion line frameworks. <b>Let's build a modern website</b>." +"" +
 "</p>" +"" +
-"<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> These days...</h3>" +"" +
 "<p>" +"" +
 "	<i>Note: The only requirement for this tutorial is an understanding of Javascript</i>" +"" +
 "</p>" +"" +
@@ -92,12 +92,12 @@ module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> 
 "		<li>A single language for the \"full stack\" - client, server and cloud</li>" +"" +
 "		<li>No bloated frameworks and a very minimal production dependency chain</li>" +"" +
 "		<li>The most modern tools and a highly configurable build system (with all the usual tricks)</li>" +"" +
-"		<li>The ability to describe our production infrastructure in code</li>" +"" +
-"		<li>The ability to deploy to that infrastructure</li>" +"" +
+"		<li>The ability to describe and deploy to our production infrastructure in code</li>" +"" +
+"		<li>An insanely fast and full featured web development platform</li>" +"" +
 "	</ul>" +"" +
 "</p>" +"" +
 "<p>" +"" +
-"	To answer the questions, we'll use Javascript, Node.js, Gulp.JS, SaltStack, and Git respectively." +"" +
+"	To answer the questions, we'll use Javascript, Node.js, Gulp.js, SaltStack, and NPM/Gulp respectively." +"" +
 "</p>" +"" +
 "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> Getting started...</h3>" +"" +
 "<p>" +"" +
@@ -110,7 +110,7 @@ module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> 
 "	<i>Note: Commands which start with '> ' are BASH commands - everything else will be identified as part of a Javascript file.</i>" +"" +
 "</p>" +"" +
 "<p>" +"" +
-"	<kbd>&gt; mkdir modernstaticsite &amp;&amp; cd $_;</kbd> <i>$_ means 'the last argument of the last command', so \"cd modernstaticsite\"</i>" +"" +
+"	<kbd>&gt; mkdir modernstaticsite &amp;&amp; cd $_</kbd> <i>$_ means 'the last argument of the last command', so \"cd modernstaticsite\"</i>" +"" +
 "</p>" +"" +
 "<p>" +"" +
 "	Create a <a href=\"https://www.npmjs.org/doc/json.html\">package.json</a> file using NPM's guide:" +"" +
@@ -138,7 +138,18 @@ module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> 
 "</p>" +"" +
 "<p>" +"" +
 "	Notice that we used '--save-dev', which automatically writes our dependencies to our package.json file. If we need to install a production dependencies (none for a static site!), use '--save' - Keeping track of what we do is the first step! In the future (or on other machines), we can simply <kbd>npm install</kbd> and NPM will install all our dependencies!" +"" +
-"</p>" ;
+"</p>" +"" +
+"<p>" +"" +
+"GULPFILE" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"CLOUDFILES" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"GULP + PKGCLOUD + CLOUDFILES = GULP DEPLOY" +"" +
+"</p>" +"" +
+"<p>Gulp development server /w liveReload</p>" +"" +
+"<p>ALL THE GULP-PLUGINS!</p>" ;
 
 },{}],3:[function(require,module,exports){
 /**
