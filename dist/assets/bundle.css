@@ -2862,7 +2862,7 @@ body {
 .circleLogo {
   width: 33%;
   height: 70px;
-  z-index: 1;
+  z-index: 2;
   padding: 0px !important;
   margin: 0 !important;
   float: left;
@@ -2889,7 +2889,7 @@ body {
   -webkit-animation: pulsatered 14s infinite;
 }
 .circleLogo .glyphicon-heart {
-  text-indent: -4px;
+  text-indent: -6px;
   width: 100px;
 }
 .container {
@@ -2908,6 +2908,10 @@ body {
   padding-top: 20px;
   margin: 0px;
   color: #efefef;
+}
+.container .main .left .row {
+  padding: 0px;
+  margin: 0px;
 }
 .container .main .left .detail {
   font-family: "Flagship";
@@ -2938,58 +2942,84 @@ body {
   position: relative;
   top: -6px;
 }
-.container .main .right {
+.container .main .bottom {
   font-family: "Adam";
   color: #fff;
-  margin-top: 20px;
+  width: 100%;
+  float: left;
+  padding-top: 70px;
 }
-.container .main .right .blog {
-  padding-top: 30px;
+.container .main .bottom .blog {
+  padding-top: 0px;
 }
-.container .main .right .blog .post .head {
+.container .main .bottom .blog .post {
+  margin-top: 4px;
+}
+.container .main .bottom .blog .post .head {
   padding-bottom: 0px;
   line-height: 2em;
   font-family: "Flagship", "Helvetica", "Arial", sans-serif;
-  width: 100%;
 }
-.container .main .right .blog .post .head .title {
+.container .main .bottom .blog .post .head .title {
   font-size: 1.9em;
   text-align: left;
   letter-spacing: 1px;
   line-height: 1em;
 }
-.container .main .right .blog .post .head .title a {
+.container .main .bottom .blog .post .head .title a {
   color: #fff !important;
 }
-.container .main .right .blog .post .head .credit {
+.container .main .bottom .blog .post .head .credit {
   font-size: 0.7em;
   line-height: 1em;
   font-family: "Helvetica", "Arial", sans-serif;
-  color: #ccc;
+  color: #666;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
-.container .main .right .blog .post .body {
+.container .main .bottom .blog .post .body {
   font-family: "Helvetica", "Arial", sans-serif;
   padding: 30px;
-  padding-top: 16px;
-  padding-bottom: 0px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   font-size: 14px;
-  letter-spacing: 0.3px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  color: #efefef;
   font-weight: normal;
 }
-.container .main .right .blog .post .body p {
+.container .main .bottom .blog .post .body p {
   text-indent: 40px;
 }
-.container .main .right .blog .post .body h2,
-.container .main .right .blog .post .body h3,
-.container .main .right .blog .post .body h4 {
+.container .main .bottom .blog .post .body h2,
+.container .main .bottom .blog .post .body h3,
+.container .main .bottom .blog .post .body h4 {
   margin-top: 0px;
   padding: 0px;
 }
-.container .main .right .blog .post a.readmore {
-  display: block;
+.container .main .bottom .blog .post .body a {
+  color: white;
+  text-decoration: underline;
+}
+.container .main .bottom .blog .post .body .glyphicon-chevron-right {
+  font-size: 0.8em;
+  color: #aaa;
+}
+.container .main .bottom .blog .post a.readmore {
+  font-size: 14px;
   color: white;
   font-family: "Helvetica", "Arial", sans-serif;
-  padding-bottom: 32px;
+  font-style: italic;
+  padding-bottom: 10px;
+  text-align: right;
+  color: #bbb;
+  position: relative;
+  top: -50px;
+  left: -4px;
+}
+.container .main .bottom .blog .post .alignright {
   text-align: right;
 }
 .line {
@@ -2997,14 +3027,13 @@ body {
   padding-top: 0px !important;
   border-bottom: 3px solid #232323;
   height: 44px;
-  margin-bottom: 60px;
+  margin-bottom: 0px;
   margin-top: 20px;
 }
 .smallline {
   padding: 0px !important;
   margin-top: 0px;
-  margin-bottom: 80px;
-  text-align: center;
+  margin-bottom: 40px;
   border-bottom: 3px solid #232323;
   height: 11px;
 }
@@ -3012,15 +3041,15 @@ body {
   text-align: center;
 }
 .smallline .circleLogo span {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
   font-size: 1.4em;
-  width: 28px;
+  width: 40px;
   height: 28px;
-  text-indent: -11px;
   line-height: 0px;
-  text-align: center;
 }
 .smallline .circleLogo .glyphicon-fire {
-  text-indent: -11px;
+  text-indent: 0px;
   line-height: 0px;
 }
 .less {

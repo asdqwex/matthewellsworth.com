@@ -1,14 +1,16 @@
 .blog(ng-controller="blogController")
-	.post(ng-repeat="post in blog | filter:urlFilter")
-		.head
-			.title.col-md-12
-				a(href="/posts/{{ urlify(post.title) }}#goto").
-					{{ post.title || 'Default Title' }}
-			.credit.col-md-12.
-				{{ post.date || 'fake date' }} by {{ post.author || "Seandon Mooy" }}
-		.body.col-md-12(ng-bind-html="bodyFilter(post)") Loading...
-		a.readmore(ng-show="post.preview", href="/posts/{{ urlify(post.title) }}#goto") Click here to read more
-		.smallline.col-md-12
+	div(ng-repeat="post in blog | filter:urlFilter")
+		.post
+			.head
+				.title.col-md-12
+					a(href="/posts/{{ urlify(post.title) }}#goto").
+						{{ post.title || 'Default Title' }}
+				.credit.col-md-12.
+					{{ post.date || 'fake date' }} by {{ post.author || "Seandon Mooy" }}
+			.body.col-md-12(ng-bind-html="bodyFilter(post)") Loading...
+			.col-md-12.alignright
+				a.readmore(ng-show="post.preview", href="/posts/{{ urlify(post.title) }}#goto") Click here to read more
+		.smallline.col-md-12(ng-show="!($index === blog.length-1) && !focus")
 				.block.circleLogo
 					span.glyphicon.glyphicon-cloud
 				.block.circleLogo

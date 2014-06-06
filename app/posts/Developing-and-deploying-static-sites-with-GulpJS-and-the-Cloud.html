@@ -1,19 +1,70 @@
-<h3>A history --</h3>
+<h3><span class="glyphicon glyphicon-chevron-right"></span> In the beginning...</h3>
 <p>
-	In the beginning, there was HTML. And for a while, it was good. Then came CSS and Javascript and for a while, that was good too. The static site was born and then died immediatly. It's killer - the backend - was armed to the teeth with power and possibility. PHP scripts regularly wrote HTML and sometimes even Javascript - as we layered technologies one on top of each other things started to get messy. What began as a "Look what I can do!" quickly evolved into "Oh god what did I do?".
+	In the beginning, there was HTML. And for a while, it was good. Then came CSS and Javascript and for a while, that was good too. The static site was born and then died immediatly. It's killer - the backend - was armed to the teeth with power and possibility. First PERL and later PHP scripts regularly wrote out HTML and sometimes even Javascript - as we layered technologies one on top of each other things started to get messy. Applications regularly tightly depended on specific application settings (Apache rewrite rules anyone?), or had bizarre dependences which for some reason only RedHat EL 4 satisfies. What began as a "Look what I can do!" quickly evolved into "Oh god what did I do?".
 </p><p>
-	Along came Ruby-on-Rails - a framework which (in an organized way) bundled up all the tricks of the past decade - Suddenly we could use something better than CSS (SASS), something better than PHP (Ruby), something better than MySQL (Active Record). It had built in caching and error handling and routing and instead of a thousand tricks, we had one beast of a framework - and for a while, it was good too.
+	The came the frameworks. Ruby-on-Rails - a framework which in an organized way bundled up all the tricks of the past decade - It had built in caching, error handling, routing, database abstraction and instead of a thousand tricks, we had one beast of a framework - and for a while, it was good too. But things didn't stop there. The PHP community released Symfony and Drupal which packaged the majority of what made Rails special - the Python community released Django - the PERL folks releaed about 10 frameworks that noone used - .NET is a thing - and more recently, a small group of people wrote Node.js - A server framework for Javascript based on Google's V8. And boy, was it ever good.
 </p><p>
-	But things didn't stop there. The PHP community released Symfony and Drupal which packaged the majority of what made Rails the web communities sweetheart - the Python community released Django - the PERL folks releaed about 10 frameworks that noone used - and in the far reaches of the internet, a small group of people wrote Node.JS - A server framework for Javascript. And boy, was it ever good.
+	Now Javascript had it's problems (oh did it ever), but it was required knowledge - Javascipt is the language of the browser and therefore the language of the web. We used it for our animations and our AJAX then forgot about it - prefering to focus on what was really important for most developers - the server. But time marched on, and as Javascript improved and Node.js gained popularity, some wondered why we'd even bother using anything <i>but</i> Javascript. Why not unify? A single language for the web - for servers and browsers!
 </p><p>
-	Now Javascript had it's problems (oh boy did it), but it was required knowledge - Javascipt was the language of the browser - we all worked around Javascript as a daily battle before jQuery came along and won the war on the DOM, massively simplfying the common browser usage of Javascript and catapulting it into the common web knowledge. We used it for our animations and our AJAX then forgot about it - prefering to focus on what was really important - the server. With Javascript finally being used to enhance our applications, Web2.0 had begun. And oh man, for a while, it was _great_. But time marched on, and as Javascript improved and Node.JS gained popularity, some wondered why we'd even both using anything _but_ Javascript. Why not unify? A single language for the web. Servers and browsers.
-</p><p>
-	Behind all this web development, systems administrators were getting work done too. Reliance on single points of failure were elimitated one by one - large infrastructures were virtualized - scales of economy kicked in, and the Cloud was born. In a hurry, developers worth their salt realized their applications needed to be able to be deployed in moments - needed to bundle everything they depended on. Suddenly, it was possible to write code which described and was able to deploy an entire environment. Suddenly, developers were coding their operations. And thus, "DevOps" was born.
+	Behind all this web development, systems administrators were getting work done too. Reliance on single points of failure were elimitated one by one - large infrastructures were virtualized - scales of economy kicked in, and the Cloud was born. In a hurry, developers worth their salt realized their applications needed to be able to be deployed in moments - needed to bundle everything they depended on. Suddenly, it was possible to write code which described and was able to deploy an entire environment. Suddenly, developers were coding their operations. Instead of asking a SysAdmin for a server, I can execute a line of code and get one in moments! Suddenly, it became possible to write code for more than servers and browsers - <b>we started to write code for infrastructures</b>. With the availability of Javascript SDKs for Cloud providers - we now have a single language which can deliver the entirety of the web - the client, the server, and the cloud.
 </p>
 <p>
-	So where are we now? Is it even possible for a normal web developer to build a web application any more? Which frameworks to pick? Which clouds to use? This article will come in a few parts, and we'll work up to the full web application. But lets start by going back in time and creating a static site - A site like we would have made before we started renaming our .html files as .php because we wanted a page changer or some text entry field. Let's reject hacky tricks and reject billion line frameworks. Let's be modern, agile, and DevOps-y.
+	So where are we now? Is it even possible for a normal web developer to build a web application any more? Which frameworks to pick? Which clouds to use? Do we need a team of 10 experts and a corporate SLA? This article will come in a few parts, and we'll work up to the full web application and talk about all the pieces - but for now let's start by going back in time and creating a static site - A site like we would have made before we started renaming our .html files as .php because we wanted a page changer or some text entry field. Let's reject hacky tricks and reject billion line frameworks. <b>Let's build a modern website</b>.
 </p>
-<h3>A Demo --</h3>
+<h3><span class="glyphicon glyphicon-chevron-right"></span> These days...</h3>
 <p>
-
+	<i>Note: The only requirement for this tutorial is an understanding of Javascript</i>
+</p>
+<p>
+	These days we have a lot of requirements. We want:
+	<ul>
+		<li>A single language for the "full stack" - client, server and cloud</li>
+		<li>No bloated frameworks and a very minimal production dependency chain</li>
+		<li>The most modern tools and a highly configurable build system (with all the usual tricks)</li>
+		<li>The ability to describe our production infrastructure in code</li>
+		<li>The ability to deploy to that infrastructure</li>
+	</ul>
+</p>
+<p>
+	To answer the questions, we'll use Javascript, Node.js, Gulp.JS, SaltStack, and Git respectively.
+</p>
+<h3><span class="glyphicon glyphicon-chevron-right"></span> Getting started...</h3>
+<p>
+	Install <a href="http://nodejs.org/">Node.js</a> (everything here will work on linux, osx and windows). Windows users will probably need to <a href="https://windows.github.com/">install GitHub</a> to get a version of git and a better console to work with. Once installed, use the "GitHub Shell" and type "bash". Now you're ready! You'll also want a nice editor - I recommend GitHub's <a href="https://atom.io/">Atom</a>.
+</p>
+<p>
+	Let's start a new project! We'll use NPM, the brilliant Node.js package manager.
+</p>
+<p>
+	<i>Note: Commands which start with '> ' are BASH commands - everything else will be identified as part of a Javascript file.</i>
+</p>
+<p>
+	<kbd>&gt; mkdir modernstaticsite &amp;&amp; cd $_;</kbd> <i>$_ means 'the last argument of the last command', so "cd modernstaticsite"</i>
+</p>
+<p>
+	Create a <a href="https://www.npmjs.org/doc/json.html">package.json</a> file using NPM's guide:
+</p>
+<p>
+	<kbd>&gt; npm init .</kbd> <i>You can just press return to all the questions if you'd like</i>
+</p>
+<p>
+	Start the version control:
+</p>
+<p>
+	<kbd>&gt; git init .</kbd>
+</p>
+<p>
+	We'll tell git to ignore our node modules - we'll track this using our "package.json" file we created using 'npm init'
+</p>
+<p>
+	<kbd>&gt; echo "node_modules" > .gitignore</kbd>
+</p>
+<p>
+	For our build system we'll use the excellent <a href="http://gulpjs.com/">Gulp.js</a>
+</p>
+<p>
+	<kbd>&gt; npm install gulp gulp-util --save-dev</kbd>
+</p>
+<p>
+	Notice that we used '--save-dev', which automatically writes our dependencies to our package.json file. If we need to install a production dependencies (none for a static site!), use '--save' - Keeping track of what we do is the first step! In the future (or on other machines), we can simply <kbd>npm install</kbd> and NPM will install all our dependencies!
 </p>

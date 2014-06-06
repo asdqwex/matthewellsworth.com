@@ -12,10 +12,11 @@ html(lang="en")
 					a.block.less(href="/") MY NAME IS
 					a.block.more(href="/") SEANDON MOOY
 					span.less.lessoffset.hidden-xs AND I AM A
-					.detail.hidden-xs.
-						DevOps Engineer, Javascript Developer, Cloud Guru, Linux Adminstrator,
-						OpenSource Contributor, Game Developer, Fanatical Supporter,
-						Occasional Blogger, Wannabe Designer, Shameful Soapboxer, Hapless Hacker and Armchair Activist.
+					.row
+						.detail.hidden-xs.col-md-8.col-md-offset-2.
+							DevOps Engineer, Javascript Developer, Cloud Guru, Linux Adminstrator,
+							OpenSource Contributor, Game Developer, Fanatical Supporter,
+							Occasional Blogger, Wannabe Designer, Shameful Soapboxer, Hapless Hacker and Armchair Activist.
 					span.less.lessoffset.hidden-xs OH, AND 
 					span.less.lessoffset I MAKE WEB APPLICATIONS
 					.detail.selectable.hidden-xs you can contact me at 
@@ -27,6 +28,15 @@ html(lang="en")
 							span.glyphicon.glyphicon-heart
 						.block.circleLogo
 							span.glyphicon.glyphicon-dashboard
-				.right.col-md-8.col-md-offset-2
-					include blog.jade
+				.bottom
+					.col-md-8.col-md-offset-2
+						include blog.jade
+				.left.col-md-12.notselectable
+					.line
+						.block.circleLogo
+							span.glyphicon.glyphicon-flash
+						.block.circleLogo
+							span.glyphicon.glyphicon-heart
+						.block.circleLogo
+							span.glyphicon.glyphicon-dashboard
 		script(type='text/javascript', src= assetURL + 'assets/bundle.js')
