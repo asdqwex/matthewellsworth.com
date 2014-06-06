@@ -8,7 +8,7 @@ app = angular.module('erulabs', []);
 app.controller('blogController', [
   '$scope', '$sce', function($scope, $sce) {
     var getPostReq, previewPostLength;
-    previewPostLength = 500;
+    previewPostLength = 512;
     getPostReq = function() {
       var postTitleReq;
       postTitleReq = !!window.location.href.split('/posts/')[1];
@@ -18,11 +18,14 @@ app.controller('blogController', [
         return false;
       }
     };
+    $scope.urlify = function(string) {
+      return string.replace(/\-/g, ' ').replace(/\:/g, ' ').replace(/\ /g, '_');
+    };
     $scope.urlFilter = function(post) {
       var req;
       req = getPostReq();
       if (req) {
-        if (req === post.title) {
+        if ($scope.urlify(req) === $scope.urlify(post.title)) {
           return true;
         } else {
           return false;
@@ -37,20 +40,22 @@ app.controller('blogController', [
         return "Default Body";
       }
       req = getPostReq();
-      if (req === post.title) {
-        return post.body;
+      post.preview = false;
+      if (req === $scope.urlify(post.title)) {
+        return $sce.trustAsHtml(post.body);
       } else {
-        if (post.body.length > previewPostLength) {
-          return post.body.substr(0, previewPostLength) + '...';
+        if (post.body.toString().length > previewPostLength) {
+          post.preview = true;
+          return $sce.trustAsHtml(post.body.toString().substr(0, previewPostLength));
         } else {
-          return post.body;
+          return $sce.trustAsHtml(post.body);
         }
       }
     };
     return $scope.blog = [
       {
         title: 'PerfectStack: NodeJS Salt and the Cloud - Part 1: Static sites',
-        body: $sce.trustAsHtml(require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')),
+        body: require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html'),
         date: 'June 5th, 2014'
       }
     ];
@@ -59,7 +64,25 @@ app.controller('blogController', [
 
 
 },{"./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html":2,"./vendor/angular.js":3}],2:[function(require,module,exports){
-module.exports = "<b>html here</b>" ;
+module.exports = "<h3>A history --</h3>" +"" +
+"<p>" +"" +
+"	In the beginning, there was HTML. And for a while, it was good. Then came CSS and Javascript and for a while, that was good too. The static site was born and then died immediatly. It's killer - the backend - was armed to the teeth with power and possibility. PHP scripts regularly wrote HTML and sometimes even Javascript - as we layered technologies one on top of each other things started to get messy. What began as a \"Look what I can do!\" quickly evolved into \"Oh god what did I do?\"." +"" +
+"</p><p>" +"" +
+"	Along came Ruby-on-Rails - a framework which (in an organized way) bundled up all the tricks of the past decade - Suddenly we could use something better than CSS (SASS), something better than PHP (Ruby), something better than MySQL (Active Record). It had built in caching and error handling and routing and instead of a thousand tricks, we had one beast of a framework - and for a while, it was good too." +"" +
+"</p><p>" +"" +
+"	But things didn't stop there. The PHP community released Symfony and Drupal which packaged the majority of what made Rails the web communities sweetheart - the Python community released Django - the PERL folks releaed about 10 frameworks that noone used - and in the far reaches of the internet, a small group of people wrote Node.JS - A server framework for Javascript. And boy, was it ever good." +"" +
+"</p><p>" +"" +
+"	Now Javascript had it's problems (oh boy did it), but it was required knowledge - Javascipt was the language of the browser - we all worked around Javascript as a daily battle before jQuery came along and won the war on the DOM, massively simplfying the common browser usage of Javascript and catapulting it into the common web knowledge. We used it for our animations and our AJAX then forgot about it - prefering to focus on what was really important - the server. With Javascript finally being used to enhance our applications, Web2.0 had begun. And oh man, for a while, it was _great_. But time marched on, and as Javascript improved and Node.JS gained popularity, some wondered why we'd even both using anything _but_ Javascript. Why not unify? A single language for the web. Servers and browsers." +"" +
+"</p><p>" +"" +
+"	Behind all this web development, systems administrators were getting work done too. Reliance on single points of failure were elimitated one by one - large infrastructures were virtualized - scales of economy kicked in, and the Cloud was born. In a hurry, developers worth their salt realized their applications needed to be able to be deployed in moments - needed to bundle everything they depended on. Suddenly, it was possible to write code which described and was able to deploy an entire environment. Suddenly, developers were coding their operations. And thus, \"DevOps\" was born." +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	So where are we now? Is it even possible for a normal web developer to build a web application any more? Which frameworks to pick? Which clouds to use? This article will come in a few parts, and we'll work up to the full web application. But lets start by going back in time and creating a static site - A site like we would have made before we started renaming our .html files as .php because we wanted a page changer or some text entry field. Let's reject hacky tricks and reject billion line frameworks. Let's be modern, agile, and DevOps-y." +"" +
+"</p>" +"" +
+"<h3>A Demo --</h3>" +"" +
+"<p>" +"" +
+"" +"" +
+"</p>" ;
 
 },{}],3:[function(require,module,exports){
 /**

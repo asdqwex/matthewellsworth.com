@@ -2,11 +2,12 @@
 	.post(ng-repeat="post in blog | filter:urlFilter")
 		.head
 			.title.col-md-12
-				a(href="/posts/{{ post.title.split(' ').join('-') }}#goto").
+				a(href="/posts/{{ urlify(post.title) }}#goto").
 					{{ post.title || 'Default Title' }}
 			.credit.col-md-12.
 				{{ post.date || 'fake date' }} by {{ post.author || "Seandon Mooy" }}
 		.body.col-md-12(ng-bind-html="bodyFilter(post)") Loading...
+		a.readmore(ng-show="post.preview", href="/posts/{{ urlify(post.title) }}#goto") Click here to read more
 		.smallline.col-md-12
 				.block.circleLogo
 					span.glyphicon.glyphicon-cloud
