@@ -113,10 +113,7 @@ body {
 		.right {
 			font-family: "Adam";
 			color: #fff;
-			background-color: #232323;
 			margin-top: 20px;
-			border-top-left-radius: 45px;
-			border-top-right-radius: 45px;
 			.blog {
 				padding-top: 30px;
 				.post {
@@ -128,22 +125,24 @@ body {
 						.title {
 							font-size: 1.9em;
 							text-align: left;
+							letter-spacing: 1px;
+							line-height: 1em;
 							a {
 								color: #fff !important;
 							}
 						}
 						.credit {
 							font-size: 0.7em;
+							line-height: 1em;
 							font-family: "Arial";
-							border-bottom: 4px solid #1c1c1c;
 							color: #ccc;
 						}
 					}
 					.body {
 						font-family: "Arial";
 						padding: 30px;
-						padding-top: 15px;
-						padding-bottom: 48px;
+						padding-top: 10px;
+						padding-bottom: 12px;
 					}
 				}
 
@@ -154,10 +153,33 @@ body {
 .line {
 	padding: 0px !important;
 	padding-top: 0px !important;
-	border-bottom: 1px solid white;
-	height: 40px;
+	border-bottom: 3px solid #232323;
+	height: 44px;
 	margin-bottom: 60px;
 	margin-top: 20px;
+}
+.smallline {
+	padding: 0px !important;
+	margin-top: 0px;
+	margin-bottom: 80px;
+	text-align: center;
+	border-bottom: 3px solid #232323;
+	height: 11px;
+	.circleLogo {
+		text-align: center;
+		span {
+			font-size: 1.4em;
+			width: 28px;
+			height: 28px;
+			text-indent: -11px;
+			line-height: 0px;
+			text-align: center;
+		}
+		.glyphicon-fire {
+			text-indent: -11px;
+			line-height: 0px;
+		}
+	}
 }
 .less {
 	font-size: 0.3em !important;

@@ -2941,10 +2941,7 @@ body {
 .container .main .right {
   font-family: "Adam";
   color: #fff;
-  background-color: #232323;
   margin-top: 20px;
-  border-top-left-radius: 45px;
-  border-top-right-radius: 45px;
 }
 .container .main .right .blog {
   padding-top: 30px;
@@ -2958,29 +2955,54 @@ body {
 .container .main .right .blog .post .head .title {
   font-size: 1.9em;
   text-align: left;
+  letter-spacing: 1px;
+  line-height: 1em;
 }
 .container .main .right .blog .post .head .title a {
   color: #fff !important;
 }
 .container .main .right .blog .post .head .credit {
   font-size: 0.7em;
+  line-height: 1em;
   font-family: "Arial";
-  border-bottom: 4px solid #1c1c1c;
   color: #ccc;
 }
 .container .main .right .blog .post .body {
   font-family: "Arial";
   padding: 30px;
-  padding-top: 15px;
-  padding-bottom: 48px;
+  padding-top: 10px;
+  padding-bottom: 12px;
 }
 .line {
   padding: 0px !important;
   padding-top: 0px !important;
-  border-bottom: 1px solid white;
-  height: 40px;
+  border-bottom: 3px solid #232323;
+  height: 44px;
   margin-bottom: 60px;
   margin-top: 20px;
+}
+.smallline {
+  padding: 0px !important;
+  margin-top: 0px;
+  margin-bottom: 80px;
+  text-align: center;
+  border-bottom: 3px solid #232323;
+  height: 11px;
+}
+.smallline .circleLogo {
+  text-align: center;
+}
+.smallline .circleLogo span {
+  font-size: 1.4em;
+  width: 28px;
+  height: 28px;
+  text-indent: -11px;
+  line-height: 0px;
+  text-align: center;
+}
+.smallline .circleLogo .glyphicon-fire {
+  text-indent: -11px;
+  line-height: 0px;
 }
 .less {
   font-size: 0.3em !important;

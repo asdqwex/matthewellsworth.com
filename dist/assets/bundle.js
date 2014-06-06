@@ -49,9 +49,9 @@ app.controller('blogController', [
     };
     return $scope.blog = [
       {
-        title: 'Developing and deploying static sites with GulpJS and the Cloud',
+        title: 'PerfectStack: NodeJS Salt and the Cloud - Part 1: Static sites',
         body: $sce.trustAsHtml(require('./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html')),
-        date: new Date().toString()
+        date: 'June 5th, 2014'
       }
     ];
   }

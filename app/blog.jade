@@ -5,5 +5,12 @@
 				a(href="/posts/{{ post.title.split(' ').join('-') }}#goto").
 					{{ post.title || 'Default Title' }}
 			.credit.col-md-12.
-				{{ post.date || 'fake date' }} - by {{ post.author || "Seandon Mooy" }}
-		.body.col-md-12(ng-bind-html="bodyFilter(post)")
+				{{ post.date || 'fake date' }} by {{ post.author || "Seandon Mooy" }}
+		.body.col-md-12(ng-bind-html="bodyFilter(post)") Loading...
+		.smallline.col-md-12
+				.block.circleLogo
+					span.glyphicon.glyphicon-cloud
+				.block.circleLogo
+					span.glyphicon.glyphicon-fire
+				.block.circleLogo
+					span.glyphicon.glyphicon-globe
