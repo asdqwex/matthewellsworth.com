@@ -9,6 +9,8 @@ source     = require 'vinyl-source-stream'
 cloudfiles = require 'gulp-cloudfiles'
 rewrite    = require 'connect-modrewrite'
 stringify  = require 'stringify'
+streamify  = require 'gulp-streamify'
+uglify     = require 'gulp-uglify'
 rackspace  = 
 	username: 'seandon'
 	apiKey: 'd197727875ad413198fd341d5d70d434'
@@ -31,7 +33,8 @@ gulp.task 'clientBundle', ->
 		.transform stringify [ '.html' ]
 		.transform 'coffeeify'
 		.bundle()
-		.pipe source 'bundle.js'
+		.pipe source('bundle.js')
+		.pipe streamify(uglify())
 		.pipe gulp.dest 'dist/assets'
 	if deploy
 		stream.pipe cloudfiles rackspace, deployOptions
