@@ -20,13 +20,13 @@
 	<ul>
 		<li>A single language for the "full stack" - client, server and cloud</li>
 		<li>No bloated frameworks and a very minimal production dependency chain</li>
-		<li>The most modern tools and a highly configurable build system (with all the usual tricks)</li>
+		<li>The most modern tools and a highly configurable build system with all the usual tricks (and some new ones)</li>
 		<li>The ability to describe and deploy to our production infrastructure in code</li>
-		<li>An insanely fast and full featured web development platform</li>
+		<li>Deep application performance monitoring and infrastructure monitoring</li>
 	</ul>
 </p>
 <p>
-	To answer the questions, we'll use JavaScript, Node.js, Gulp.js, SaltStack, and NPM/Gulp respectively.
+	To answer the questions, we'll use JavaScript, Node.js, Gulp.js &amp; Browserify, SaltStack and NewRelic respectively. Part one of this series will cover the first three - while part two will deal with the server and infrastructure.
 </p>
 <h3><span class="glyphicon glyphicon-chevron-right"></span> Getting started...</h3>
 <p>
@@ -127,7 +127,7 @@ gulp.task('css', function () {<br>
 <br>});<br>
 </pre>
 <p>
-	Huray! No need for editor plugins - no need for tiresome build tasks - no need for massive frameworks - simply <kbd>gulp</kbd> and go! At the end of this article, I'll show some examples for my favorite gulp plugins. Most sites will probably want to minify HTML, CSS and JavaScript. They'll probably want to error check the JavaScript using something like <a href="http://www.jshint.com/">jshint</a>. We can even use Gulp to deploy our static site! Before we get to deployment, let's go a step further. Let's build a development server with livereload! Sounds complex doesn't it! Not so much:
+	Huray! No need for editor plugins - no need for tiresome build tasks - no need for massive frameworks - simply <kbd>gulp</kbd> and go! At the end of this article, I'll show some examples for my favorite gulp plugins. Most sites will probably want to minify HTML, CSS and JavaScript. They'll probably want to error check the JavaScript using something like <a href="http://www.jshint.com/">jshint</a>. We can even use Gulp to deploy our static site! Before we get to deployment, let's go a step further. Let's build a development server with livereload! Sounds complex doesn't it? Not so much:
 </p>
 <p>
 	<kbd>&gt; npm install gulp-connect --save-dev</kbd>, then...
