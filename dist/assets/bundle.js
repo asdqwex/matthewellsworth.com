@@ -71,20 +71,20 @@ app.controller('blogController', [
 },{"./posts/Developing-and-deploying-static-sites-with-GulpJS-and-the-Cloud.html":2,"./vendor/angular.js":3}],2:[function(require,module,exports){
 module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> In the beginning...</h3>" +"" +
 "<p>" +"" +
-"	In the beginning, there was HTML. And for a while, it was good. Then came CSS and Javascript and for a while, that was good too. The static site was born and then died immediatly. It's killer - the backend - was armed to the teeth with power and possibility. First PERL and later PHP scripts regularly wrote out HTML and sometimes even Javascript - as we layered technologies one on top of each other things started to get messy. Applications regularly tightly depended on specific application settings (Apache rewrite rules anyone?), or had bizarre dependences which for some reason only RedHat EL 4 satisfies. What began as a \"Look what I can do!\" quickly evolved into \"Oh god what did I do?\"." +"" +
+"	In the beginning, there was HTML. And for a while, it was good. Then came CSS and Javascript and for a while, that was good too. The static site was born and then died immediately. It's killer - the back end - was armed to the teeth with power and possibility. First PERL and later PHP scripts regularly wrote out HTML and sometimes even JavaScript - as we layered technologies one on top of each other things started to get messy. Applications regularly tightly depended on specific application settings (Apache rewrite rules anyone?), or had bizarre dependencies which for some reason only RedHat EL 4 satisfies. What began as a \"Look what I can do!\" quickly evolved into \"Oh god what did I do?\"." +"" +
 "</p><p>" +"" +
-"	The came the frameworks. Ruby-on-Rails - a framework which in an organized way bundled up all the tricks of the past decade - It had built in caching, error handling, routing, database abstraction and instead of a thousand tricks, we had one beast of a framework - and for a while, it was good too. But things didn't stop there. The PHP community released Symfony and Drupal which packaged the majority of what made Rails special - the Python community released Django - the PERL folks releaed about 10 frameworks that noone used - .NET is a thing - and more recently, a small group of people wrote Node.js - A server framework for Javascript based on Google's V8. And boy, was it ever good." +"" +
+"	The came the frameworks. Ruby-on-Rails - a framework which in an organized way bundled up all the tricks of the past decade - It had built in caching, error handling, routing, database abstraction and instead of a thousand tricks, we had one beast of a framework - and for a while, it was good too. But things didn't stop there. The PHP community released Symfony and Drupal which packaged the majority of what made Rails special - the Python community released Django - the PERL folks released about 10 frameworks that noone used - .NET is a thing - and more recently, a small group of people wrote Node.js - A server framework for Javascript based on Google's V8. And boy, was it ever good." +"" +
 "</p><p>" +"" +
-"	Now Javascript had it's problems (oh did it ever), but it was required knowledge - Javascipt is the language of the browser and therefore the language of the web. We used it for our animations and our AJAX then forgot about it - prefering to focus on what was really important for most developers - the server. But time marched on, and as Javascript improved and Node.js gained popularity, some wondered why we'd even bother using anything <i>but</i> Javascript. Why not unify? A single language for the web - for servers and browsers!" +"" +
+"	Now JavaScript had it's problems (oh did it ever), but it was required knowledge - JavaScript is the language of the browser and therefore the language of the web. We used it for our animations and our AJAX then forgot about it - preferring to focus on what was really important for most developers - the server. But time marched on, and as JavaScript improved and Node.js gained popularity, some wondered why we'd even bother using anything <i>but</i> Javascript. Why not unify? A single language for the web - for servers and browsers!" +"" +
 "</p><p>" +"" +
-"	Behind all this web development, systems administrators were getting work done too. Reliance on single points of failure were elimitated one by one - large infrastructures were virtualized - scales of economy kicked in, and the Cloud was born. In a hurry, developers worth their salt realized their applications needed to be able to be deployed in moments - needed to bundle everything they depended on. Suddenly, it was possible to write code which described and was able to deploy an entire environment. Suddenly, developers were coding their operations. Instead of asking a SysAdmin for a server, I can execute a line of code and get one in moments! Suddenly, it became possible to write code for more than servers and browsers - <b>we started to write code for infrastructures</b>. With the availability of Javascript SDKs for Cloud providers - we now have a single language which can deliver the entirety of the web - the client, the server, and the cloud." +"" +
+"	Behind all this web development, systems administrators were getting work done too. Reliance on single points of failure were eliminated one by one - large infrastructures were virtualized - scales of economy kicked in, and the Cloud was born. In a hurry, developers worth their salt realized their applications needed to be able to be deployed in moments - needed to bundle everything they depended on. Suddenly, it was possible to write code which described and was able to deploy an entire environment. Suddenly, developers were coding their operations. Instead of asking a SysAdmin for a server, I can execute a line of code and get one in moments! Suddenly, it became possible to write code for more than servers and browsers - <b>we started to write code for infrastructures</b>. With the availability of JavaScript SDKs for Cloud providers - we now have a single language which can deliver the entirety of the web - the client, the server, and the cloud." +"" +
 "</p>" +"" +
 "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> These days...</h3>" +"" +
 "<p>" +"" +
 "	So where are we now? Is it even possible for a normal web developer to build a web application any more? Which frameworks to pick? Which clouds to use? Do we need a team of 10 experts and a corporate SLA? This article will come in a few parts, and we'll work up to the full web application and talk about all the pieces - but for now let's start by going back in time and creating a static site - A site like we would have made before we started renaming our .html files as .php because we wanted a page changer or some text entry field. Let's reject hacky tricks and reject billion line frameworks. <b>Let's build a modern website</b>." +"" +
 "</p>" +"" +
 "<p>" +"" +
-"	<i>Note: The only requirement for this tutorial is an understanding of Javascript</i>" +"" +
+"	<i>Note: The only requirement for this tutorial is an understanding of JavaScript</i>" +"" +
 "</p>" +"" +
 "<p>" +"" +
 "	These days we have a lot of requirements. We want:" +"" +
@@ -97,7 +97,7 @@ module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> 
 "	</ul>" +"" +
 "</p>" +"" +
 "<p>" +"" +
-"	To answer the questions, we'll use Javascript, Node.js, Gulp.js, SaltStack, and NPM/Gulp respectively." +"" +
+"	To answer the questions, we'll use JavaScript, Node.js, Gulp.js, SaltStack, and NPM/Gulp respectively." +"" +
 "</p>" +"" +
 "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> Getting started...</h3>" +"" +
 "<p>" +"" +
@@ -107,7 +107,7 @@ module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> 
 "	Let's start a new project! We'll use NPM, the brilliant Node.js package manager." +"" +
 "</p>" +"" +
 "<p>" +"" +
-"	<i>Note: Commands which start with '> ' are BASH commands - everything else will be identified as part of a Javascript file.</i>" +"" +
+"	<i>Note: Commands which start with '> ' are BASH commands - everything else will be identified as part of a JavaScript file.</i>" +"" +
 "</p>" +"" +
 "<p>" +"" +
 "	<kbd>&gt; mkdir modernstaticsite &amp;&amp; cd $_</kbd> <i>$_ means 'the last argument of the last command', so \"cd modernstaticsite\"</i>" +"" +
@@ -131,6 +131,15 @@ module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> 
 "	<kbd>&gt; echo \"node_modules\" > .gitignore</kbd>" +"" +
 "</p>" +"" +
 "<p>" +"" +
+"	Next let's create the skeleton of our project - a few directories where we'll keep our application organized - we'll use the common 'src' for our source files and 'dist' for our \"compiled\" site." +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	<kbd>&gt; mkdir -p dist/assets &amp;&amp; mkdir -p src/assets</kbd>" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	<kbd>&gt; echo 'Hello modern world!' > src/index.html</kbd>" +"" +
+"</p>" +"" +
+"<p>" +"" +
 "	For our build system we'll use the excellent <a href=\"http://gulpjs.com/\">Gulp.js</a>" +"" +
 "</p>" +"" +
 "<p>" +"" +
@@ -139,17 +148,251 @@ module.exports = "<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> 
 "<p>" +"" +
 "	Notice that we used '--save-dev', which automatically writes our dependencies to our package.json file. If we need to install a production dependencies (none for a static site!), use '--save' - Keeping track of what we do is the first step! In the future (or on other machines), we can simply <kbd>npm install</kbd> and NPM will install all our dependencies!" +"" +
 "</p>" +"" +
+"<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> Cookin' with fire</h3>" +"" +
 "<p>" +"" +
-"GULPFILE" +"" +
+"	Now let's setup Gulp.js - Gulp by default will look for a \"gulpfile.js\" - in the gulpfile we'll define some tasks which will build our site. When I say 'build', we'll start with simply copying the files into a directory called \"dist\" (for distributing). Later in the tutorial we can add all kinds of fun things to our gulpfile (Like LESS, Jade, Browserify, etc etc). Create a new \"gulpfile.js\" in your project directory using whatever editor you prefer:" +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"var gulp = require('gulp');<br>" +"" +
+"gulp.task('html', function () {<br>" +"" +
+"  gulp.src('src/index.html').pipe(gulp.dest('dist'));" +"" +
+"<br>});" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	Take a moment to read through that - all we're doing is telling \"gulp\" that our HTML task simply copies src/index.html to dist/. This might seem fairly pointless right now, but we're just getting started! Let's add a task to copy our CSS and our images as well! (These go after the \"});\" in the last blurb)" +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"gulp.task('css', function () {<br>" +"" +
+"  gulp.src('src/style.css').pipe(gulp.dest('dist/assets'));" +"" +
+"<br>});<br>" +"" +
+"gulp.task('assets', function () {<br>" +"" +
+"  gulp.src('src/assets/**/*').pipe(gulp.dest('dist/assets'));" +"" +
+"<br>});<br>" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	Now, from the command like, a <kbd>gulp html</kbd>, <kbd>gulp css</kbd>, etc will copy your files from your \"src/\" directory into your \"dist/\" directory. Let's bundle those steps for convenience!" +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"gulp.task('default', [ 'html', 'css', 'assets' ]);" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	Now, at the command line, in the root of your project, you can simply <kbd>gulp</kbd>! Let's add something useful, to illustrate Gulp's power. Let's use the excellent <a href=\"http://lesscss.org/\">LESS</a> instead of boring old CSS. Let's rewrite our 'css' gulp task:" +"" +
 "</p>" +"" +
 "<p>" +"" +
-"CLOUDFILES" +"" +
+"	<kbd>&gt; npm install gulp-less gulp-rename --save-dev</kbd>, then..." +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"var less = require('gulp-less');<br>" +"" +
+"var rename = require('gulp-rename');<br>" +"" +
+"gulp.task('css', function () {<br>" +"" +
+"  gulp.src('src/style.less')<br>" +"" +
+"    .pipe(less())<br>" +"" +
+"    // Since we don't want our compiled CSS to be named \"style.less\",<br>" +"" +
+"    // we'll use \"gulp-rename\":<br>" +"" +
+"    .pipe(rename('style.css'))<br>" +"" +
+"    .pipe(gulp.dest('dist/assets'));" +"" +
+"<br>});<br>" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	Huray! No need for editor plugins - no need for tiresome build tasks - no need for massive frameworks - simply <kbd>gulp</kbd> and go! At the end of this article, I'll show some examples for my favorite gulp plugins. Most sites will probably want to minify HTML, CSS and JavaScript. They'll probably want to error check the JavaScript using something like <a href=\"http://www.jshint.com/\">jshint</a>. We can even use Gulp to deploy our static site! Before we get to deployment, let's go a step further. Let's build a development server with livereload! Sounds complex doesn't it! Not so much:" +"" +
 "</p>" +"" +
 "<p>" +"" +
-"GULP + PKGCLOUD + CLOUDFILES = GULP DEPLOY" +"" +
+"	<kbd>&gt; npm install gulp-connect --save-dev</kbd>, then..." +"" +
 "</p>" +"" +
-"<p>Gulp development server /w liveReload</p>" +"" +
-"<p>ALL THE GULP-PLUGINS!</p>" ;
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"var connect = require('gulp-connect');<br>" +"" +
+"gulp.task('connect', [ 'default' ], function () {<br>" +"" +
+"  connect.server({<br>" +"" +
+"    root: 'dist',<br>" +"" +
+"    port: 9000,<br>" +"" +
+"    livereload: true<br>" +"" +
+"  });" +"" +
+"<br>});<br>" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	You can now run a <kbd>gulp connect</kbd> and blamo! <a href=\"http://localhost:9000\">http://localhost:9000</a> - Time to celebrate!" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	But wait - if you change your app/index.html, nothing happens :O Let's solve that by watching our \"src\" directory and reloading the development server when we notice something changes!" +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"var path = require('path');<br>" +"" +
+"gulp.task('watch', [ 'connect' ], function () {<br>" +"" +
+"  gulp.watch('src/**/*', { read: false }, function (event) {<br>" +"" +
+"    // So we'll check which file was changed and send a<br>" +"" +
+"    // message over to our dev server telling it to reload<br>" +"" +
+"    var reloadAsset = 'index.html';<br>" +"" +
+"    // We'll do all tasks by default when we see anything change<br>" +"" +
+"    var taskName = 'default';<br>" +"" +
+"    // But if we see a common file change, we can specifically reload that file<br>" +"" +
+"    // and specifically rerun only that task<br>" +"" +
+"    switch (path.extname(event.path)) {<br>" +"" +
+"      case '.html':<br>" +"" +
+"        reloadAsset = 'index.html';<br>" +"" +
+"        taskName = 'html';<br>" +"" +
+"        break;<br>" +"" +
+"      case '.less':<br>" +"" +
+"        reloadAsset = 'assets/style.css';<br>" +"" +
+"        taskName = 'css';<br>" +"" +
+"        break;<br>" +"" +
+"    }<br>" +"" +
+"    gulp.task('reloadBrowser', [ taskName ], function () {<br>" +"" +
+"      gulp.src('dist/' + reloadAsset).pipe(connect.reload());<br>" +"" +
+"    });<br>" +"" +
+"    gulp.start('reloadBrowser');<br>" +"" +
+"  });<br>" +"" +
+"});<br>" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	You'll need the <a href='http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions'>LiveReload</a> plugin for your browser - once setup you can go to <a href=\"http://localhost:9000\">http://localhost:9000</a> and start making changes to your site! Watch and changes are reloaded in mere microseconds! In my tests, all 3 tasks and the browser refresh take less than 1 millisecond!" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	Spend a moment adding some content to your site - play with Gulp if you need anything else (<a href=\"https://github.com/wearefractal/gulp-coffee\">Coffeescript</a>? <a href=\"https://www.npmjs.org/package/gulp-jade\">Jade</a>? <a href=\"https://www.npmjs.org/package/gulp-jshint\">JSHint</a>?). Once you're done playing with livereload, let's deploy your site!" +"" +
+"</p>" +"" +
+"<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> Quickly! To the Cloudmobile!</h3>" +"" +
+"<p>" +"" +
+"	So what do we have so far? We have version control, we have dependency tracking, and we have an awesome streaming build system. We have everything we need to build a modern site, so now let's build a system to deploy it to the world! We'll use the excellent <a href=\"https://github.com/pkgcloud/pkgcloud\">pkgcloud</a> to stream our 'dist' directory (the final product of our build) to the cloud!" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	While pkgcloud works with all the major providers, I'll focus on <a href=\"http://www.rackspace.com/\">Rackspace</a>'s <a href=\"http://www.rackspace.com/cloud/files/\">Cloud Files</a>. Full disclosure: I'm a Racker, and love Cloud Files - other clouds are available (and pkgcloud works with them just as well!)" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	I'll be using a feature of Cloud Files called <a href=\"http://www.rackspace.com/blog/rackspace-cloud-files-how-to-create-a-static-website/\">Static Site</a> - If you're not a Rackspace user, you can create an account <a href=\"http://developer.rackspace.com/devtrial/\">here and get $300 free credit</a>. At $0.12/GB for CDN bandwidth, that means you can do 415GB of bandwidth per month for 6 months for essentially nothing - and with our Gulp automatically compressing and minifying files, we can stretch that 415GB to millions and millions of visitors!" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	Once you're logged into your Rackspace Cloud Control panel, select \"Files\" and then create a new container. When prompted for the type, select \"Static Site\". The container name doesn't matter, but remember it for the next step! You can point your domain (if you have one) at the URL for the Cloud Files container using a CNAME record." +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	So, without further ado, let's build our deployment system! We'll build it directly into Gulp for our static site example (in future articles we'll buff this up considerably). I mentioned we'd use pkgcloud - for the sake of this articles length, we'll use the wrapped <a href=\"https://github.com/pieceoftoast/gulp-cloudfiles\">gulp-cloudfiles</a> which is a <a href=\"https://github.com/pieceoftoast/gulp-cloudfiles/blob/master/index.js\">short script</a> which wraps pkgcloud." +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	<kbd>&gt; npm install gulp-cloudfiles --save-dev</kbd>" +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"var cloudfiles = require('cloud-files');<br>" +"" +
+"var rackspace = {<br>" +"" +
+"  username: 'RACKSPACE_USERNAME_HERE',<br>" +"" +
+"  apiKey: 'RACKSPACE_APIKEY_HERE',<br>" +"" +
+"  // The region you created your container in:<br>" +"" +
+"  // Valid values are 'IAD', 'DFW', 'ORD', 'AUS', 'HKG', 'LON'<br>" +"" +
+"  region: 'IAD',<br>" +"" +
+"  container: 'RACKSPACE_CONTAINER_NAME'<br>" +"" +
+"};<br>" +"" +
+"var deployOptions = {<br>" +"" +
+"  delay: 0,<br>" +"" +
+"  uploadPath: \"\"<br>" +"" +
+"};<br>" +"" +
+"// Let's check the arguments - if we typed 'gulp deploy'<br>" +"" +
+"// we'll set the deploy variable to true<br>" +"" +
+"var deploy = process.argv[2] === 'deploy' ? true : false;<br>" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	Awesome - now we have the ability to upload to cloud files - make sure to set the proper information in the \"rackspace\" object. \"deployOptions.delay\" allows you to set a time delay between uploading files, while \"deployOptions.uploadPath\" allows you to prefix files with a particular path." +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	All that's left now is to modify our gulp tasks to be aware of the \"deploy\" variable. If we're deploying, we'll stream the files to the cloud! Let's rewrite our 'html' task first:" +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"gulp.task('html', function () {<br>" +"" +
+"  var stream = gulp.src('src/index.html').pipe(gulp.dest('dist'));<br>" +"" +
+"  if (deploy) {<br>" +"" +
+"    stream.pipe(cloudfiles(rackspace, deployOptions));<br>" +"" +
+"  }<br>" +"" +
+"});<br>" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	So gulp knows what we want to do when deploying, we'll link up a \"deploy\" task to  run all our default tasks:" +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"gulp.task('deploy', [ 'default' ]);" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	Now, <kbd>gulp deploy</kbd> - Congrats, you've built a complete web application!" +"" +
+"</p>" +"" +
+"<iframe width=\"100%\" height=\"315\" src=\"//www.youtube.com/embed/AXwGVXD7qEQ\" frameborder=\"0\" allowfullscreen></iframe>" +"" +
+"<p>" +"" +
+"	<br>" +"" +
+"	Forgive me for the episode one reference..." +"" +
+"</p>" +"" +
+"<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> Browserify, bundles, and all sorts of good stuff</h3>" +"" +
+"<p>" +"" +
+"	So we've already built a great system which solves a huge number of issues. We have zero reliance on a server (or any single point of failure). We're being hosted by a massive CDN with over 200 edge locations. Our CSS, HTML, JavaScript, and even our images can be compressed automatically by Gulp. What else is there? Well, one of the answers to that is bundles. LESS is already achieving this for us - we have Gulp compile our single 'src/style.less' file into a style.css file in 'dist/' - but in our LESS file, we can use <a href=\"http://lesscss.org/features/#features-overview-feature-importing\">@import</a>. This will pull in the contents of another LESS file. But when converted to CSS - suddenly we have a \"bundle\" - in other words, X number of LESS files in 'src/' become ONE CSS file in 'dist/'. In our HTML we only need to use one single:" +"" +
+"</p>" +"" +
+"<pre class=\"code\">" +"" +
+"&lt;link rel=\"stylesheet\" href=\"/assets/style.css\"&gt;" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	Since our \"gulp watch\" task is basing its actions off the file extention, and since it will run the \"css\" task every time it sees a change to a \".less\" file, we can now edit _any included .less_ file and the browser will still reload! All our styles are being \"bundled\". This drastically improved browser load times by reducing HTTP request overhead." +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	But that's just CSS! Let's do the same to JavaScript! In fact, why use some new command? Why not continue to use Node.js's \"require()\" that we've been using this whole tutorial? Enter <a href=\"http://browserify.org/\">Browserify</a>. Let's write a new Gulp task for Javascript! " +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	<kbd>&gt; npm install browserify vinyl-source-stream --save-dev</kbd>" +"" +
+"</p>" +"" +
+"<i>gulpfile.js</i>" +"" +
+"<pre class=\"code\">" +"" +
+"var browserify = require('browserify');<br>" +"" +
+"var source = require('vinyl-source-stream');<br>" +"" +
+"gulp.task('javascript', function () {<br>" +"" +
+"  var stream = browserify({<br>" +"" +
+"    entries: [ './src/index.js' ],<br>" +"" +
+"    extensions: [ '.js' ]<br>" +"" +
+"  })<br>" +"" +
+"    .bundle()<br>" +"" +
+"    .pipe(source('bundle.js'))<br>" +"" +
+"    .pipe(gulp.dest('dist/assets'));" +"" +
+"  <br>" +"" +
+"  if (deploy) {<br>" +"" +
+"    stream.pipe(cloudfiles(rackspace, deployOptions));<br>" +"" +
+"  }<br>" +"" +
+"});<br>" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	Now we've got the ability to use \"require()\" in our 'src/index.js'! We can now bundle X number of JavaScript files into a single JavaScript bundle! This means the HTML only needs one single:" +"" +
+"</p>" +"" +
+"<pre class=\"code\">" +"" +
+"&lt;script type=\"text/javascript\" src=\"/assets/bundle.js\"&gt;&lt;/script&gt;" +"" +
+"</pre>" +"" +
+"<p>" +"" +
+"	And yes, you can <kbd>require('jquery');</kbd> or <kbd>require('angular');</kbd> if you want - those files will automatically be bundled up into your 'dist/assets/bundle.js' (and minified if you choose to do so)." +"" +
+"</p>" +"" +
+"<h3><span class=\"glyphicon glyphicon-chevron-right\"></span> In summary</h3>" +"" +
+"<p>" +"" +
+"	We just built quite a lot! We have a new site project, we got a nice developer discount from Rackspace, we have a build system which we can easily extend to include our favorite technologies, we have a built-in development server which never touches or mucks up our codebase - we have a production environment which we can deploy to - we even have bundles for CSS and JavaScript to improve load times and reduce bandwidth overhead!" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	There are still a lot of improvements to make. We can add:" +"" +
+"	<ul>" +"" +
+"		<li>A test and QA Cloud Container and the ability to deploy to these easily <kbd>gulp deploy test</kbd></li>" +"" +
+"		<li>Proper QA testing and Linting - a <kbd>gulp lint</kbd> task and something like <a href=\"http://visionmedia.github.io/mocha/\">mocha</a></li>" +"" +
+"		<li>Path prefixing for CSS and HTML - ie: the ability to change asset URLs when we deploy</li>" +"" +
+"		<li>The ability to bundle HTML - <a href=\"https://github.com/JohnPostlethwait/stringify\">Stringify</a></li>" +"" +
+"		<li>The ability to have our development server rewrite URLs - <a href=\"https://github.com/tinganho/connect-modrewrite\">connect-modrewrite</a></li>" +"" +
+"		<li>A back end! This will be the topic of part 2 of this article - Coming soon!</li>" +"" +
+"	</ul>" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	This entire website is based on this tech. I am a firm believer that the vast majority of the web out there could be 100% static. This site for instance, is 100% static and yet features a blog, multiple pages, permalinks, etc. Run a Google Pagespeed against my site!" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	The full source code to my site can be found here: <a href=\"https://github.com/erulabs/erulabs.com\">https://github.com/erulabs/erulabs.com</a>" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	It has a bit more complex examples for Gulp, and addresses many of the improvements listed above. Please feel free to email me at seandon.mooy@gmail.com with any questions you might have (or recommendations!)" +"" +
+"</p>" +"" +
+"<p>" +"" +
+"	Good luck and happy hacking! - Seandon Mooy" +"" +
+"</p>" ;
 
 },{}],3:[function(require,module,exports){
 /**

@@ -55,7 +55,7 @@ gulp.task 'style', ->
 		.pipe gp.plumber()
 		.pipe gp.less({
 			compress: deploy
-			rootpath: assetURL
+			rootpath: assetURL 
 		})
 		.pipe gp.rename 'bundle.css'
 		.pipe gulp.dest 'dist/assets'
@@ -107,6 +107,4 @@ gulp.task 'watch', [ 'connect' ], ->
 			gulp.task 'clientReload', [taskname], ->
 				gulp.src 'dist/' + reloadasset
 					.pipe gp.connect.reload()
-
 			gulp.start 'clientReload'
-
