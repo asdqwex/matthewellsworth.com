@@ -1,4 +1,5 @@
 require('./vendor/angular.js');
+require('./vendor/prism.js');
 
 app = angular.module 'erulabs', []
 

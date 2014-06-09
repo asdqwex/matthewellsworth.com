@@ -82,30 +82,36 @@
 	Now let's setup Gulp.js - Gulp by default will look for a "gulpfile.js" - in the gulpfile we'll define some tasks which will build our site. When I say 'build', we'll start with simply copying the files into a directory called "dist" (for distributing). Later in the tutorial we can add all kinds of fun things to our gulpfile (Like LESS, Jade, Browserify, etc etc). Create a new "gulpfile.js" in your project directory using whatever editor you prefer:
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
-var gulp = require('gulp');<br>
-gulp.task('html', function () {<br>
-  gulp.src('src/index.html').pipe(gulp.dest('dist'));
-<br>});
+<pre>
+	<code class="language-javascript">
+var gulp = require('gulp');\n
+gulp.task('html', function () {\n
+  gulp.src('src/index.html').pipe(gulp.dest('dist'));\n
+});
+	</code>
 </pre>
 <p>
 	Take a moment to read through that - all we're doing is telling "gulp" that our HTML task simply copies src/index.html to dist/. This might seem fairly pointless right now, but we're just getting started! Let's add a task to copy our CSS and our images as well! (These go after the "});" in the last blurb)
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
-gulp.task('css', function () {<br>
-  gulp.src('src/style.css').pipe(gulp.dest('dist/assets'));
-<br>});<br>
-gulp.task('assets', function () {<br>
-  gulp.src('src/assets/**/*').pipe(gulp.dest('dist/assets'));
-<br>});<br>
+<pre>
+	<code class="language-javascript">
+gulp.task('css', function () {\n
+  gulp.src('src/style.css').pipe(gulp.dest('dist/assets'));\n
+});\n
+gulp.task('assets', function () {\n
+  gulp.src("src/assets/**/*").pipe(gulp.dest('dist/assets'));\n
+});
+	</code>
 </pre>
 <p>
 	Now, from the command like, a <kbd>gulp html</kbd>, <kbd>gulp css</kbd>, etc will copy your files from your "src/" directory into your "dist/" directory. Let's bundle those steps for convenience!
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
+<pre>
+	<code class="language-javascript">
 gulp.task('default', [ 'html', 'css', 'assets' ]);
+	</code>
 </pre>
 <p>
 	Now, at the command line, in the root of your project, you can simply <kbd>gulp</kbd>! Let's add something useful, to illustrate Gulp's power. Let's use the excellent <a href="http://lesscss.org/">LESS</a> instead of boring old CSS. Let's rewrite our 'css' gulp task:
@@ -114,17 +120,19 @@ gulp.task('default', [ 'html', 'css', 'assets' ]);
 	<kbd>&gt; npm install gulp-less gulp-rename --save-dev</kbd>, then...
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
-var less = require('gulp-less');<br>
-var rename = require('gulp-rename');<br>
-gulp.task('css', function () {<br>
-  gulp.src('src/style.less')<br>
-    .pipe(less())<br>
-    // Since we don't want our compiled CSS to be named "style.less",<br>
-    // we'll use "gulp-rename":<br>
-    .pipe(rename('style.css'))<br>
-    .pipe(gulp.dest('dist/assets'));
-<br>});<br>
+<pre>
+	<code class="language-javascript">
+var less = require('gulp-less');\n
+var rename = require('gulp-rename');\n
+gulp.task('css', function () {\n
+  gulp.src('src/style.less')\n
+    .pipe(less())\n
+    // Since we don't want our compiled CSS to be named "style.less",\n
+    // we'll use "gulp-rename":\n
+    .pipe(rename('style.css'))\n
+    .pipe(gulp.dest('dist/assets'));\n
+});
+	</code>
 </pre>
 <p>
 	Huray! No need for editor plugins - no need for tiresome build tasks - no need for massive frameworks - simply <kbd>gulp</kbd> and go! At the end of this article, I'll show some examples for my favorite gulp plugins. Most sites will probably want to minify HTML, CSS and JavaScript. They'll probably want to error check the JavaScript using something like <a href="http://www.jshint.com/">jshint</a>. We can even use Gulp to deploy our static site! Before we get to deployment, let's go a step further. Let's build a development server with livereload! Sounds complex doesn't it? Not so much:
@@ -133,15 +141,17 @@ gulp.task('css', function () {<br>
 	<kbd>&gt; npm install gulp-connect --save-dev</kbd>, then...
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
-var connect = require('gulp-connect');<br>
-gulp.task('connect', [ 'default' ], function () {<br>
-  connect.server({<br>
-    root: 'dist',<br>
-    port: 9000,<br>
-    livereload: true<br>
-  });
-<br>});<br>
+<pre>
+	<code class="language-javascript">
+var connect = require('gulp-connect');\n
+gulp.task('connect', [ 'default' ], function () {\n
+  connect.server({\n
+    root: 'dist',\n
+    port: 9000,\n
+    livereload: true\n
+  });\n
+});
+	</code>
 </pre>
 <p>
 	You can now run a <kbd>gulp connect</kbd> and blamo! <a href="http://localhost:9000">http://localhost:9000</a> - Time to celebrate!
@@ -150,33 +160,35 @@ gulp.task('connect', [ 'default' ], function () {<br>
 	But wait - if you change your app/index.html, nothing happens :O Let's solve that by watching our "src" directory and reloading the development server when we notice something changes!
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
-var path = require('path');<br>
-gulp.task('watch', [ 'connect' ], function () {<br>
-  gulp.watch('src/**/*', { read: false }, function (event) {<br>
-    // So we'll check which file was changed and send a<br>
-    // message over to our dev server telling it to reload<br>
-    var reloadAsset = 'index.html';<br>
-    // We'll do all tasks by default when we see anything change<br>
-    var taskName = 'default';<br>
-    // But if we see a common file change, we can specifically reload that file<br>
-    // and specifically rerun only that task<br>
-    switch (path.extname(event.path)) {<br>
-      case '.html':<br>
-        reloadAsset = 'index.html';<br>
-        taskName = 'html';<br>
-        break;<br>
-      case '.less':<br>
-        reloadAsset = 'assets/style.css';<br>
-        taskName = 'css';<br>
-        break;<br>
-    }<br>
-    gulp.task('reloadBrowser', [ taskName ], function () {<br>
-      gulp.src('dist/' + reloadAsset).pipe(connect.reload());<br>
-    });<br>
-    gulp.start('reloadBrowser');<br>
-  });<br>
-});<br>
+<pre>
+	<code class="language-javascript">
+var path = require('path');\n
+gulp.task('watch', [ 'connect' ], function () {\n
+  gulp.watch('src/**/*', { read: false }, function (event) {\n
+    // So we'll check which file was changed and send a\n
+    // message over to our dev server telling it to reload\n
+    var reloadAsset = 'index.html';\n
+    // We'll do all tasks by default when we see anything change\n
+    var taskName = 'default';\n
+    // But if we see a common file change, we can specifically reload that file\n
+    // and specifically rerun only that task\n
+    switch (path.extname(event.path)) {\n
+      case '.html':\n
+        reloadAsset = 'index.html';\n
+        taskName = 'html';\n
+        break;\n
+      case '.less':\n
+        reloadAsset = 'assets/style.css';\n
+        taskName = 'css';\n
+        break;\n
+    }\n
+    gulp.task('reloadBrowser', [ taskName ], function () {\n
+      gulp.src('dist/' + reloadAsset).pipe(connect.reload());\n
+    });\n
+    gulp.start('reloadBrowser');\n
+  });\n
+});
+	</code>
 </pre>
 <p>
 	You'll need the <a href='http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions'>LiveReload</a> plugin for your browser - once setup you can go to <a href="http://localhost:9000">http://localhost:9000</a> and start making changes to your site! Watch and changes are reloaded in mere microseconds! In my tests, all 3 tasks and the browser refresh take less than 1 millisecond!
@@ -204,23 +216,25 @@ gulp.task('watch', [ 'connect' ], function () {<br>
 	<kbd>&gt; npm install gulp-cloudfiles --save-dev</kbd>
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
-var cloudfiles = require('cloud-files');<br>
-var rackspace = {<br>
-  username: 'RACKSPACE_USERNAME_HERE',<br>
-  apiKey: 'RACKSPACE_APIKEY_HERE',<br>
-  // The region you created your container in:<br>
-  // Valid values are 'IAD', 'DFW', 'ORD', 'AUS', 'HKG', 'LON'<br>
-  region: 'IAD',<br>
-  container: 'RACKSPACE_CONTAINER_NAME'<br>
-};<br>
-var deployOptions = {<br>
-  delay: 0,<br>
-  uploadPath: ""<br>
-};<br>
-// Let's check the arguments - if we typed 'gulp deploy'<br>
-// we'll set the deploy variable to true<br>
-var deploy = process.argv[2] === 'deploy' ? true : false;<br>
+<pre>
+	<code class="language-javascript">
+var cloudfiles = require('cloud-files');\n
+var rackspace = {\n
+  username: 'RACKSPACE_USERNAME_HERE',\n
+  apiKey: 'RACKSPACE_APIKEY_HERE',\n
+  // The region you created your container in:\n
+  // Valid values are 'IAD', 'DFW', 'ORD', 'AUS', 'HKG', 'LON'\n
+  region: 'IAD',\n
+  container: 'RACKSPACE_CONTAINER_NAME'\n
+};\n
+var deployOptions = {\n
+  delay: 0,\n
+  uploadPath: ""\n
+};\n
+// Let's check the arguments - if we typed 'gulp deploy'\n
+// we'll set the deploy variable to true\n
+var deploy = process.argv[2] === 'deploy' ? true : false;
+	</code>
 </pre>
 <p>
 	Awesome - now we have the ability to upload to cloud files - make sure to set the proper information in the "rackspace" object. "deployOptions.delay" allows you to set a time delay between uploading files, while "deployOptions.uploadPath" allows you to prefix files with a particular path.
@@ -229,20 +243,24 @@ var deploy = process.argv[2] === 'deploy' ? true : false;<br>
 	All that's left now is to modify our gulp tasks to be aware of the "deploy" variable. If we're deploying, we'll stream the files to the cloud! Let's rewrite our 'html' task first:
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
+<pre>
+	<code class="language-javascript">
 gulp.task('html', function () {<br>
   var stream = gulp.src('src/index.html').pipe(gulp.dest('dist'));<br>
   if (deploy) {<br>
     stream.pipe(cloudfiles(rackspace, deployOptions));<br>
   }<br>
 });<br>
+	</code>
 </pre>
 <p>
 	So gulp knows what we want to do when deploying, we'll link up a "deploy" task to  run all our default tasks:
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
+<pre>
+	<code class="language-javascript">
 gulp.task('deploy', [ 'default' ]);
+	</code>
 </pre>
 <p>
 	Now, <kbd>gulp deploy</kbd> - Congrats, you've built a complete web application!
@@ -256,8 +274,10 @@ gulp.task('deploy', [ 'default' ]);
 <p>
 	So we've already built a great system which solves a huge number of issues. We have zero reliance on a server (or any single point of failure). We're being hosted by a massive CDN with over 200 edge locations. Our CSS, HTML, JavaScript, and even our images can be compressed automatically by Gulp. What else is there? Well, one of the answers to that is bundles. LESS is already achieving this for us - we have Gulp compile our single 'src/style.less' file into a style.css file in 'dist/' - but in our LESS file, we can use <a href="http://lesscss.org/features/#features-overview-feature-importing">@import</a>. This will pull in the contents of another LESS file. But when converted to CSS - suddenly we have a "bundle" - in other words, X number of LESS files in 'src/' become ONE CSS file in 'dist/'. In our HTML we only need to use one single:
 </p>
-<pre class="code">
+<pre>
+	<code class="language-css">
 &lt;link rel="stylesheet" href="/assets/style.css"&gt;
+	</code>
 </pre>
 <p>
 	Since our "gulp watch" task is basing its actions off the file extention, and since it will run the "css" task every time it sees a change to a ".less" file, we can now edit _any included .less_ file and the browser will still reload! All our styles are being "bundled". This drastically improved browser load times by reducing HTTP request overhead.
@@ -269,28 +289,31 @@ gulp.task('deploy', [ 'default' ]);
 	<kbd>&gt; npm install browserify vinyl-source-stream --save-dev</kbd>
 </p>
 <i>gulpfile.js</i>
-<pre class="code">
-var browserify = require('browserify');<br>
-var source = require('vinyl-source-stream');<br>
-gulp.task('javascript', function () {<br>
-  var stream = browserify({<br>
-    entries: [ './src/index.js' ],<br>
-    extensions: [ '.js' ]<br>
-  })<br>
-    .bundle()<br>
-    .pipe(source('bundle.js'))<br>
-    .pipe(gulp.dest('dist/assets'));
-  <br>
-  if (deploy) {<br>
-    stream.pipe(cloudfiles(rackspace, deployOptions));<br>
-  }<br>
-});<br>
+<pre>
+	<code class="language-javascript">
+var browserify = require('browserify');\n
+var source = require('vinyl-source-stream');\n
+gulp.task('javascript', function () {\n
+  var stream = browserify({\n
+    entries: [ './src/index.js' ],\n
+    extensions: [ '.js' ]\n
+  })\n
+    .bundle()\n
+    .pipe(source('bundle.js'))\n
+    .pipe(gulp.dest('dist/assets'));\n
+  if (deploy) {\n
+    stream.pipe(cloudfiles(rackspace, deployOptions));\n
+  }\n
+});
+	</code>
 </pre>
 <p>
 	Now we've got the ability to use "require()" in our 'src/index.js'! We can now bundle X number of JavaScript files into a single JavaScript bundle! This means the HTML only needs one single:
 </p>
-<pre class="code">
+<pre>
+	<code class="language-css">
 &lt;script type="text/javascript" src="/assets/bundle.js"&gt;&lt;/script&gt;
+	</code>
 </pre>
 <p>
 	And yes, you can <kbd>require('jquery');</kbd> or <kbd>require('angular');</kbd> if you want - those files will automatically be bundled up into your 'dist/assets/bundle.js' (and minified if you choose to do so).
