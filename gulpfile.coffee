@@ -11,9 +11,9 @@ rewrite    = require 'connect-modrewrite'
 stringify  = require 'stringify'
 streamify  = require 'gulp-streamify'
 uglify     = require 'gulp-uglify'
-rackspace  = 
-	username: 'seandon'
-	apiKey: 'd197727875ad413198fd341d5d70d434'
+rackspace  =
+	username: 'RACKSPACE_USERNAME'
+	apiKey: 'RACKSPACE_APIKEY'
 	region: 'DFW'
 rackspace.container = if process.argv[3]? then process.argv[3] else 'live'
 deployOptions =
