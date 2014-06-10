@@ -2,7 +2,7 @@
 <p>
 	In the beginning, there was HTML. And for a while, it was good. Then came CSS and JavaScript and for a while, that was good too. The static site was born and then died immediately. It's killer - the back end - was armed to the teeth with power and possibility. First PERL and later PHP scripts regularly wrote out HTML and sometimes even JavaScript - as we layered technologies one on top of each other things started to get messy. Applications regularly tightly depended on specific application settings (Apache rewrite rules anyone?), or had bizarre dependencies which for some reason only RedHat EL 4 satisfies. What began as a "Look what I can do!" quickly evolved into "Oh god what did I do?".
 </p><p>
-	The came the frameworks. Ruby-on-Rails - a framework which in an organized way bundled up all the tricks of the past decade - It had built in caching, error handling, routing, database abstraction and instead of a thousand tricks, we had one beast of a framework - and for a while, it was good too. But things didn't stop there. The PHP community released Symfony and Drupal which packaged the majority of what made Rails special - the Python community released Django - the PERL folks released about 10 frameworks that noone used - .NET is a thing - and more recently, a small group of people wrote Node.js - A server framework for Javascript based on Google's V8. And boy, was it ever good.
+	The came the frameworks. Ruby-on-Rails - a framework which in an organized way bundled up all the tricks of the past decade - It had built in caching, error handling, routing, database abstraction and instead of a thousand tricks, we had one beast of a framework - and for a while, it was good too. But things didn't stop there. The PHP community released Symfony and Drupal which packaged the majority of what made Rails special - the Python community released Django - the PERL folks released about 10 frameworks that no one used - .NET is a thing - and more recently, a small group of people wrote Node.js - A server framework for Javascript based on Google's V8. And boy, was it ever good.
 </p><p>
 	Now JavaScript had it's problems (oh did it ever), but it was required knowledge - JavaScript is the language of the browser and therefore the language of the web. We used it for our animations and our AJAX then forgot about it - preferring to focus on what was really important for most developers - the server. But time marched on, and as JavaScript improved and Node.js gained popularity, some wondered why we'd even bother using anything <i>but</i> Javascript. Why not unify? A single language for the web - for servers and browsers!
 </p><p>
@@ -30,7 +30,7 @@
 </p>
 <h3><span class="glyphicon glyphicon-chevron-right"></span> Getting started...</h3>
 <p>
-	Install <a href="http://nodejs.org/">Node.js</a> (everything here will work on linux, osx and windows). Windows users will probably need to <a href="https://windows.github.com/">install GitHub</a> to get a version of git and a better console to work with. Once installed, use the "GitHub Shell" and type "bash". Now you're ready! You'll also want a nice editor - I recommend GitHub's <a href="https://atom.io/">Atom</a>.
+	Install <a href="http://nodejs.org/">Node.js</a> (everything here will work on *nix, OSX and win32). Windows users will probably need to <a href="https://windows.github.com/">install GitHub</a> to get a version of git and a better console to work with. Once installed, use the "GitHub Shell" and type "bash". Now you're ready! You'll also want a nice editor - I recommend GitHub's <a href="https://atom.io/">Atom</a>.
 </p>
 <p>
 	Let's start a new project! We'll use NPM, the brilliant Node.js package manager.
@@ -105,7 +105,7 @@ gulp.task('assets', function () {\n
 	</code>
 </pre>
 <p>
-	Now, from the command like, a <kbd>gulp html</kbd>, <kbd>gulp css</kbd>, etc will copy your files from your "src/" directory into your "dist/" directory. Let's bundle those steps for convenience!
+	Now, from the command line, a <kbd>gulp html</kbd>, <kbd>gulp css</kbd>, etc will copy your files from your "src/" directory into your "dist/" directory. Let's bundle those steps for convenience!
 </p>
 <i>gulpfile.js</i>
 <pre>
@@ -280,7 +280,7 @@ gulp.task('deploy', [ 'default' ]);
 	</code>
 </pre>
 <p>
-	Since our "gulp watch" task is basing its actions off the file extention, and since it will run the "css" task every time it sees a change to a ".less" file, we can now edit _any included .less_ file and the browser will still reload! All our styles are being "bundled". This drastically improved browser load times by reducing HTTP request overhead.
+	Since our "gulp watch" task is basing its actions off the file extension, and since it will run the "css" task every time it sees a change to a ".less" file, we can now edit _any included .less_ file and the browser will still reload! All our styles are being "bundled". This drastically improved browser load times by reducing HTTP request overhead.
 </p>
 <p>
 	But that's just CSS! Let's do the same to JavaScript! In fact, why use some new command? Why not continue to use Node.js's "require()" that we've been using this whole tutorial? Enter <a href="http://browserify.org/">Browserify</a>. Let's write a new Gulp task for Javascript! 
@@ -320,7 +320,7 @@ gulp.task('javascript', function () {\n
 </p>
 <h3><span class="glyphicon glyphicon-chevron-right"></span> In summary</h3>
 <p>
-	We just built quite a lot! We have a new site project, we got a nice developer discount from Rackspace, we have a build system which we can easily extend to include our favorite technologies, we have a built-in development server which never touches or mucks up our codebase - we have a production environment which we can deploy to - we even have bundles for CSS and JavaScript to improve load times and reduce bandwidth overhead!
+	We just built quite a lot! We have a new site project, we got a nice developer discount from Rackspace, we have a build system which we can easily extend to include our favorite technologies, we have a built-in development server which never touches or mucks up our code base - we have a production environment which we can deploy to - we even have bundles for CSS and JavaScript to improve load times and reduce bandwidth overhead!
 </p>
 <p>
 	There are still a lot of improvements to make. We can add:
