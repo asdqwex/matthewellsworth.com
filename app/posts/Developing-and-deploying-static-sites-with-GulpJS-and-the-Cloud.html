@@ -245,12 +245,12 @@ var deploy = process.argv[2] === 'deploy' ? true : false;
 <i>gulpfile.js</i>
 <pre>
 	<code class="language-javascript">
-gulp.task('html', function () {<br>
-  var stream = gulp.src('src/index.html').pipe(gulp.dest('dist'));<br>
-  if (deploy) {<br>
-    stream.pipe(cloudfiles(rackspace, deployOptions));<br>
-  }<br>
-});<br>
+gulp.task('html', function () {\n
+  var stream = gulp.src('src/index.html').pipe(gulp.dest('dist'));\n
+  if (deploy) {\n
+    stream.pipe(cloudfiles(rackspace, deployOptions));\n
+  }\n
+});
 	</code>
 </pre>
 <p>
