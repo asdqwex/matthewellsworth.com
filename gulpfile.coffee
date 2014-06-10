@@ -57,7 +57,7 @@ gulp.task 'style', ->
 	stream = gulp.src 'app/style/site.less'
 		.pipe gp.plumber()
 		.pipe gp.less({
-			compress: deploy
+			compress: true
 			rootpath: assetURL 
 		})
 		.pipe gp.rename 'bundle.css'
