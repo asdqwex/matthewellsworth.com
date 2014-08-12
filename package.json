@@ -29,6 +29,7 @@
     "gulp-util": "latest",
     "gulp-watch": "latest",
     "stringify": "~2.1.0",
-    "vinyl-source-stream": "latest"
+    "vinyl-source-stream": "latest",
+    "coffee-script": "~1.7.1"
   }
 }
