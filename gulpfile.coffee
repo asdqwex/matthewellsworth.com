@@ -52,6 +52,17 @@ gulp.task 'html', ->
 	if deploy
 		stream.pipe cloudfiles rackspace, deployOptions
 	stream.on 'error', gutil.log
+	stream = gulp.src 'app/resume.jade'
+		.pipe gp.plumber()
+		.pipe gp.jade({
+			locals:
+				assetURL: assetURL
+		})
+		.pipe gulp.dest 'dist'
+		.pipe gp.rename 'resume.html'
+	if deploy
+		stream.pipe cloudfiles rackspace, deployOptions
+	stream.on 'error', gutil.log
 
 gulp.task 'style', ->
 	stream = gulp.src 'app/style/site.less'
@@ -87,7 +98,8 @@ gulp.task 'connect', [ 'default' ], ->
 		middleware: () ->
 			return [
 				rewrite([
-					'^/posts/.* /index.html'
+					'^/posts/.* /index.html',
+					'^/resume /resume.html'
 				])
 			]
 
