@@ -1,0 +1,172 @@
+<h3><span class="glyphicon glyphicon-chevron-right"></span> PHP hasn't gone away,</h3>
+<p>
+  and there are still a huge number of sites out there making use of Wordpress, Drupal or custom PHP code. They're slow to respond, they often require Apache (massive .htaccess files anyone?), they have central points of failure (single MySQL master), they cache incredibly poorly (if at all), and they spend almost all their time serving static content off the disk (in the case of most blogs in 2015 - they're primarily serving photos.)
+</p><p>
+  So what to do? How does the state of the Cloud in 2015 help solve these problems? Let's first look at some of the primary problems with a typical Drupal7 installation:
+</p><p>
+  <ul>
+    <li>Apache 2.2 is slow, and .htaccess files make things much slower (did you know they're searched for, read, interpretted, and executed on <i>every single web request</i>?)</li>
+    <br>
+    <li>MySQL is slow and fragile - with a single point of failure inherent in even Master-Slave replication setups. At the very best, a manual failover to the Slave server is required to bring things back online in the case of losing the Master. The MySQL server can run into common issues like hitting its "max connection" limit, taking down the entire site. In terms of performance, at least Drupal fails to read effectively from a slave, even with custom plugins, as it's reads and writes are so tightly coupled that even in large environments, it's very common for all nodes to <i>only ever</i> communicate with the Master, totally ignoring the Slave's read capacity.</li>
+    <br>
+    <li>PHP is slow, and if being run via MOD_PHP in Apache, is not taking advantage of the multiple cores of your system properly. It's probably not caching very well either - even if you're using APC cache or the newer APCu cache, they're terribly ineffective and not shared between PHP instances. Beyond that, since Apache recycles it's workers, the APC cache will be getting cleared constantly, further lowering cache hit rates.</li>
+    <br>
+    <li>Older servers are slow. Tech has improved a lot on the hardware side of things in the past 5 years - if you're still running PHP5.4, you're probably not running on a cost-effective system.</li>
+    <br>
+    <li>Caching is a problem, as well as serving static content - as anyone who has scaled a PHP application before knows, dealing with uploaded files is a nightmare and often includes another single point of failure as well as clunky and slow tools like LSYNC, NFS, or Gluster.</li>
+  </ul>
+</p><p>
+<br>
+<h3><span class="glyphicon glyphicon-chevron-right"></span> Now - Solutions!</h3>
+</p><p>
+  <ul>
+    <li>Since .htaccess files can't easily be rewritten without a huge amount of effort, we'll continue to use Apache. But Apache has gotten a _lot_ faster in Apache 2.4 and with the "Event" worker module. We can continue to support the .htaccess rewrite rules, get all the benefits of a properly threaded web server, and we can make use of PHP-FPM to help speed up PHP.</li>
+    <br>
+    <li>MySQL has also gotten much much faster in the wake of MariaDB 10.0. MariaDB is a drop in replacement for MySQL which is fully compatible with Drupal 7, Wordpress, and more or less any PHP application. It also supports Master/Master replication, which will allow us to properly scale our PHP application across multiple nodes.</li>
+    <br>
+    <li>As mentioned before, Apache 2.4 allows us to make use of PHP-FPM (just like Nginx does), while still being able to support nasty legacty rewrite rules and .htaccess syntax. We'll also upgrade to a modern version of PHP, PHP5.6, and configure the vastly improved (yet very poorly documented) PHP OpCache module.</li>
+    <br>
+    <li>We'll upgrade to modern servers in our rebuild - with an eye for maximizing compute capacity for our dollar, as PHP applications are primary CPU bound, which some exception made for large MySQL databases, which will in turn require a large amount of RAM.</li>
+    <br>
+    <li>By making use of a CDN (such as Rackspace's Cloud Files) as well as Varnish4.0, we'll vastly improve the caching potential of our application while simultaniously offloading the vast majority of the file requests.</li>
+  </ul>
+</p>
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Hit the ground running</h3></p>
+<p>
+  Let's start by building a new Ubuntu 14.04 server - I recommend Rackspace Performance Cloud servers. You can get a developer account with a nice discount here at <a href="https://developer.rackspace.com/">developer.rackspace.com</a>. You can use whatever distribution you'd like, but this guide will be specific for Ubuntu 14.04. I recommend using something like Chef to automate this setup as well (and I'll provide a link to an example cookbook) - if you're not automating this, I recommend building on a fairly large server. As much as we'll improve things, PHP still scales best vertically. A small number of powerful servers will preform _far better_ than a large number of small servers. If you're looking for absolute best value for money, take a look at <a href="http://www.rackspace.com/cloud/servers/onmetal">Rackspace OnMetal Compute</a> servers. They're expensive, but two of those babies behind a load balancer can host a massive national Drupal site without breaking a sweat. The 10,000mbps networking between servers also helps ensure MySQL master/master replication is extremely fast.
+</p>
+<p>Upgrading and updating your new server:</p>
+<p><kbd>&gt; apt-get update &amp;&amp; apt-get -y upgrade &amp;&amp; reboot</kbd></p>
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Apache 2.4 with MPM_EVENT installation and configuration</h3></p>
+
+<p>Use Apache2 from the Debian Apache2 team's repositories:</p>
+<p><kbd>&gt; apt-add-repository ppa:ondrej/apache2</kbd></p>
+
+<p>Install Apache2 and mod_fastcgi:</p>
+<p><kbd>&gt; apt-get install apache2 libapache2-mod-fastcgi</kbd></p>
+
+<p>Enable Apache2 to proxy pass to PHP:</p>
+<p><kbd>&gt; a2enmod proxy_fcgi</kbd></p>
+
+<p>Enable Apache2 modules which help support older .htaccess configurations:</p>
+<p><kbd>&gt; a2enmod headers rewrite</kbd></p>
+
+<p>Disable built-in PHP module:</p>
+<p><kbd>&gt; a2dismod php5</kbd></p>
+
+<p>Configure MPM_EVENT: <i>/etc/apache2/mods-available/mpm_event.conf</i></p>
+<pre>
+  <code class="language-bash">
+&lt;IfModule mpm_event_module&gt;\n
+  # Ensure poorly performing connections timeout eventually\n
+  Timeout                  300\n
+  # The initial number of Apache workers to start\n
+  StartServers             5\n
+  # minimum number of worker threads which are kept spare\n
+  MinSpareThreads          25\n
+  # maximum number of worker threads which are kept spare\n
+  MaxSpareThreads          64\n
+  # constant number of worker threads in each server process\n
+  ThreadsPerChild          25\n
+  # Maximum number of worker threads\n
+  MaxRequestWorkers        150\n
+  # Max number of requests a worker serves before being recycled (this is important for PHP)\n
+  # as we want to help PHP kill memory leaks by recycling requests eventually\n
+  MaxConnectionsPerChild   10000\n
+&lt;/IfModule&gt;
+  </code>
+</pre>
+
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> PHP5.6, OpCache, PHP-FPM</h3></p>
+
+<p>Use PHP5.6 from the Debian Apache2 team's repositories:</p>
+<p><kbd>&gt; apt-add-repository ppa:ondrej/php5-5.6</kbd></p>
+
+<p>Install PHP5, PHP-FPM, and whichever modules you'll need:</p>
+<p><kbd>&gt; apt-get install php5 php5-fpm php5-mysql php5-redis php5-curl php5-gd</kbd></p>
+
+<p>Configure PHP Opcache: <i>/etc/php5/mods-available/opcache.ini</i> (do not copy the comment lines)</p>
+<pre>
+  <code class="language-bash">
+zend_extension=opcache.so\n
+opcache.enable=1\n
+# The amount of memory in MB each PHP-FPM instance is allowed to use for cache\n
+opcache.memory_consumption=256\n
+# The amount of shared memory in MB all FPM processes allocate for storing string values.\n
+# Drupal and wordpress especially benefit from a fairly large buffer. Try 16 or 32\n
+opcache.interned_strings_buffer=32\n
+# The max number of scripts OpCache will keep in memory.\n
+# Place https://raw.githubusercontent.com/rlerdorf/opcache-status/master/opcache.php\n
+# on the server and take a peek at the output in your browser\n
+# - It can help caculate the number of PHP files.\n
+opcache.max_accelerated_files=3907\n
+opcache.fast_shutdown=1\n
+# The maximum size of scripts that will be cached\n
+opcache.max_file_size=0\n
+opcache.enable_cli=1\n
+opcache.error_log=/tmp/opcache.log\n
+# The most important value in the configuration file, aside from memory limits\n
+# Setting the value to 0 means once PHP scripts are cached in memory, they will _never_\n
+# be read again. A "service php5-fpm reload" is _required_. This _massively_ increases the performance\n
+# of the site, but you must understand the consequences. Do not set if reloading a service on every\n
+# change sounds horrible. If not, set this to zero and enjoy the massive speed improvement.\n
+opcache.validate_timestamps=0\n
+# Should you decide you do not want to have to reload the server (or you're configuring a development\n
+# environment), set this value to either 60, 120, or 0. 0 forces a recheck of the file _every load_,\n
+# more or less defeating the purpose of OpCache.\n
+#opcache.revalidate_freq=0
+  </code>
+</pre>
+
+<p>Modify PHP-FPM pool: <i>/etc/php5/fpm/pool.d/www.conf</i></p>
+<pre>
+  <code class="language-bash">
+# Ensure PHP-FPM listens on a Unix Socket, which is must faster than a TCP socket
+listen = /var/run/php5-fpm.sock\n
+listen.backlog = 65535\n
+pm = dynamic\n
+# Carefully consider the following options\n
+pm.max_children = 30\n
+pm.start_servers = 5\n
+pm.min_spare_servers = 4\n
+pm.max_spare_servers = 10\n
+pm.max_requests = 10000\n
+rlimit_files = 8192\n
+# These options effect error logging - they should probably be disabled in production\n
+# But you won't receive all errors messaged without catch_workers_output\n
+catch_workers_output = yes\n
+php_admin_value[display_errors] = stderr\n
+php_admin_value[error_log] = /var/log/fpm-php.www.log\n
+php_admin_flag[log_errors] = on
+  </code>
+</pre>
+
+<p>Modify Apache2 Vhost to proxy pass to PHP:</p>
+<pre>
+  <code class="language-bash">
+# Added to the end of the Vhost configuration, before the &lt;/VirtualHost&gt;\n
+ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/var/run/php5-fpm.sock|fcgi://localhost/path/to/doc/root\n
+# Note that "/path/to/doc/root" must be an absolute path. An example:\n
+# ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/var/run/php5-fpm.sock|fcgi://localhost/var/www/site/htdocs
+  </code>
+</pre>
+
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> MariaDB 10.0 Galera Cluster &amp; tuning</h3></p>
+
+<p>Add repositories for MariaDB 10.0:</p>
+
+<p><kbd>&gt; apt-get install software-properties-common</kbd></p>
+<p><kbd>&gt; apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db</kbd></p>
+<p><kbd>&gt; add-apt-repository 'deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/ubuntu trusty main'</kbd></p>
+
+<p>Install MariaDB 10.0 Galera server</p>
+<p><kbd>&gt; mariadb-galera-server</kbd></p>
+
+
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Varnish 4.0 and Redis</h3></p>
+
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> High Performance Drupal</h3></p>
+
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Tuning Ubuntu for the Cloud</h3></p>
+
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Accur</h3></p>

@@ -1,43 +1,43 @@
 doctype html
 html(lang="en")
-	head
-		title SeandonMooy.com
-		meta(charset="UTF-8")
-		meta(name="viewport", content="width=device-width, initial-scale=1.0")
-		link(rel="stylesheet", href= assetURL + 'assets/bundle.css')
-	body(ng-app="erulabs")
-		.container.col-md-12
-			.row.main
-				.left.col-md-12.notselectable
-					a.block.mid(href="/") HI!
-					a.block.less(href="/") MY NAME IS
-					a.block.more(href="/") SEANDON MOOY
-					span.less.lessoffset.hidden-xs AND I AM A
-					.row
-						.detail.hidden-xs.col-md-8.col-md-offset-2.
-							DevOps Engineer, JavaScript Developer, Cloud Guru, Linux Administrator,
-							OpenSource Contributor, Game Developer, Fanatical Supporter,
-							Occasional Blogger, Wannabe Designer, Shameful Soapboxer, Hapless Hacker and Armchair Activist.
-					span.less.lessoffset.hidden-xs OH, AND 
-					span.less.lessoffset I MAKE WEB APPLICATIONS
-					.detail.selectable.hidden-xs you can contact me at 
-						a(href="mailto:seandon.mooy@gmail.com") seandon.mooy@gmail.com
-					#goto.line
-						.block.circleLogo
-							span.glyphicon.glyphicon-flash
-						.block.circleLogo
-							span.glyphicon.glyphicon-fire
-						.block.circleLogo
-							span.glyphicon.glyphicon-dashboard
-				.bottom
-					.col-md-8.col-md-offset-2
-						include blog.jade
-				.left.col-md-12.notselectable
-					.line
-						.block.circleLogo
-							span.glyphicon.glyphicon-flash
-						.block.circleLogo
-							span.glyphicon.glyphicon-heart
-						.block.circleLogo
-							span.glyphicon.glyphicon-dashboard
-		script(type='text/javascript', src= assetURL + 'assets/bundle.js')
+  head
+    title SeandonMooy.com
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href= assetURL + 'assets/bundle.css')
+  body(data-ng-app="erulabs")
+    .container.col-md-12(data-ng-controller="blogController")
+      .row.main
+        .left.col-md-12.notselectable
+          a.block.mid(href="/") HI!
+          a.block.less(href="/") MY NAME IS
+          a.block.more(href="/") SEANDON MOOY
+          span.less.lessoffset.hidden-xs(data-ng-show="!focus") AND I AM A
+          .row(data-ng-show="!focus")
+            .detail.hidden-xs.col-md-8.col-md-offset-2.
+              DevOps Engineer, JavaScript Developer, Cloud Guru, Linux Administrator,
+              OpenSource Contributor, Game Developer, Fanatical Supporter,
+              Occasional Blogger, Wannabe Designer, Shameful Soapboxer, Hapless Hacker and Armchair Activist.
+          span.less.lessoffset.hidden-xs(data-ng-show="!focus") OH, AND
+          span.less.lessoffset I MAKE WEB APPLICATIONS
+          .detail.selectable.hidden-xs you can contact me at&nbsp;
+            a(href="mailto:seandon.mooy@gmail.com") seandon.mooy@gmail.com
+          #goto.line
+            .block.circleLogo
+              span.glyphicon.glyphicon-flash
+            .block.circleLogo
+              span.glyphicon.glyphicon-fire
+            .block.circleLogo
+              span.glyphicon.glyphicon-dashboard
+        .bottom
+          .col-md-8.col-md-offset-2
+            include blog.jade
+        .left.col-md-12.notselectable
+          .line
+            .block.circleLogo
+              span.glyphicon.glyphicon-flash
+            .block.circleLogo
+              span.glyphicon.glyphicon-heart
+            .block.circleLogo
+              span.glyphicon.glyphicon-dashboard
+    script(type='text/javascript', src= assetURL + 'assets/bundle.js')
