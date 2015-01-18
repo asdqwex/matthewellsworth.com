@@ -37,23 +37,26 @@
 </p>
 <p>Upgrading and updating your new server:</p>
 <p><kbd>&gt; apt-get update &amp;&amp; apt-get -y upgrade &amp;&amp; reboot</kbd></p>
-<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Apache 2.4 with MPM_EVENT installation and configuration</h3></p>
 
+<!--
+   ###    ########     ###     ######  ##     ## ########
+  ## ##   ##     ##   ## ##   ##    ## ##     ## ##
+ ##   ##  ##     ##  ##   ##  ##       ##     ## ##
+##     ## ########  ##     ## ##       ######### ######
+######### ##        ######### ##       ##     ## ##
+##     ## ##        ##     ## ##    ## ##     ## ##
+##     ## ##        ##     ##  ######  ##     ## ########
+-->
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Apache 2.4 with MPM_EVENT installation and configuration</h3></p>
 <p>Use Apache2 from the Debian Apache2 team's repositories:</p>
 <p><kbd>&gt; apt-add-repository ppa:ondrej/apache2</kbd></p>
-
+<p><kbd>&gt; apt-get update</kbd></p>
 <p>Install Apache2 and mod_fastcgi:</p>
 <p><kbd>&gt; apt-get install apache2 libapache2-mod-fastcgi</kbd></p>
-
 <p>Enable Apache2 to proxy pass to PHP:</p>
 <p><kbd>&gt; a2enmod proxy_fcgi</kbd></p>
-
 <p>Enable Apache2 modules which help support older .htaccess configurations:</p>
 <p><kbd>&gt; a2enmod headers rewrite</kbd></p>
-
-<p>Disable built-in PHP module:</p>
-<p><kbd>&gt; a2dismod php5</kbd></p>
-
 <p>Configure MPM_EVENT: <i>/etc/apache2/mods-available/mpm_event.conf</i></p>
 <pre>
   <code class="language-bash">
@@ -77,14 +80,23 @@
   </code>
 </pre>
 
+<!--
+########  ##     ## ########  ########  #######
+##     ## ##     ## ##     ## ##       ##     ##
+##     ## ##     ## ##     ## ##       ##
+########  ######### ########  #######  ########
+##        ##     ## ##              ## ##     ##
+##        ##     ## ##        ##    ## ##     ##
+##        ##     ## ##         ######   #######
+-->
 <p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> PHP5.6, OpCache, PHP-FPM</h3></p>
-
 <p>Use PHP5.6 from the Debian Apache2 team's repositories:</p>
 <p><kbd>&gt; apt-add-repository ppa:ondrej/php5-5.6</kbd></p>
-
+<p><kbd>&gt; apt-get update</kbd></p>
 <p>Install PHP5, PHP-FPM, and whichever modules you'll need:</p>
 <p><kbd>&gt; apt-get install php5 php5-fpm php5-mysql php5-redis php5-curl php5-gd</kbd></p>
-
+<p>Disable Apache's built-in PHP module:</p>
+<p><kbd>&gt; a2dismod php5</kbd></p>
 <p>Configure PHP Opcache: <i>/etc/php5/mods-available/opcache.ini</i> (do not copy the comment lines)</p>
 <pre>
   <code class="language-bash">
@@ -117,7 +129,6 @@ opcache.validate_timestamps=0\n
 #opcache.revalidate_freq=0
   </code>
 </pre>
-
 <p>Modify PHP-FPM pool: <i>/etc/php5/fpm/pool.d/www.conf</i></p>
 <pre>
   <code class="language-bash">
@@ -140,7 +151,6 @@ php_admin_value[error_log] = /var/log/fpm-php.www.log\n
 php_admin_flag[log_errors] = on
   </code>
 </pre>
-
 <p>Modify Apache2 Vhost to proxy pass to PHP:</p>
 <pre>
   <code class="language-bash">
@@ -150,23 +160,245 @@ ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/var/run/php5-fpm.sock|fcgi://localhost/p
 # ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/var/run/php5-fpm.sock|fcgi://localhost/var/www/site/htdocs
   </code>
 </pre>
+<p>Since we'll be using Varnish to cache for Apache, make sure you're Apache instance isn't listening directly on port 80. I typically set Apache to port 8080, while Varnish will take care of proxy requests from 80 to Apache's 8080.</p>
 
+<!--
+##     ##    ###    ########  ####    ###    ########  ########
+###   ###   ## ##   ##     ##  ##    ## ##   ##     ## ##     ##
+#### ####  ##   ##  ##     ##  ##   ##   ##  ##     ## ##     ##
+## ### ## ##     ## ########   ##  ##     ## ##     ## ########
+##     ## ######### ##   ##    ##  ######### ##     ## ##     ##
+##     ## ##     ## ##    ##   ##  ##     ## ##     ## ##     ##
+##     ## ##     ## ##     ## #### ##     ## ########  ########
+-->
 <p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> MariaDB 10.0 Galera Cluster &amp; tuning</h3></p>
-
+<p>MariaDB 10.0 contains countless improvements over older MySQL 5.5 distributions. In addition, we'll configure our databases as a Master/Master cluster - this is called "Galera Clustering" in MariaDB. I strongly suggest all experienced MySQL users read the official guide to Galera, <a href="https://mariadb.com/kb/en/mariadb/documentation/managing-mariadb/replication/galera/getting-started-with-mariadb-galera-cluster/">located here</a>.</p>
 <p>Add repositories for MariaDB 10.0:</p>
-
 <p><kbd>&gt; apt-get install software-properties-common</kbd></p>
 <p><kbd>&gt; apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db</kbd></p>
 <p><kbd>&gt; add-apt-repository 'deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/ubuntu trusty main'</kbd></p>
-
+<p><kbd>&gt; apt-get update</kbd></p>
 <p>Install MariaDB 10.0 Galera server</p>
 <p><kbd>&gt; mariadb-galera-server</kbd></p>
+<p>Galera Clustering is not terribly difficult, although it's highly recommended that one reads the above link regarding Getting Started with Galera. In the most basic setup, we really only need to enable a few things in our <i>my.cnf</i>:</p>
+<pre>
+  <code class="language-bash">
+# Turn on Galera Clustering\n
+wsrep_on                 = ON\n
+wsrep_provider           = /usr/lib/galera/libgalera_smm.so\n
+# Ensure PRIVATE_NETWORK_ADDRESS is a protected private network\n
+# like Rackspace's ServiceNet, for instance.\n
+# wsrep_node_address and wsrep_node_incoming_address are used to\n
+# fix potential problems with autodetecting\n
+bind-address             = PRIVATE_NETWORK_ADDRESS\n
+wsrep_node_address       = PRIVATE_NETWORK_ADDRESS:4567\n
+wsrep_node_incoming_address = PRIVATE_NETWORK_ADDRESS\n
+\n
+# On your FIRST server, start MySQL with the following setting:\n
+wsrep_cluster_address    = gcomm://\n
+# On the SECOND server, start MySQL with the following:\n
+wsrep_cluster_address    = gcomm://IPADDRESS_OF_FIRST_SERVER\n
+# After starting the 2nd server and ensuring it joins the cluster, change the wsrep_cluster_address\n
+# back on the 1st server to point to the 2nd. This way each server can "rejoin" the cluster after a restart\n
+wsrep_cluster_address    = gcomm://IPADDRESS_OF_SECOND_SERVER\n
+# Should you create a 3rd server, you'll only need to provide one address of either cluster node\n
+# and Galera will figure everything else out for you.\n
+\n
+# A static name which must be the same on all nodes\n
+wsrep_cluster_name       = "my_cluster_name"\n
+wsrep_sst_method         = 'rsync'\n
+# A MYSQL user with all permissions used for Galera Replication\n
+wsrep_sst_auth           = root:MYSQL_ROOT_PASSWORD\n
+\n
+# Some INNODB settings are _required_ for Galera\n
+binlog_format            = ROW\n
+innodb_autoinc_lock_mode = 2\n
+innodb_doublewrite       = 1
+  </code>
+</pre>
+<p>You may notice the port "4567" in the config. That's Galera, which helps monitor the servers and helps new nodes join. Make sure your firewall allows your servers to communicate on both ports 3306 and 4567.</p>
+<p>Tuning the database</p>
 
-
+<!--
+##     ##    ###    ########  ##    ## ####  ######  ##     ##
+##     ##   ## ##   ##     ## ###   ##  ##  ##    ## ##     ##
+##     ##  ##   ##  ##     ## ####  ##  ##  ##       ##     ##
+##     ## ##     ## ########  ## ## ##  ##   ######  #########
+ ##   ##  ######### ##   ##   ##  ####  ##        ## ##     ##
+  ## ##   ##     ## ##    ##  ##   ###  ##  ##    ## ##     ##
+   ###    ##     ## ##     ## ##    ## ####  ######  ##     ##
+-->
 <p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Varnish 4.0 and Redis</h3></p>
+<p>
+  Varnish 4.0 contains huge improvements over Varnish 3, mostly regarding improve the initial response time. Read <a href="https://www.varnish-cache.org/docs/trunk/whats-new/changes.html#client-backend-split">more here</a>.
+</p>
+<p>Add repositories for Varnish 4.0:</p>
+<p><kbd>&gt; apt-get install apt-transport-https</kbd></p>
+<p><kbd>&gt; curl https://repo.varnish-cache.org/ubuntu/GPG-key.txt | sudo apt-key add -</kbd></p>
+<p><kbd>&gt; echo "deb https://repo.varnish-cache.org/ubuntu/ trusty varnish-4.0" >> /etc/apt/sources.list.d/varnish-cache.list</kbd></p>
+<p><kbd>&gt; apt-get update</kbd></p>
+<p>Install Varnish 4.0:</p>
+<p><kbd>&gt; apt-get install varnish</kbd></p>
+<p>Configuring Varnish 4.0 for Drupal</p>
+<pre>
+  <code class="language-bash">
+vcl 4.0;\n
+# Default backend definition. Set this to point to your content server.\n
+backend default {\n
+    .host = "127.0.0.1";\n
+    .port = "8080";\n
+}\n
+sub vcl_recv {\n
+    # Here we filter out all URLs containing Drupal administrative sections\n
+    if (req.url ~ "^/status\.php$" ||\n
+        req.url ~ "^/update\.php$" ||\n
+        req.url ~ "^/admin$" ||\n
+        req.url ~ "^/admin/.*$" ||\n
+        req.url ~ "^/user$" ||\n
+        req.url ~ "^/user/.*$" ||\n
+        req.url ~ "^/flag/.*$" ||\n
+        req.url ~ "^.*/ajax/.*$" ||\n
+        req.url ~ "^.*/ahah/.*$") {\n
+           return (pass);\n
+    }\n
+    # Backup and Migrate is a very popular Drupal module that needs to be excluded\n
+    # It won't work with Varnish\n
+    if (req.url ~ "^/admin/content/backup_migrate/export") {\n
+        return (pipe);\n
+    }\n
+    # Remove cookies for stylesheets, scripts, and images used throughout the site.\n
+    # Removing cookies will allow Varnish to cache those files.\n
+    if (req.url ~ "(?i)\.(css|js|jpg|jpeg|gif|png|ico)(\?.*)?$") {\n
+        unset req.http.Cookie;\n
+    }\n
+    # Remove all cookies that are not necessary for Drupal to work properly.\n
+    # Since it would be cumbersome to REMOVE certain cookies, we specify\n
+    # which ones are of interest to us, and remove all others. In this particular\n
+    # case we leave SESS, SSESS and NO_CACHE cookies used by Drupal's administrative\n
+    # interface. Cookies in cookie header are delimited with ";", so when there are\n
+    # many cookies, the header looks like "Cookie1=value1; Cookie2=value2; Cookie3..."\n
+    # and so on. That allows us to work with ";" to split cookies into individual\n
+    # ones.\n
+    # The method for filtering unnecessary cookies has been adopted from:\n
+    # https://fourkitchens.atlassian.net/wiki/display/TECH/Configure+Varnish+3+for+Drupal+7\n
+    if (req.http.Cookie) {\n
+        # 1. We add ; to the beginning of cookie header\n
+        set req.http.Cookie = ";" + req.http.Cookie;\n
+        # 2. We remove spaces following each occurence of ";". After this operation\n
+        # all cookies are delimited with no spaces.\n
+        set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");\n
+        # 3. We replace ";" INTO "; " (adding the space we have previously removed) in cookies\n
+        # named SESS..., SSESS... and NO_CACHE. After this operation those cookies will be\n
+        # easy to differentiate from the others, because those will be the only one with space\n
+        # after ";"\n
+        set req.http.Cookie = regsuball(req.http.Cookie, ";(SESS[a-z0-9]+|SSESS[a-z0-9]+|NO_CACHE)=", "; \1=");\n
+        # 4. We remove all cookies with no space after ";", so basically we remove all cookies other\n
+        # than those above.\n
+        set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");\n
+        # 5. We strip leading and trailing whitespace and semicolons.\n
+        set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");\n
+        # If there are no cookies after our striping procedure, we remove the header altogether,\n
+        # thus allowing Varnish to cache this page\n
+        if (req.http.Cookie == "") {\n
+            unset req.http.Cookie;\n
+        }\n
+        # if any of our cookies of interest are still there, we disable caching and pass the request\n
+        # straight to Apache and Drupal\n
+        else {\n
+            return (pass);\n
+        }\n
+    }\n
+}\n
+sub vcl_backend_response {\n
+    # Remove cookies for stylesheets, scripts and images used throughout the site.\n
+    # Removing cookies will allow Varnish to cache those files. It is uncommon for\n
+    # static files to contain cookies, but it is possible for files generated\n
+    # dynamically by Drupal. Those cookies are unnecessary, but could prevent files\n
+    # from being cached.\n
+    if (bereq.url ~ "(?i)\.(css|js|jpg|jpeg|gif|png|ico)(\?.*)?$") {\n
+        unset beresp.http.set-cookie;\n
+    }\n
+}
+  </code>
+</pre>
+<p>Also make sure you take a peek at the default Varnish configuration in <i>/etc/default/varnish</i>. You'll want to at least ensure it's listening on port 80 and has a bit more than the default amount of RAM:</p>
+<pre>
+  <code class="language-bash">
+DAEMON_OPTS="-a :80 \\\n
+             -T localhost:6082 \\\n
+             -f /etc/varnish/default.vcl \\\n
+             -S /etc/varnish/secret \\\n
+             -s malloc,512m"
+  </code>
+</pre>
 
+<!--
+########  ######## ########  ####  ######
+##     ## ##       ##     ##  ##  ##    ##
+##     ## ##       ##     ##  ##  ##
+########  ######   ##     ##  ##   ######
+##   ##   ##       ##     ##  ##        ##
+##    ##  ##       ##     ##  ##  ##    ##
+##     ## ######## ########  ####  ######
+-->
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Redis Cache</h3></p>
+
+
+
+<!--
+########  ########  ##     ## ########     ###    ##
+##     ## ##     ## ##     ## ##     ##   ## ##   ##
+##     ## ##     ## ##     ## ##     ##  ##   ##  ##
+##     ## ########  ##     ## ########  ##     ## ##
+##     ## ##   ##   ##     ## ##        ######### ##
+##     ## ##    ##  ##     ## ##        ##     ## ##
+########  ##     ##  #######  ##        ##     ## ########
+-->
 <p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> High Performance Drupal</h3></p>
+<p>
+  Drupal's <a href="https://www.drupal.org/project/varnish">Varnish module</a> really isn't bad, but it lacks support for Varnish 4.0. Luckily, there exists a <a href="http://cgit.drupalcode.org/varnish/">development version</a> of the module which supports Varnish 4.0 and works wonderfully. You can clone that repo into your "DOCROOT/sites/all/modules/" directory:
+</p>
+<p><kbd>&gt; git clone http://git.drupal.org/project/varnish.git</kbd></p>
+<p>
+  I'll leave configuration of the Varnish module as an excercize to the reader - however, ensure you set a Varnish secret and make sure Drupal can communicate with Varnish correctly. You'll also want to make sure you select "4.x" from the dropdown menu regarding Varnish's versions.
+</p>
+<p>
+  Drupal's <a href="https://www.drupal.org/project/redis">Redis module</a> is also not bad, but you're much better off getting the newest version from the developers:
+</p>
+<p><kbd>&gt; git clone http://git.drupal.org/project/redis.git</kbd></p>
+<p>
 
+</p>
+<p>Drupal's site settings</p>
+<p>
+  Using a CDN - Cloud Files and CDN modules. The Rackspace <a href="https://www.drupal.org/project/cloud_files">Cloud Files module</a> is quite good, but lacks a few crucial patches and bug fixes - additionally, it uploads all files over PublicNet, rather than Rackspace's ServerNet. Checkout my branch, located <a href="https://github.com/erulabs/drupal7_cloud_files">on github</a>. Incase you do not want to use ServiceNet, read the README document and remove references to "internalUrl" in the code.
+</p>
+<p><kbd>&gt; git clone http://github.com/erulabs/drupal7_cloud_files</kbd></p>
+<p>Database logging</p>
+<p>Updating modules</p>
+
+<!--
+##     ## ########  ##     ## ##    ## ######## ##     ##
+##     ## ##     ## ##     ## ###   ##    ##    ##     ##
+##     ## ##     ## ##     ## ####  ##    ##    ##     ##
+##     ## ########  ##     ## ## ## ##    ##    ##     ##
+##     ## ##     ## ##     ## ##  ####    ##    ##     ##
+##     ## ##     ## ##     ## ##   ###    ##    ##     ##
+ #######  ########   #######  ##    ##    ##     #######
+-->
 <p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Tuning Ubuntu for the Cloud</h3></p>
+<p>sysctl settings</p>
 
-<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Accur</h3></p>
+<!--
+##      ## ########     ###    ########     ##     ## ########
+##  ##  ## ##     ##   ## ##   ##     ##    ##     ## ##     ##
+##  ##  ## ##     ##  ##   ##  ##     ##    ##     ## ##     ##
+##  ##  ## ########  ##     ## ########     ##     ## ########
+##  ##  ## ##   ##   ######### ##           ##     ## ##
+##  ##  ## ##    ##  ##     ## ##           ##     ## ##
+ ###  ###  ##     ## ##     ## ##            #######  ##
+ -->
+<p><br><h3><span class="glyphicon glyphicon-chevron-right"></span> Wrap up - Finishing touches</h3></p>
+<p>NewRelic</p>
+<p>Rackspace Cloud Monitoring</p>
+<p>Backups / Holland</p>
