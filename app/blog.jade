@@ -6,7 +6,7 @@
 					a(href="/posts/{{ urlify(post.title) }}#goto").
 						{{ post.title || 'Default Title' }}
 				.credit.col-md-12.
-					{{ post.date || 'fake date' }} by {{ post.author || "Seandon Mooy" }}
+					{{ post.date || 'fake date' }} by {{ post.author || "Matthew Ellsworth" }}
 			.body.col-md-12(data-ng-bind-html="bodyFilter(post)") Loading...
 			.col-md-12.alignright
 				a.readmore(data-ng-show="post.preview", href="/posts/{{ urlify(post.title) }}#goto") Click here to read more
