@@ -17,21 +17,29 @@ body {
 	background-color: #232323;
 	background: url('/assets/congruent_outline.png');
 }
-@keyframes pulsateblue {
+// @keyframes pulsategreen {
+// 	0% { color: #FFFFFF;}
+// 	50% { color: #356859 ;}
+// }
+// @-webkit-keyframes pulsategreen {
+// 	0% { color: #FFFFFF;}
+// 	50% { color: #356859 ;}
+// }
+// @keyframes pulsatered {
+//   0% { color: #FFFFFF;}
+//   50% { color: #5A1524 ;}
+// }
+// @-webkit-keyframes pulsatered {
+//   0% { color: #FFFFFF;}
+//   50% { color: #5A1524 ;}
+// }
+@keyframes pulsategrey {
 	0% { color: #FFFFFF;}
-	50% { color: #45CEEF;}
+	50% { color: #040303;}
 }
-@-webkit-keyframes pulsateblue {
+@-webkit-keyframes pulsategrey {
 	0% { color: #FFFFFF;}
-	50% { color: #45CEEF;}
-}
-@keyframes pulsatered {
-	0% { color: #FFFFFF;}
-	50% { color: #E65C5C;}
-}
-@-webkit-keyframes pulsatered {
-	0% { color: #FFFFFF;}
-	50% { color: #E65C5C;}
+	50% { color: #040303;}
 }
 .circleLogo {
 	width: 33%;
@@ -48,18 +56,24 @@ body {
 		background-color: #232323;
 		border-radius: 100%;
 	}
-	.glyphicon-globe, .glyphicon-cloud, .glyphicon-flash, .glyphicon-dashboard {
-		animation: pulsateblue 20s infinite;
-		-webkit-animation: pulsateblue 20s infinite;
-	}
-	.glyphicon-fire, .glyphicon-heart, .glyphicon-heart {
-		animation: pulsatered 14s infinite;
-		-webkit-animation: pulsatered 14s infinite;
-	}
-	.glyphicon-heart {
-		text-indent: -6px;
-		width: 100px;
-	}
+  .glyphicon-tower, .glyphicon-hdd, .glyphicon-globe {
+   animation: pulsategrey 30s infinite;
+   -webkit-animation: pulsategrey 30s infinite;
+  }
+	// .glyphicon-globe {
+	// 	animation: pulsategreen 9s infinite;
+	// 	-webkit-animation: pulsategreen 9s infinite;
+	// }
+	// .glyphicon-tower {
+	// 	animation: pulsategrey 9s infinite;
+	// 	-webkit-animation: pulsategrey 9s infinite;
+  //   animation-delay: 6s;
+	// }
+	// .glyphicon-hdd {
+  //   animation: pulsatered 9s infinite;
+  //   -webkit-animation: pulsatered 9s infinite;
+  //   animation-delay: 3s;
+	// }
 	//.glyphicon-heart {
 	//	animation: pulsatered 4s infinite;
 	//	-webkit-animation: pulsatered 4s infinite;
@@ -263,7 +277,10 @@ body {
 		}
 	}
 }
-
+.foot {
+  position:absolute;
+  bottom:0;
+}
 .less {
 	font-size: 0.3em !important;
 	letter-spacing: 1px;

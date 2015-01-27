@@ -9,11 +9,17 @@ html(lang="en")
     .container.col-md-12(data-ng-controller="blogController")
       .row.main
         .left.col-md-12.notselectable
-          a.block.more(href="/") MatthewEllsworth.com
-          span.less.lessoffset.hidden-xs(data-ng-show="!focus") AND I AM A
-          .row(data-ng-show="!focus")
-          .detail.selectable.hidden-xs email me&nbsp;
-            a(href="mailto:matt.ellsworth@matthewellsworth.com") matt.ellsworth@matthewellsworth.com
+          a.block.mid(href="/") HI!
+          a.block.less(href="/") MY NAME IS
+          a.block.more(href="/") MATTHEW ELLSWORTH
+          span.less.lessoffset.hidden-xs AND I AM A
+          .row
+            .detail.hidden-xs.col-md-8.col-md-offset-2
+              div LINUX ADMIN
+              div DEVOPS ENGINEER
+              div FANATICAL SUPPORTER
+          .detail.selectable.hidden-xs
+            a(href="mailto:matt.ellsworth@matthewellsworth.com") MATT.ELLSWORTH@MATTHEWELLSWORTH.COM
           #goto.line
             .block.circleLogo
               span.glyphicon.glyphicon-globe
@@ -32,4 +38,7 @@ html(lang="en")
               span.glyphicon.glyphicon-hdd
             .block.circleLogo
               span.glyphicon.glyphicon-globe
+    .foot
+    iframe( src="http://larryng.github.io/coffeescript-repl/", width="100%", height="300")
+
     script(type='text/javascript', src= assetURL + 'assets/bundle.js')
