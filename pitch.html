@@ -1,0 +1,39 @@
+I've been very interested in this for quite some time. DevOps typically uses a holistic solution such as a single Chef cookbook which is responsible for building cloud servers, targeting providers, deploying an application, etc.
+
+These days, we can do all of this with individual tools - smart and simple tools which serve not only our purpose, but form a rock solid foundation for a cloud application.
+
+We'll use Salt Stack to manage our servers and some simple NodeJS scripts to deploy our application and update our servers. I'll focus on deploying a NodeJS application, but much of this guide applies to any sort of application.
+
+This guide will be the shortest possible path to a Rocksolid DevOps'ed application in Javascript which could conceivably scale to hundreds of millions of visitors. It will include: Deployments, Configuration Management, Automation, Monitoring, and the Dev-to-Production pipeline. I'll also touch on scaling, if I have time.
+
+I've configured and tested dozens of configurations, and want to write an article regarding my best experience setup.
+
+1) Building a salt-powered Rackspace Cloud Server
+
+  - In this section I'll talk about the best approach to building a new Rackspace Cloud server with Salt Stack - some common pitfalls, and a nice template for a minimal app server.
+
+2) Building an environment-aware NodeJS application
+
+  - In this section I'll talk about coding your NodeJS application to be aware of environment settings - We'll use this to force our NodeJS application to use a socket file for production.
+
+2.1) With performance monitoring by NewRelic
+
+  - In this section I'll talk about using the NodeJS NewRelic NPM, the perfect compliment to your Rackspace setup.
+
+3) Running NodeJS behind Nginx - the best of both worlds
+
+  - In this section I'll talk about proxy passing requests from Nginx to NodeJS - we'll talk about static content caching as well as proxy passing to the Rackspace CDN.
+
+4) Creating a formal NodeJS application - a "Forever" init script.
+
+  - In this section I'll talk about creating a simple script to ensure your application is running - an "init" script for your web application. We'll then tie this to salt so that the system automatically brings up the web app!
+
+5) Deployment tools - never leave your laptop again!
+
+  - In this section, I'll talk about linking together all the awesome things we just made. We'll create a script which pushes your application to your nodes, pushes your static files to the the CDN, and ensures all nodes are "in state".
+
+6) Bonus - Streaming build systems with Gulp - 'gulp deploy'
+
+  - In this section we'll explore where to go next - we could tie our deployment system into Gulp, the streaming build system for Javascript. We could bundle our frontend up with Browserify and serve the entire frontend from the Rackspace CDN! So many possibilities1
+
+

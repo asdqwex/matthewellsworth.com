@@ -1,0 +1,35 @@
+{
+  "name": "erulabs.com",
+  "version": "0.0.1",
+  "description": "Erulabs.com",
+  "main": "dist/index.html",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "seandon@erulabs.com:git/erulabs.com"
+  },
+  "author": "Seandon Mooy <seandon.mooy@gmail.com> (http://erulabs.com/)",
+  "devDependencies": {
+    "browserify": "latest",
+    "coffeeify": "latest",
+    "connect-modrewrite": "~0.7.6",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-cache": "latest",
+    "gulp-cloudfiles": "latest",
+    "gulp-concat": "latest",
+    "gulp-connect": "latest",
+    "gulp-jade": "latest",
+    "gulp-less": "latest",
+    "gulp-load-plugins": "latest",
+    "gulp-plumber": "latest",
+    "gulp-rename": "latest",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "latest",
+    "gulp-util": "latest",
+    "gulp-watch": "latest",
+    "stringify": "~2.1.0",
+    "vinyl-source-stream": "latest",
+    "coffee-script": "~1.7.1"
+  }
+}

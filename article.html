@@ -1,0 +1,165 @@
+Article 1: NodeJS, Gulp, and the Rackspace Cloud!
+
+	Intro:
+
+		In this series of articles, we'll talk about some best practices and cool things you can do with NodeJS and the Rackspace Cloud. It will include Javascript code, but don't be put off! The example repositories provided can be used as a boilerplate for developing and deploying static websites without any knowledge of Javascript! If you're a web designer who has ever had to press "refresh" or compile LESS or SASS into CSS, this guide is for you! Alternatively, if you're a Javascript guru, hopefully this article will spark some ideas about the possibilities of NodeJS and the Rackspace Cloud!
+
+		In the first article, we'll talk about building a minimal set of tools to develop and deploy a static website powered _only_ by the Rackspace Cloud Files CDN. If you want a resume site with zero downtime at pennies a month, this is for you too!
+
+		In later articles, we'll expand on the base we've built here and include a Rackspace Performance Cloud Server as our NodeJS backend, explore the power of SaltStack and Phusion Passenger, and finally explore some of the fantastic possibilities that emerge when a single language can be used on the browser, the server and the cloud.
+
+
+	Part 1. Gulp - the streaming build system:
+
+		NodeJS and the Javascript community as a whole move quite quickly - the current flavor of the month (and don't let that moniker distract from its sweet, sweet flavor) is Gulp.js - the streaming build system. For the uninitiated, Gulp.js is essentially a Makefile for a NodeJS project - it helps take the headache out of packaging an application up and getting it ready for the web, eases with development, keeps projects organized and sane, and adds a huge amount of automation capabilities. Gulp is better than other build systems because it is incredibly fast and has quite nice syntax (if you're comfortable with Javascript).
+
+		Let's get to it, shall we? We'll start by building a static site tool. We want to have the best possible dev experience, the easiest possible deploy experience, the lowest possible costs, and with the least code. Impossible? Nay! NodeJS, Gulp, and Rackspace to the rescue! Start by making a new directory, change into it, and create a "gulpfile.js":
+
+		== CODE ==
+		var gulp = require('gulp');
+		// Let's start by deciding on some paths for our project (we'll keep our files in 'app', and have our build system output to 'dist')
+		var APP = 'app/',
+			STYLE = APP + 'style/',
+			ASSET = APP + 'assets/',
+			DIST = 'dist/',
+			DIST_ASSETS = DIST + 'assets/';
+
+		// We'll create a dead simple rule to ferry our HTML around:
+		gulp.task('html', function () {
+			gulp.src(APP + 'index.html')
+				.pipe(gulp.dest(DIST));
+		});
+
+		// And hook up the default gulp action:
+		gulp.task('default', ['html']);
+		== /CODE ==
+
+		Fairly simple, right? All we're doing is having Gulp take our 'app/index.html' and move it to 'dist/index.html'. You can trigger the 'default' action (and therefore our 'html' action) by simply running 'gulp'. Copying an HTML file? Boring! Let's spice it up!
+
+		Note: There are approximately 1 billion things you can do with Gulp - To keep this article a reasonable length, I'll demo some of my favorites.
+
+		== CODE ==
+		gulp.task('style', function () {
+			gulp.src(STYLE + 'site.less')
+				.pipe(less())
+				.pipe(gulp.dest(DIST_ASSETS));
+		});
+		== /CODE ==
+
+		Now we're cooking with fire! Compiling LESS! Less is great because we can have an arbitrary number of style sheets, use LESS's @import, and Gulp will automatically package it all up into a single CSS file for us!
+
+		Let's bundle our Javascript using Browserify (which, like LESS, allows us to use includes - in this case Node's "require()" on the frontend):
+
+		== CODE ==
+		var browserify = require('browserify');
+		// We'll use vinyl to turn browserify into a stream for Gulp's consumption:
+		var vinylSource = require('vinyl-source-stream');
+
+		gulp.task('javascript', function () {
+			browserify({
+				entries: ['./' + APP + 'index.js']
+			})
+			.bundle()
+			.pipe(vinylSource('index.js'))
+			.pipe(gulp.dest(DIST_ASSETS));
+		});
+		== /CODE ==
+
+		Blamo - now (assuming you modify the 'default' task), a single "gulp" packages your X number of LESS files and X number of JS files into just two assets! This means our index.html file only needs to include "index.js" and "site.css" (in our example). Since we're building a static site, why not include a development web server and instant live reloading?
+
+		== CODE ==
+		var connect = require('gulp-connect');
+		gulp.task('connect', ['default'], function () {
+			connect.server({
+				root: DIST,
+				port: 9000,
+				livereload: yes
+			});
+		});
+		== /CODE ==
+
+		Guess what? "gulp connect" now builds your entire application (the 'default' task), but also hosts it for you! See that "livereload" bit? We'll want to hook up a process to watch our files, and reload only the things that have changed. It's quite simple!
+
+		== CODE ==
+		var path = require('path');
+		gulp.task('watch', ['connect'], function () {
+			// Watch all files inside the APP directory:
+			gulp.watch(APP + '**/*', { read: false }, function (event) {
+				ext = path.extname(event.path);
+				taskname = null;
+				reloadAsset = null;
+				switch (ext) {
+					case '.js':
+						taskname = 'javascript';
+						reloadasset = 'assets/index.js';
+					case '.less':
+						taskname = 'style';
+						reloadasset = 'assets/site.css';
+					case '.html':
+						taskname = 'html';
+						reloadasset = 'index.html'
+				}
+				// If we found a task to run (ie: HTML, Javascript, or a LESS file was modified)
+				if (taskname != null) {
+					gulp.task('reload', [taskname], function () {
+						gulp.src(DIST + reloadasset).pipe(connect.reload());
+					});
+					gulp.start('reload');
+				}
+			});
+		});
+		== /CODE ==
+
+		Ok, so now we have a gulpfile.js which builds an awesome bundled application in milliseconds, reloads our browser, and can be extended quite easily. You'll want to install 'LiveReload' from the Chrome Webstore: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
+
+		This alone is a fairly complete bit of project. Livereload is excellent, you can spend all day adding things for Gulp to do for you. We'll move on to the Cloud next. Let's talk about deploying an application like ours.
+
+	Part 2. A server-less Cloud for a compute-less Site!
+
+		Since our entire site at this point is static, we can get it onto the web without ever needing to touch a server! In the next example, I'll be using the excellent pkgcloud as well as a gulp module called "gulp-cloudfiles". We'll build a task such that typing something like 'gulp deploy live' and 'gulp deploy test' do what they ought to.
+
+		We'll start by configuring our Rackspace information:
+
+		== CODE ==
+		var rackspace = {
+			username: 'Rackspace Cloud Username',
+			apiKey: 'Rackspace Cloud API KEY',
+			region: 'Rackspace Region code' // one of 'DFW', 'ORD', 'IAD', 'HKG', 'LON'
+		};
+		// Let's find out if we're deploying, for the ease of code to come
+		var deploying = process.argv[2] === 'deploy' ? true : false;
+		// Let's grab the 3th argument: 'gulp deploy CONTAINER', or assume 'gulp deploy' means 'gulp deploy live'
+		if (process.argv[3] != null) {
+			rackspace.container = process.argv[3];
+		} else {
+			rackspace.container = 'live';
+		}
+		== /CODE ==
+
+		Now we can include gulp-cloudfiles and upload our files when they're done being built!
+
+		== CODE ==
+		var cloudfiles = require('gulp-cloudfiles');
+		var less = require('gulp-less');
+		// We can add an upload step to the end of each of our tasks, for example, with the LESS step:
+		gulp.task('style', function () {
+			var stream = gulp.src(STYLE + 'site.less')
+				.pipe(less())
+				.pipe(gulp.dest(DIST_ASSETS));
+			if (deploying) {
+				stream.pipe(cloudfiles(rackspace, { uploadPath: '' }));
+			}
+		});
+		== /CODE ==
+
+		Now you can go to your Rackspace portal, click 'Files', and create a new container called 'live'. Select the "Static Website" option.
+
+		Run 'gulp deploy', find the URL to the cloud files container by clicking the gear and selecting 'View Website Settings' - the 'Target' is what you're looking for. You can point the DNS of your site here and call it a day!
+
+		How easy was that? We just built a deployment system and infrastructure required for a site which is autoscaling, redundant, very fast, and very cheap. Only took a few moments! These are some of the exciting things that can happen with NodeJS and the Rackspace Cloud!
+
+		In the next article, we'll take this same base and add a NodeJS backend, a Rackspace Performance Cloud Server and tie things together with SaltStack, an automation tool. We'll add modern Cloud-ready monitoring, CDN usage, and mail. We'll look at how we can modify our build system to directly manipulate the Rackspace Cloud - bringing Dev and Ops together like never before!
+
+		Thanks for reading!
+
+		Check in soon for article #2!
