@@ -1,9 +1,11 @@
 require './vendor/angular.js'
 require './vendor/prism.js'
+require './vendor/ui-bootstrap-0.12.0.min.js'
 
-app = angular.module 'erulabs', []
+app = angular.module 'erulabs', ['ui.bootstrap']
 
 app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
+  $scope.isCollapsed = true;
   previewPostLength = 1012
   $scope.focus = false
   getPostReq = () ->
@@ -39,6 +41,12 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       else
         $scope.focus = yes
         return $sce.trustAsHtml(post.body)
+
+  $scope.flip = () ->
+    document.body.className = 'transform'
+    setTimeout () ->
+      document.body.className = ''
+    , 3000
 
   $scope.blog = [
     {

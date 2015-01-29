@@ -22,11 +22,12 @@ html(lang="en")
             a(href="mailto:matt.ellsworth@matthewellsworth.com") MATT.ELLSWORTH@MATTHEWELLSWORTH.COM
           #goto.line
             .block.circleLogo
-              span.glyphicon.glyphicon-globe
+              span.glyphicon.glyphicon-globe(ng-click="isCollapsed = !isCollapsed")
             .block.circleLogo
-              span.glyphicon.glyphicon-hdd
+              span.glyphicon.glyphicon-hdd(ng-click="flip()")
             .block.circleLogo
-              span.glyphicon.glyphicon-tower
+              span.glyphicon
+                a.glyphicon-tower(ng-href="https://github.com/asdqwex")
         .bottom
           .col-md-8.col-md-offset-2
             include blog.jade
@@ -38,7 +39,9 @@ html(lang="en")
               span.glyphicon.glyphicon-hdd
             .block.circleLogo
               span.glyphicon.glyphicon-globe
-  .foot
-    iframe( src="http://larryng.github.io/coffeescript-repl/", width="100%", height="300")
-
+      .row
+        .foot
+          div(collapse="isCollapsed")
+            div.well.well-lg
+              iframe( src="http://larryng.github.io/coffeescript-repl/", width="100%", height="200")
     script(type='text/javascript', src= assetURL + 'assets/bundle.js')
