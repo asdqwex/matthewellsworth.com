@@ -56,7 +56,8 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       Welcome!
       """
       date: 'January 23th, 2015'
-    },{
+    }
+    {
       title: 'Prism.js'
       body: require('./posts/Prism.js.html')
       blurb: """
