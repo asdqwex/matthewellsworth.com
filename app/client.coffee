@@ -50,6 +50,22 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
 
   $scope.blog = [
     {
+      title: 'Deploying our Demo Rails application'
+      body: require('./posts/application.html')
+      blurb: """
+      Demo of the application Cookbook
+      """
+      date: 'March 25th, 2015'
+    }
+    {
+      title: 'Demo Rails application'
+      body: require('./posts/rails.html')
+      blurb: """
+      My first Rails app
+      """
+      date: 'February 25th, 2015'
+    }
+    {
       title: 'Hello'
       body: require('./posts/welcome.html')
       blurb: """
@@ -57,13 +73,5 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       """
       date: 'January 23th, 2015'
     }
-    # {
-    #   title: 'Prism.js'
-    #   body: require('./posts/Prism.js.html')
-    #   blurb: """
-    #   A Demo of Prism JS
-    #   """
-    #   date: 'January 29th, 2015'
-    # }
   ]
 ]
