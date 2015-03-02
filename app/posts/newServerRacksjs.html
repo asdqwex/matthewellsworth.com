@@ -1,0 +1,207 @@
+Here I show how to use <a href="https://github.com/erulabs/racksjs">racksjs</a> to create a new cloud server in the <a href="http://www.rackspace.com/">Rackspace Cloud</a>.<br><br>
+
+I assume you have a <a href="http://www.rackspace.com/">Rackspace Cloud</a> account and know your username and apikey. We are running <a href="http://www.centos.org/">CentOS 6</a> as our operating system.
+
+Firstly lets install nodejs<br>
+
+<pre>
+  <code class="language-bash">
+yum install nodejs
+  </code>
+</pre><br>
+
+Now we have the engine to run our javascript.<br><br>
+
+About that javascript, I lied. I will be writing coffeescript in this article since I get tired of adding {} everywhere.<br><br>
+
+Our second step will to clone the repo of rackjs, a SDK that Seandon Mooy and I have been working on for the <a href="http://www.rackspace.com/">Rackspace Cloud</a>.<br><br>
+
+<a href="https://github.com/erulabs/racksjs">racksjs</a> will only works with the <a href="http://www.rackspace.com/">Rackspace Cloud</a> and thus we have been able to add almost all of the features their API supports. Not getting bogged down in abstracting "cloudy" concepts away and giving the user direct access to the API.<br>
+
+<pre>
+  <code class="language-bash">
+git clone https://github.com/erulabs/racksjs.git
+  </code>
+</pre><br>
+
+Now take a look in the examples/examples.coffee file and you will see a section for creating a new server. <br>
+
+<pre>
+  <code class="language-coffeescript">
+# Create a new server!\n
+rs.nextgen.servers.new {\n
+   'name': 'newServerName'\n
+   'flavorRef': 'performance1-1'\n
+   'imageRef': '2318853e-f3b1-4cf4-b1a4-d7db71ca9b50'\n
+}, (server) ->\n
+   server.systemActive (details) ->\n
+       console.log 'server object:', server, 'server details', details\n
+  </code>
+</pre><br>
+
+But before we create the server we need to have racksjs create an authentication token.
+
+<pre>
+  <code class="language-coffeescript">
+RacksJS = require '../dist/racks.js'\n
+new RacksJS {\n
+  username: process.argv[3]\n
+  apiKey: process.argv[4]\n
+  verbosity: 1\n
+}, (rs) ->\n
+  </code>
+</pre><br>
+
+Also we need to select a datacenter:
+
+<pre>
+  <code class="language-coffeescript">
+rs.datacenter = 'ORD'
+  </code>
+</pre><br>
+
+To put it all together create a newServer.coffee file.
+
+<pre>
+  <code class="language-bash">
+vim newServer.coffee
+  </code>
+</pre>
+
+<pre>
+  <code class="language-coffeescript">
+RacksJS = require '../dist/racks.js'\n
+new RacksJS {\n
+  username: process.argv[3]\n
+  apiKey: process.argv[4]\n
+  verbosity: 1\n
+}, (rs) ->\n
+  rs.datacenter = 'ORD'\n
+  # Create a new server!\n
+  rs.nextgen.servers.new {\n
+     'name': 'newServerName'\n
+     'flavorRef': 'performance1-1'\n
+     'imageRef': '2318853e-f3b1-4cf4-b1a4-d7db71ca9b50'\n
+  }, (server) ->\n
+     server.systemActive (details) ->\n
+         console.log 'server object:', server, 'server details', details\n
+  </code>
+</pre><br>
+
+We can have coffee run this script against our <a href="http://www.rackspace.com/">Rackspace Cloud</a> account by passing our user name and api key to newServer.coffee.
+
+<pre>
+  <code class="language-bash">
+coffee newServer.coffee -e rackspaceUsername rackspaceAPIkey
+  </code>
+</pre><br>
+
+After about 5 minutes we will get output
+
+<pre>
+  <code class="language-bash">
+2/2 00:03:31 POST: /v2.0/tokens\n
+2/2 00:03:32 Reply: 200 OK\n
+2/2 00:03:32 POST: /v2/xxxx/servers\n
+2/2 00:03:33 Reply: 202 Accepted\n
+2/2 00:03:48 GET: /v2/xxxx/servers/xxx-5ef8-xxx-aff8-xxxx\n
+2/2 00:03:49 Reply: 200 OK\n
+2/2 00:04:04 GET: /v2/xxxxx/servers/xxx-5ef8-4424-xxx-xxxx\n
+2/2 00:04:04 Reply: 200 OK\n
+2/2 00:04:19 GET: /v2/xxxxx/servers/xxx-xxx-4424-aff8-xxx\n
+2/2 00:04:20 Reply: 200 OK\n
+server object: { 'OS-DCF:diskConfig': 'AUTO',\n
+  id: 'xxxxxxxx-x-x-x--x--xxx',\n
+  links: \n
+   [ { href: 'https://ord.servers.api.rackspacecloud.com/v2/xxxxxxxxxx',\n
+       rel: 'self' },\n
+     { href: 'https://ord.servers.api.rackspacecloud.com/xxxxx',\n
+       rel: 'bookmark' } ],\n
+  adminPass: 'XXXXXXXXXXX',\n
+  systemActive: [Function],\n
+  details: [Function],\n
+  addresses: [Function],\n
+  delete: [Function],\n
+  update: [Function],\n
+  action: [Function],\n
+  changePassword: [Function],\n
+  reboot: [Function],\n
+  rescue: [Function],\n
+  unrescue: [Function],\n
+  createImage: [Function],\n
+  serverActions: [Function],\n
+  showServerAction: [Function],\n
+  resize: [Function],\n
+  confirmResize: [Function],\n
+  revertResize: [Function],\n
+  rebuild: [Function],\n
+  attachVolume: [Function],\n
+  volumes: [Function],\n
+  volumeDetails: [Function],\n
+  detachVolume: [Function],\n
+  metadata: [Function],\n
+  setMetadata: [Function],\n
+  updateMetadata: [Function],\n
+  getMetadataItem: [Function],\n
+  setMetadataItem: [Function],\n
+  deleteMetadataItem: [Function],\n
+  getVips: [Function],\n
+  attachNetwork: [Function],\n
+  _racksmeta: \n
+   { resource: 'servers',\n
+     product: 'cloudServersOpenStack',\n
+     target: [Function] } } server details { status: 'ACTIVE',\n
+  updated: '201xxxxx:13Z',\n
+  hostId: 'xxxxxxx',\n
+  addresses: { public: [ [Object], [Object] ], private: [ [Object] ] },\n
+  links: \n
+   [ { href: 'https://ord.servers.api.rackspacecloud.com/v2/xxxxxxx',\n
+       rel: 'self' },\n
+     { href: 'https://ord.servers.api.rackspacecloud.com/xxxxx',\n
+       rel: 'bookmark' } ],\n
+  key_name: null,\n
+  image: \n
+   { id: 'xxxxx-x-x-x-x-xxxx-',\n
+     links: [ [Object] ] },\n
+  'RAX-PUBLIC-IP-ZONE-ID:publicIPZoneId': 'xxxxxxxxxxx',\n
+  'OS-EXT-STS:task_state': null,\n
+  'OS-EXT-STS:vm_state': 'active',\n
+  flavor: { id: 'performance1-1', links: [ [Object] ] },\n
+  id: 'xxx-xxxx-xxx-x--x-x--xx',\n
+  user_id: 'xxxxxx',\n
+  name: 'newServerName',\n
+  created: '2015xxxx33Z',\n
+  tenant_id: 'xxxxxxxx',\n
+  'OS-DCF:diskConfig': 'AUTO',\n
+  accessIPv4: 'xxx.xxx.xxx.xxx',\n
+  accessIPv6: 'xxx:xxxx:xxxx:xxxx:xxxx:',\n
+  progress: 100,\n
+  'OS-EXT-STS:power_state': 1,\n
+  config_drive: '',\n
+  metadata: {} }\n
+  </code>
+</pre><br>
+
+The two lines of this output that we care about are the adminPass and public accessIPv4
+
+<pre>
+  <code class="language-bash">
+  adminPass: 'XXXXXXXXXXXX',
+  </code>
+</pre>
+<pre>
+  <code class="language-bash">
+  accessIPv4: 'xxx.xxx.xxx.xxx',
+  </code>
+</pre><br>
+
+Now you have a server that you used JavaScript to create!
+
+Check out some of my other articles to see some cool things you can do with this server.
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@ app = angular.module 'erulabs', ['ui.bootstrap']
 
 app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
   $scope.isCollapsed = true;
-  previewPostLength = 1012
+  previewPostLength = 10
   $scope.focus = false
   getPostReq = () ->
     postTitleReq = !!window.location.href.split('/posts/')[1]
@@ -53,28 +53,56 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       title: 'Deploying our Demo Rails application'
       body: require('./posts/application.html')
       blurb: """
-
       <pre>
-        <code class="language-bash">
-      Another copy pasteable example.\n\nThis time to deploy the rails application we created in the last article to a server.<br><br>
-        </code>
+        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+      A pinch of Ansible\n
+      One dash of git\n
+      Put it in the over for 15 minutes\n
+      And out comes Devops
+      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
       </pre><br>
       """
       date: 'March 25th, 2015'
     }
     {
+      title: 'Creating a cloud server with Javascript'
+      body: require('./posts/newServerRacksjs.html')
+      blurb: """
+      <pre>
+        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+      Javascript?\n
+      As an Automation tool?\n
+      You Crazy!
+      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </pre><br>
+      """
+      date: 'March 4th, 2015'
+    }
+    {
       title: 'Demo Rails application'
       body: require('./posts/rails.html')
       blurb: """
-      My first Rails app
+      <pre>
+        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+      I needed a rails application to test a deployment with.\n
+      Here is how I did it.\n
+      You can copy paste these commands!
+      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </pre><br>
       """
       date: 'February 25th, 2015'
     }
     {
-      title: 'Hello'
+      title: 'Matthew the Lover, Fighter and Philanthropist'
       body: require('./posts/welcome.html')
       blurb: """
-      Welcome!
+      <pre>
+        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+      Let me tell yout a litte bit about me,\n
+      This site and the technology it uses,\n
+      And why you should be reading it.
+      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </pre><br>
       """
       date: 'January 23th, 2015'
     }
