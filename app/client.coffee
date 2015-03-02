@@ -2,7 +2,7 @@ require './vendor/angular.js'
 require './vendor/prism.js'
 require './vendor/ui-bootstrap-0.12.0.min.js'
 
-app = angular.module 'erulabs', ['ui.bootstrap']
+app = angular.module 'matthewellsworth', ['ui.bootstrap']
 
 app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
   $scope.isCollapsed = true;
