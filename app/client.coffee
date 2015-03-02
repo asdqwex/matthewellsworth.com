@@ -53,7 +53,12 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       title: 'Deploying our Demo Rails application'
       body: require('./posts/application.html')
       blurb: """
-      Demo of the application Cookbook
+
+      <pre>
+        <code class="language-bash">
+      Another copy pasteable example.\n\nThis time to deploy the rails application we created in the last article to a server.<br><br>
+        </code>
+      </pre><br>
       """
       date: 'March 25th, 2015'
     }

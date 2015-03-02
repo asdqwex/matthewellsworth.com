@@ -1,1 +1,60 @@
-WIP
+Another copy pasteable example. This time to deploy the rails application we created in the last article to a server.<br><br>
+
+We Assume the following:<br><br>
+
+That you followed steps in the last article<br><br>
+
+And that you have the IP address and root password to a server somewhere(cloud, vagrant ...etc)<br><br>
+
+From there we execute the following to install ansible and configure it with our servers ipaddress:<br>
+
+<pre>
+  <code class="language-bash">
+sudo yum install ansible\n
+echo 'railsapp ansible_ssh_host=xxx.xxx.xxx.xxx ask_pass' > /etc/ansible/hosts\n
+ansible all -m ping\n
+  </code>
+</pre><br>
+
+Next we create a playbook that will checkout our rails application and run it on the server.<br>
+
+<pre>
+  <code class="language-bash">
+  vim railsapp.playbook
+  </code>
+</pre><br>
+
+Add the following content.<br>
+
+<pre>
+  <code class="language-bash">
+---\n
+- hosts: webservers\n
+  tasks:\n
+  - name: install ruby\n
+    yum: pkg=ruby state=latest\n
+  - name: install rubygems\n
+    yum: pkg=rubygems state=latest\n
+  - name: install rails\n
+    gem: name=rails state=latest\n
+  - name: check out application\n
+    git: repo=https://github.com/asdqwex/rails-demo dest=/opt/railsapp\n
+  - name: run rails\n
+    command: rails server chdir=/opt/railsapp\n
+  </code>
+</pre><br>
+
+WIP Sections<br>
+
+<pre>
+  <code class="language-bash">
+- Run Playbook: ansible-playbook playbook.yml -f 10 \n
+  - Example commands\n
+- Test it\n
+  - Final Validation\n
+- Other considerations\n
+  - DNS\n
+  - Loadbalancing\n
+  - ...etc\n
+  </code>
+</pre><br>
