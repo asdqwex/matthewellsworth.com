@@ -15,7 +15,7 @@ if ($hash !== $payloadHash) {
   exit;
 }
 
-exec("sudo salt-call --local state.highstate &> /var/www/matthewellsworth.com/logs/error.log", $output);
+exec("sudo salt-call --local state.highstate &> /var/www/matthewellsworth.com/logs/git.log", $output);
 
 print_r($output);
 
