@@ -57,7 +57,7 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
         <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
       A pinch of Ansible\n
       One dash of git\n
-      Put it in the over for 15 minutes\n
+      Put it in the oven for 15 minutes\n
       And out comes Devops
       \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
       </pre><br>
