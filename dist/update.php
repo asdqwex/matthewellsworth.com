@@ -2,7 +2,7 @@
 
 #error_reporting(0);
 
-require 'secretfile.php';
+$secret = 'tDRzWj4DH5845hDVFNASKwRM';
 
 list($algo, $hash) = explode('=', $_SERVER['HTTP_X_HUB_SIGNATURE']);
 $payload = file_get_contents('php://input');
