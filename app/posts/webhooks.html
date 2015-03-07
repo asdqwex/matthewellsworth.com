@@ -1,1 +1,71 @@
-I just spent some time setting this up and now i really should write an article about it.
+I just spent some time setting this up and now i really should write an article about it.<br><br>
+
+Assumptions:<br><br>
+
+You have a working highState on your webserver<br><br>
+
+Web server is running nginx and php-fpm.<br><br>
+
+add these two lines to /etc/sudoers
+<pre>
+  <code class="language-bash">
+Cmnd_Alias WEBHOOK = /usr/bin/salt-call --local state.highstate\n
+www-data ALL = (ALL) NOPASSWD: WEBHOOK\n
+      </code>
+</pre><br>
+
+Forgive the extra whitesapce in the php open tag, it seems like I have found a bug in prism.js where if you put valid php in this block it will get run by the browser.<br><br>
+
+update.php<br><br>
+
+This should get deployed in your webroot for your domain.
+<pre>
+  <code class="language-php">
+< ?php\n
+\n
+#error_reporting(0);\n
+\n
+require 'secretfile.php';\n
+\n
+list($algo, $hash) = explode('=', $_SERVER['HTTP_X_HUB_SIGNATURE']);\n
+$payload = file_get_contents('php://input');\n
+$data = json_decode($payload);\n
+\n
+$payloadHash = hash_hmac($algo, $payload, $secret);\n
+\n
+if ($hash !== $payloadHash) {\n
+  header("HTTP/1.0 404 Not Found");\n
+  exit;\n
+}\n
+\n
+exec("sudo salt-call --local state.highstate &> /var/www/website.com/logs/git.log", $output);\n
+\n
+print_r($output);\n
+\n
+?>
+  </code>
+</pre><br>
+
+secretfile.php<br><br>
+Make sure this is not in your git repo
+<pre>
+  <code class="language-php">
+< ?PHP\n
+\n
+$secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';\n
+\n
+?>\n
+    </code>
+</pre><br>
+
+Make sure these changes get reflected in your highstate or the next time salt runs this will all break.
+
+And then add a git webhhook with:<br><br>
+
+Payload URL: http://website.com/update.php<br><br>
+
+Content type: application/x-www-for-urlencode<br><br>
+
+Secrect: xxxxxxxxxxxxxxxxxxxx from the above secretfile.php script<br><br>
+
+
