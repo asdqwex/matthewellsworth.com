@@ -50,6 +50,21 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
 
   $scope.blog = [
     {
+      title: 'WIP: Github Webhooks to call salt highState'
+      body: require('./posts/webhooks.html')
+      blurb: """
+      <pre>
+        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+      Pushing to my git repo\n
+      triggers a webhook\n
+      that runs salt\n
+      to update this website
+      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </pre><br>
+      """
+      date: 'March 5th, 2015'
+    }
+    {
       title: 'Deploying our Demo Rails application'
       body: require('./posts/application.html')
       blurb: """
