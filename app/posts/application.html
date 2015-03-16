@@ -1,8 +1,7 @@
-We assume the following:<br><br>
+<h3>Assumptions</h3>
 
-That you followed steps in the last article<br><br>
-
-And that you have the IP address and root password to a server somewhere(cloud, vagrant ...etc)<br><br>
+- That you followed steps in my last <a href="http://localhost:9000/posts/Creating_a_cloud_server_with_Javascript#goto">article</a><br>
+- You have the IP address and root password to a server somewhere(cloud, vagrant ...etc)<br><br>
 
 From there we execute the following to install ansible and configure it with our servers ipaddress:<br>
 
@@ -42,17 +41,17 @@ Add the following content.<br>
   </code>
 </pre><br>
 
-WIP Sections<br>
+Now we need to run the playbook we created.
 
 <pre>
   <code class="language-bash">
-- Run Playbook: ansible-playbook playbook.yml -f 10 \n
-  - Example commands\n
-- Test it\n
-  - Final Validation\n
-- Other considerations\n
-  - DNS\n
-  - Loadbalancing\n
-  - ...etc\n
+ansible-playbook playbook.yml -f 10
+  </code>
+</pre><br>
+
+And lastly to verify that the application is running we do the following.
+<pre>
+  <code class="language-bash">
+curl xxx.xxx.xxx.xxx
   </code>
 </pre><br>

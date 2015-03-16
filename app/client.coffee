@@ -50,7 +50,7 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
 
   $scope.blog = [
     {
-      title: 'WorkInProgress: Github Webhooks to call salt highState'
+      title: 'Automatic code deployment with Github Webhooks and saltStack'
       body: require('./posts/webhooks.html')
       blurb: """
       <pre>
@@ -65,7 +65,7 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       date: 'March 5th, 2015'
     }
     {
-      title: 'WorkInProgress: Deploying our Demo Rails application'
+      title: 'Deploying our Demo Rails application'
       body: require('./posts/application.html')
       blurb: """
       <pre>

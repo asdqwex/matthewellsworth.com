@@ -1,24 +1,18 @@
-I just spent some time setting this up and now i really should write an article about it.<br><br>
+I just spent some time configuring automatic deployments for this website.<br>
+Here is how I did it.<br><br>
 
-Assumptions:<br><br>
+<h3>Assumptions</h3>
 
-You have a working highState on your webserver<br><br>
+- You have a working <a href="http://docs.saltstack.com/en/latest/topics/tutorials/states_pt1.html" >highState</a> on your webserver<br>
 
-Web server is running nginx and php-fpm.<br><br>
+- Web server is running <a href="http://wiki.nginx.org/Main">nginx</a> and <a href="http://php.net/manual/en/install.fpm.php">php-fpm</a>.<br><br>
 
-add these two lines to /etc/sudoers
-<pre>
-  <code class="language-bash">
-Cmnd_Alias WEBHOOK = /usr/bin/salt-call --local state.highstate\n
-www-data ALL = (ALL) NOPASSWD: WEBHOOK\n
-      </code>
-</pre><br>
+<h4>update.php</h4>
 
-Forgive the extra whitesapce in the php open tag, it seems like I have found a bug in prism.js where if you put valid php in this block it will get run by the browser.<br><br>
+This should get deployed in the webroot for your domain.<br>
+Something like /var/www/domain.com or /var/www/vhosts/...<br>
+Forgive the extra whitesapce in the php open tag, it seems like I have found a bug in <a href="http://prismjs.com/download.html">prism.js</a> where if you put valid php in this block it will get run by the browser.<br><br>
 
-update.php<br><br>
-
-This should get deployed in your webroot for your domain.
 <pre>
   <code class="language-php">
 < ?php\n
@@ -46,26 +40,66 @@ print_r($output);\n
   </code>
 </pre><br>
 
-secretfile.php<br><br>
-Make sure this is not in your git repo
+<h4>secretfile.php</h4>
+
+Make sure this is not in your git repository.<br>
+Also make sure that it is not saved in a directory that your webserver is serving.
 <pre>
   <code class="language-php">
 < ?PHP\n
 \n
 $secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';\n
 \n
-?>\n
+?>
     </code>
 </pre><br>
 
-Make sure these changes get reflected in your highstate or the next time salt runs this will all break.
+<h4>sudoers</h4>
+
+We need to allow the webserver user permisiions to run the salt hightstate, but we dont want it to be too open. <br>
+So we restrict the webserver to just running the specific salt command to run the highstate.<br>
+Add these two lines to /etc/sudoers on your webserver.
+<pre>
+  <code class="language-bash">
+Cmnd_Alias WEBHOOK = /usr/bin/salt-call --local state.highstate\n
+www-data ALL = (ALL) NOPASSWD: WEBHOOK
+      </code>
+</pre><br>
+
+Make sure these changes get reflected in your highstate or the next time salt runs this will all break. My next post will most likely be about this topic.<br><br>
 
 And then add a git webhhook with:<br><br>
 
-Payload URL: http://website.com/update.php<br><br>
+<pre>
+  <code class="language-php">
 
-Content type: application/x-www-for-urlencode<br><br>
+Payload URL: http://website.com/update.php\n
+\n
+Content type: application/x-www-for-urlencode\n
+\n
+Secrect: xxxxxxxxxxxxxxxxxxxx from the above secretfile.php script
+    </code>
+</pre><br>
 
-Secrect: xxxxxxxxxxxxxxxxxxxx from the above secretfile.php script<br><br>
+Now to test this all we need to do is push a commit to our git repository and the webhook will reach out and run the php script that will in turn run the saltstack highState.
+
+<pre>
+  <code class="language-php">
+echo 'hello' > /path/to/DocumentRoot/testfile.html\n
+git add -A\n
+git commit -m 'testing deployments'\n
+git push
+    </code>
+</pre><br>
+
+Now we check to see if our new page got pushed. curl http://domain.com/testfile.html
+
+That should return the following.
+<pre>
+  <code class="language-php">
+hello
+    </code>
+</pre><br>
 
 
+You can find more information about <a href="https://github.com/">github</a> webhooks <a href="https://developer.github.com/webhooks/">here</a>.
