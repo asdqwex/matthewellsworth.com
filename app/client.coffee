@@ -50,6 +50,20 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
 
   $scope.blog = [
     {
+      title: 'WorkInProgress: Ansible Tower'
+      body: require('./posts/ansible-tower.html')
+      blurb: """
+      <pre>
+        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+      Ansible Tower\n
+      The web GUI for Ansible\n
+      Installation and use
+      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </pre><br>
+      """
+      date: 'March 5th, 2015'
+    }
+    {
       title: 'Automatic code deployment with Github Webhooks and saltStack'
       body: require('./posts/webhooks.html')
       blurb: """
