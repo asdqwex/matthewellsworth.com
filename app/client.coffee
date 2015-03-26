@@ -61,7 +61,7 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
       </pre><br>
       """
-      date: 'March 5th, 2015'
+      date: 'March 25th, 2015'
     }
     {
       title: 'Automatic code deployment with Github Webhooks and saltStack'
@@ -76,7 +76,7 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
       </pre><br>
       """
-      date: 'March 5th, 2015'
+      date: 'March 15th, 2015'
     }
     {
       title: 'Deploying our Demo Rails application'
@@ -91,7 +91,7 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
       </pre><br>
       """
-      date: 'March 25th, 2015'
+      date: 'March 10th, 2015'
     }
     {
       title: 'Creating a cloud server with Javascript'

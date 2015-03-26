@@ -1,1 +1,60 @@
-Here we will find my first impressions of Ansible Tower
+Here you will find my first impressions of <a href="http://www.ansible.com/tower">Ansible Tower</a>.<br><br>
+
+<h3>Assumptions:</h3>
+You have downloaded the Tower installer to your server.<br><br>
+
+From there you proceed with running the installation script. It will ask you what you want to set your password to and some other questions. Answer as best you can.<br><br>
+
+You should now be able to login to the Tower web app: https://youripaddresshere<br>
+And be greeted with something that looks like this:<br><br>
+
+<img height="446" width="534" src="http://b0d27dec1b4d27c72bfc-bc85e44ddbd1ccda5f3935443f4fe42a.r26.cf5.rackcdn.com/tower-dashboard.PNG"><br><br>
+
+Except you wont have any servers or jobs yet. So lets get started on that.<br><br>
+
+If you don't have any server you want to manage yet here is a little racksjs script to make 3 servers named: webServerOne, webServerTwo and webServerThree. The root password is being set by the adminPass string. That way we dont have to do anything fancy with the return data to get the passwords for all three servers. That will be the first thing we change once they are all being managed by ansible.<br>
+
+<pre>
+  <code class="language-coffeescript">
+RacksJS = require '../dist/racks.js'\n
+\n
+new RacksJS {\n
+  username: process.argv[3]\n
+  apiKey: process.argv[4]\n
+  verbosity: 1\n
+}, (rs) ->\n
+    for i in ['One','Two','Three']\n
+        rs.nextgen.servers.new {\n
+            'name': 'WebServer'+i\n
+            'flavorRef': 'performance1-1'\n
+            'adminPass': 'xxxxxxxxxxxxxx'\n
+            'imageRef': 'f70ed7c7-b42e-4d77-83d8-40fa29825b85'\n
+        }, (server) ->\n
+             console.log server
+</code>
+</pre><br><br>
+
+Now we have some infrastructure to manage. Lets play with Tower.<br><br>
+
+First things first we need to do a little configuration of Organizations, Users, and Credentials.<br><br>
+
+So check out the docs here: <a href="http://releases.ansible.com/awx/docs/tower_user_guide-latest.pdf">PDF</a><br><br>
+
+Run through and create an Org and a User for you to login as. Then relogin as your user and we will then add the ssh credentials for the three webservers we created.<br>
+
+Now open the menu and click the blue plus button on the left to create a new Credential.<br>
+Complete all the sections as appropriate. Here is mine with just a little bit of redacted information.<br>
+
+<img width="533" height="886" src="http://b0d27dec1b4d27c72bfc-bc85e44ddbd1ccda5f3935443f4fe42a.r26.cf5.rackcdn.com/Tower-Credentials.PNG"><br>
+
+Steps:
+
+
+Create Org
+Create User
+Create Credentials
+  - root/pwd for intial run
+  - tower/rsakey for continued use
+run harden playbook with root creds
+run everything else with tower credentials
+
