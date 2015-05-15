@@ -50,15 +50,29 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
 
   $scope.blog = [
     {
+      title: 'Practice, Practice, Practice'
+      body: require('./posts/practice.html')
+      blurb: """
+      <pre>
+        <code class="language-bash">
+      I found out about project euler the other day\n
+      Lots of fun to be had practicing programming\n
+      https://projecteuler.net
+      </code>
+      </pre><br>
+      """
+      date: 'May 15th, 2015'
+    }
+    {
       title: 'WorkInProgress: Ansible Tower'
       body: require('./posts/ansible-tower.html')
       blurb: """
       <pre>
-        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+        <code class="language-bash">
       Ansible Tower\n
       The web GUI for Ansible\n
       Installation and use
-      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </code>
       </pre><br>
       """
       date: 'March 25th, 2015'
@@ -68,12 +82,12 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       body: require('./posts/webhooks.html')
       blurb: """
       <pre>
-        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+        <code class="language-bash">
       Pushing to my git repo\n
       triggers a webhook\n
       that runs salt\n
       to update this website
-      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </code>
       </pre><br>
       """
       date: 'March 15th, 2015'
@@ -83,12 +97,12 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       body: require('./posts/application.html')
       blurb: """
       <pre>
-        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+        <code class="language-bash">
       A pinch of Ansible\n
       One dash of git\n
       Put it in the oven for 15 minutes\n
       And out comes Devops
-      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </code>
       </pre><br>
       """
       date: 'March 10th, 2015'
@@ -98,11 +112,11 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       body: require('./posts/newServerRacksjs.html')
       blurb: """
       <pre>
-        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+        <code class="language-bash">
       Javascript?\n
       As an Automation tool?\n
       You Crazy!
-      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </code>
       </pre><br>
       """
       date: 'March 4th, 2015'
@@ -112,25 +126,25 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       body: require('./posts/rails.html')
       blurb: """
       <pre>
-        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+        <code class="language-bash">
       I needed a rails application to test a deployment with.\n
       Here is how I did it.\n
       You can copy paste these commands!
-      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </code>
       </pre><br>
       """
       date: 'February 25th, 2015'
     }
     {
-      title: 'Matthew the Lover, Fighter and Philanthropist'
+      title: 'Hello and Welcome'
       body: require('./posts/welcome.html')
       blurb: """
       <pre>
-        <code class="language-bash">\_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_
+        <code class="language-bash">
       Let me tell yout a litte bit about me,\n
       This site and the technology it uses,\n
       And why you should be reading it.
-      \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_</code>
+      </code>
       </pre><br>
       """
       date: 'January 23th, 2015'
