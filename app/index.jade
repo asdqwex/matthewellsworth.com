@@ -21,20 +21,22 @@ html(lang="en")
           .row
             .detail.hidden-xs.col-md-8.col-md-offset-2
               span
-              a(href="MattEllsworth-Devops-Resume.pdf") Resume
+              a(border="1px black solid" href="MattEllsworth-Devops-Resume.pdf") Resume
               span &nbsp&nbsp&nbsp&nbsp&nbsp
               a(href="https://www.linkedin.com/pub/matthew-ellsworth/24/129/341") LinkedIn
               span &nbsp&nbsp&nbsp&nbsp&nbsp
               a(href="https://plus.google.com/u/0/109610982869848839454/posts/p/pub") Google+
+              span &nbsp&nbsp&nbsp&nbsp&nbsp
+              a(href="https://github.com/asdqwex") Github
 
           #goto.line
-            .block.circleLogo
+            .block.circleLogo(title="Coffee Console")
               span.glyphicon.glyphicon-globe(ng-click="isCollapsed = !isCollapsed")
             .block.circleLogo
-              span.glyphicon.glyphicon-hdd(ng-click="flip()")
+              span.glyphicon.glyphicon-hdd(ng-click="flip()" alt="Up is the new Down")
             .block.circleLogo
               span.glyphicon
-                a.glyphicon-tower(ng-href="https://github.com/asdqwex")
+                a.glyphicon-tower(ng-href="https://github.com/asdqwex" alt="Github")
         .bottom
           .col-md-8.col-md-offset-2
             include blog.jade
