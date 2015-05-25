@@ -55,8 +55,8 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       blurb: """
       <pre>
         <code class="language-bash">
-      Carefule when you link some one your github page.\n
-      If you do a lot of work in priovate repos you might look like a scrub\n
+      Careful when you link someone your github page\n
+      If you do a lot of work in private repos you might look like a scrub\n
       I write code everyday I swear
       </code>
       </pre><br>
