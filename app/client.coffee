@@ -50,6 +50,20 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
 
   $scope.blog = [
     {
+      title: 'Github Commits: Public vs Private'
+      body: require('./posts/github-contrib.html')
+      blurb: """
+      <pre>
+        <code class="language-bash">
+      Carefule when you link some one your github page.\n
+      If you do a lot of work in priovate repos you might look like a scrub\n
+      I write code everyday I swear
+      </code>
+      </pre><br>
+      """
+      date: 'May 24th, 2015'
+    }
+    {
       title: 'Practice, Practice, Practice'
       body: require('./posts/practice.html')
       blurb: """
