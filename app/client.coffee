@@ -50,46 +50,19 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
 
   $scope.blog = [
     {
-      title: 'Github Commits: Public vs Private'
-      body: require('./posts/github-contrib.html')
+      title: 'Deploying our Demo Rails application'
+      body: require('./posts/application.html')
       blurb: """
       <pre>
         <code class="language-bash">
-      Careful when you link someone your github page\n
-      If you do a lot of work in private repos you might look like a scrub\n
-      I write code everyday I swear
+      A pinch of Ansible\n
+      One dash of git\n
+      Put it in the oven for 15 minutes\n
+      And out comes Devops
       </code>
       </pre><br>
       """
-      date: 'May 24th, 2015'
-    }
-    {
-      title: 'Practice, Practice, Practice'
-      body: require('./posts/practice.html')
-      blurb: """
-      <pre>
-        <code class="language-bash">
-      I found out about project euler the other day\n
-      Lots of fun to be had practicing programming\n
-      https://projecteuler.net
-      </code>
-      </pre><br>
-      """
-      date: 'May 15th, 2015'
-    }
-    {
-      title: 'WorkInProgress: Ansible Tower'
-      body: require('./posts/ansible-tower.html')
-      blurb: """
-      <pre>
-        <code class="language-bash">
-      Ansible Tower\n
-      The web GUI for Ansible\n
-      Installation and use
-      </code>
-      </pre><br>
-      """
-      date: 'March 25th, 2015'
+      date: 'March 10th, 2015'
     }
     {
       title: 'Automatic code deployment with Github Webhooks and saltStack'
@@ -107,19 +80,18 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       date: 'March 15th, 2015'
     }
     {
-      title: 'Deploying our Demo Rails application'
-      body: require('./posts/application.html')
+      title: 'Practice, Practice, Practice'
+      body: require('./posts/practice.html')
       blurb: """
       <pre>
         <code class="language-bash">
-      A pinch of Ansible\n
-      One dash of git\n
-      Put it in the oven for 15 minutes\n
-      And out comes Devops
+      I found out about project euler the other day\n
+      Lots of fun to be had practicing programming\n
+      https://projecteuler.net
       </code>
       </pre><br>
       """
-      date: 'March 10th, 2015'
+      date: 'May 15th, 2015'
     }
     {
       title: 'Creating a cloud server with Javascript'
@@ -150,12 +122,40 @@ app.controller 'blogController', ['$scope', '$sce', ($scope, $sce) ->
       date: 'February 25th, 2015'
     }
     {
+      title: 'Github Commits: Public vs Private'
+      body: require('./posts/github-contrib.html')
+      blurb: """
+      <pre>
+        <code class="language-bash">
+      Careful when you link someone your github page\n
+      If you do a lot of work in private repos you might look like a scrub\n
+      I write code everyday I swear
+      </code>
+      </pre><br>
+      """
+      date: 'May 24th, 2015'
+    }
+    {
+      title: 'WorkInProgress: Ansible Tower'
+      body: require('./posts/ansible-tower.html')
+      blurb: """
+      <pre>
+        <code class="language-bash">
+      Ansible Tower\n
+      The web GUI for Ansible\n
+      Installation and use
+      </code>
+      </pre><br>
+      """
+      date: 'March 25th, 2015'
+    }
+    {
       title: 'Hello and Welcome'
       body: require('./posts/welcome.html')
       blurb: """
       <pre>
         <code class="language-bash">
-      Let me tell yout a litte bit about me,\n
+      Let me tell you a litte bit about me,\n
       This site and the technology it uses,\n
       And why you should be reading it.
       </code>
